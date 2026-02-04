@@ -1,5 +1,3 @@
-const DEFAULT_BASE_URL = "http://localhost:5000";
-
 function getBaseUrl() {
   // Prefer explicit API base URL if provided
   const fromEnv =
@@ -9,8 +7,6 @@ function getBaseUrl() {
 
   const raw = (fromEnv || DEFAULT_BASE_URL).replace(/\/$/, "");
 
-  // If env accidentally includes `/api` (e.g. http://localhost:5000/api),
-  // strip it so that paths like `/api/auth/login` don't become `/api/api/...`.
   const normalized = raw.endsWith("/api") ? raw.slice(0, -4) : raw;
 
   return normalized;
