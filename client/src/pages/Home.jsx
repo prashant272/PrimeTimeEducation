@@ -121,18 +121,17 @@ export default function Home() {
   return (
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
       {/* ================= HERO ================= */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e] ">
+      <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
         {/* ===== BACKGROUND VIDEO: Responsive & Premium ===== */}
         <div className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none">
           <video
             ref={videoRef}
             className={`
               absolute inset-0 w-full h-full
-              object-cover
-              object-center
+              object-cover object-center
               sm:object-[center_30%]
               transition-all duration-700
-              brightness-[.85] sm:brightness-100
+              brightness-95 sm:brightness-100
               max-h-[120vh] min-h-full
             `}
             src="/videos/hero.mp4"
@@ -144,10 +143,9 @@ export default function Home() {
             poster="/videos/hero-poster.jpg"
             style={{
               background: "linear-gradient(180deg,#2d180a,#210a0e 80%)",
-              // fallback bg-color below video
-              minHeight: '100%',
-              maxHeight: '120vh',
-              minWidth: '100%',
+              minHeight: "100%",
+              maxHeight: "120vh",
+              minWidth: "100%",
             }}
           />
           {/* Fallback Image for mobile if video fails */}
@@ -162,10 +160,13 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-full h-1/6 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-full h-1/6 bg-gradient-to-t from-[#2d180a]/80 via-transparent to-transparent pointer-events-none" />
         </div>
-        {/* ===== DARK GRADIENT OVERLAY for text clarity ===== */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/90 via-black/75 to-[#2d180a]" />
+
+        {/* ===== LIGHTER GRADIENT OVERLAY: less dark so video is more visible ===== */}
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/70 via-black/30 to-[#2d180a]/60" />
+
         {/* ===== CONTENT ===== */}
-        <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-8 pt-28 pb-20 text-center">
+        <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-8 pt-20 pb-10 text-center">
+          {/* pt-16 yaha pehle pt-24 tha, ab kam kia taki content upar aaye */}
           {/* ===== FLOATING PARTICLES ===== */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
             {[...Array(9)].map((_, i) => (
@@ -176,44 +177,61 @@ export default function Home() {
                   width: i % 3 === 0 ? '1.5rem' : i % 2 === 0 ? '1rem' : '0.75rem',
                   height: i % 3 === 0 ? '1.5rem' : i % 2 === 0 ? '1rem' : '0.75rem',
                   background: i % 2 === 0 ? '#d4af37aa' : '#ffd96666',
-                  opacity: i % 2 === 0 ? 0.4 : 0.25,
+                  opacity: i % 2 === 0 ? 0.33 : 0.18,
                   left: `${10 + i * (7 + i)}%`,
                   top: `${25 + ((i * 11) % 60)}%`,
                   animationDelay: `${i * 0.35}s`,
                   animationDuration: `${2.7 + i * 0.77}s`,
                   zIndex: 3 + i,
-                  filter: "blur(0.5px)",
+                  filter: "blur(0.6px)",
                 }}
               />
             ))}
           </div>
           {/* ===== HERO TEXT ===== */}
-          <div className="max-w-[48rem] mx-auto space-y-5 sm:space-y-8 animate-fade-in">
+          <div className="max-w-[48rem] mx-auto space-y-5 sm:space-y-1 animate-fade-in">
+            {/* space-y-4/sm:space-y-7 pehle space-y-5 sm:space-y-8 tha => kam kia taki text elements paas aaye aur upar dikhें */}
             <h1 className="text-2xl xs:text-3xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight leading-tight drop-shadow-lg">
-              <span className="block">
+              <span className="inline-block whitespace-nowrap text-center">
                 Global{" "}
-                <span className="bg-gradient-to-r from-[#d4af37] via-[#f1d46b] to-[#b6932f] bg-clip-text text-transparent !inline-block">
+                <span className="bg-gradient-to-r from-[#d4af37] via-[#f1d46b] to-[#b6932f] bg-clip-text text-transparent inline-block font-semibold">
                   Healthcare
                 </span>{" "}
                 Awards
-                <span className="align-middle text-[#ffeec3] drop-shadow px-1">, 2026</span>
+                <span className="align-middle text-[#ffeec3] drop-shadow px-1">
+                  , 2026
+                </span>
               </span>
             </h1>
-            <div className="mx-auto w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent rounded-full" />
-            <p className="text-base xs:text-lg md:text-xl text-[#f4ecd8] font-medium leading-7 drop-shadow-md">
+            {/* Yaha se dho lines ko upar laya, space decrease ki */}
+            <div className="mx-auto w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent rounded-full mt-6" />
+            {/* mt-2 diya taki thoda hi gap aaye, pehle default tha */}
+            <p className="mt-1 text-base xs:text-lg md:text-xl text-[#f4ecd8] font-medium leading-7 drop-shadow-md">
+              {/* mt-1 lagaya taki text bhi ekdum divider ke upar aaye */}
               Organised by{" "}
               <span className="font-semibold bg-gradient-to-r from-[#c62828] to-[#d4af37] bg-clip-text text-transparent hover:brightness-125 transition duration-200">
-                Primetime
+                Prime Time Research Media
               </span>{" "}
               – Global Award Events
             </p>
+            {/* Yaha ka text & divider ab aur upar hai. pt/space-y aur margin-top kam karke, see comments above */}
           </div>
           {/* ===== EVENTS SECTION ===== */}
-          <div className="mt-8 w-full max-w-5xl mx-auto">
-            <h2 className="mb-8 sm:mb-10 text-2xl md:text-3xl font-heading font-bold text-center bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              Upcoming Award Events
+          <div className="mt-0 sm:mt-2 w-full max-w-5xl mx-auto flex flex-col items-center">
+            {/* Section headline hidden, using the golden dot only as separator for ultra-premium touch */}
+            <h2 className="mb-6 sm:mb-10 text-0.5xl md:text-0.5xl font-heading font-bold text-center bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
+              .
             </h2>
-            <div className={`grid gap-7 sm:gap-8 ${getGridCols(events.length)} mx-auto`}>
+            <div 
+              className={`
+                grid gap-7 sm:gap-8 ${getGridCols(events.length)} mx-auto
+                relative
+              `}
+              style={{
+                marginTop: '-2.5rem',
+                zIndex: 40,
+              }}
+            >
               {events.map((event, index) => (
                 <div
                   key={event.title + index}
@@ -221,42 +239,87 @@ export default function Home() {
                   className={`
                     group relative opacity-0 translate-y-8 transition-all duration-700 flex justify-center
                   `}
+                  style={{
+                    top: '-2.5rem'
+                  }}
                 >
                   <div className="
-                    relative w-full bg-gradient-to-br from-[#1e1e21]/60 via-black/40 to-[#332108]/80
-                    backdrop-blur-2xl rounded-3xl p-5 xs:p-6 sm:p-8 md:p-10
-                    border border-[#e1c26c]/30 hover:border-[#ffeb98] hover:shadow-[#d4af37]/40
+                    relative w-full bg-gradient-to-br
+                    from-[#1e1e2136] via-[#000000c5] to-[#332108bb]
+                    rounded-2xl sm:rounded-3xl p-4 xs:p-5 sm:p-7 md:p-9
+                    border border-[#e1c26c]/25 hover:border-[#ffeb98] hover:shadow-[#d4af37]/40
                     transition-all duration-500 hover:-translate-y-2 hover:scale-[1.033] 
-                    hover:shadow-[0_12px_50px_-12px_#ffd966b0]
-                    after:absolute after:inset-0 after:rounded-3xl after:z-[-1] after:bg-gradient-to-br after:from-[#d4af37]/10 after:via-transparent after:to-[#c69823]/10
-                  ">
-                    {/* Decorative Corners */}
-                    <div className="absolute top-0 left-0 w-12 md:w-16 h-12 md:h-16 border-t-2 border-l-2 border-[#f1d46b]/30 rounded-tl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    <div className="absolute top-0 right-0 w-12 md:w-16 h-12 md:h-16 border-t-2 border-r-2 border-[#f1d46b]/30 rounded-tr-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    <div className="absolute bottom-0 left-0 w-12 md:w-16 h-12 md:h-16 border-b-2 border-l-2 border-[#f1d46b]/30 rounded-bl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    <div className="absolute bottom-0 right-0 w-12 md:w-16 h-12 md:h-16 border-b-2 border-r-2 border-[#f1d46b]/30 rounded-br-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    <h3 className="mb-2 md:mb-4 text-xl md:text-2xl font-extrabold text-white group-hover:text-[#d4af37] transition-colors">
-                      {event.title}
-                    </h3>
-                    <p className="mb-5 sm:mb-6 text-[#e9dcb7] text-[1rem] leading-relaxed group-hover:text-white transition-colors text-justify">
-                      {event.desc}
+                    hover:shadow-[0_16px_60px_-14px_#ffd966cc]
+                    backdrop-blur-lg
+                    before:absolute before:inset-0 before:z-[-2] before:rounded-inherit before:bg-gradient-to-br before:from-[#d4af37]/10 before:via-transparent before:to-[#c69823]/10
+                  "
+                  style={{
+                    background: "rgba(34, 17, 9, 0.48)",
+                    boxShadow: "0 4px 36px -8px #d4af3744, 0 0px 0 #fde68a09 inset",
+                  }}
+                  >
+                    {/* PREMIUM CORNER ORNAMENTS */}
+                    <div className="absolute top-0 left-0 w-10 md:w-12 h-10 md:h-12 border-t-2 border-l-2 border-[#ffe7a1]/30 rounded-tl-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    <div className="absolute top-0 right-0 w-10 md:w-12 h-10 md:h-12 border-t-2 border-r-2 border-[#ffe7a1]/30 rounded-tr-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    <div className="absolute bottom-0 left-0 w-10 md:w-12 h-10 md:h-12 border-b-2 border-l-2 border-[#ffe7a1]/30 rounded-bl-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    <div className="absolute bottom-0 right-0 w-10 md:w-12 h-10 md:h-12 border-b-2 border-r-2 border-[#ffe7a1]/30 rounded-br-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    
+                    {/* CROWN & PREMIUM TITLE */}
+                    <div className="flex items-center gap-2 mb-3 md:mb-5">
+                      <span className="inline-block align-middle scale-125 drop-shadow-lg">
+                        <svg width="26" height="20" viewBox="0 0 26 20" fill="none" className="text-[#d4af37]">
+                          <path d="M2 17L7 2L13 10L19 2L24 17H2Z" stroke="currentColor" strokeWidth="2.1" strokeLinejoin="round" fill="#d4af37" className="opacity-70 group-hover:opacity-100 transition"/>
+                        </svg>
+                      </span>
+                      <h3 className="text-xl md:text-2xl font-black font-heading tracking-tight bg-gradient-to-r from-[#fbf6df] via-[#d4af37] to-[#ffeec3] bg-clip-text text-transparent drop-shadow group-hover:from-[#fffbe7] group-hover:to-[#d4af37] transition duration-300">
+                        {event.title}
+                      </h3>
+                    </div>
+                    
+                    <p className="mb-6 sm:mb-7 text-[#f4ecd8] text-[1.09rem] leading-relaxed font-medium group-hover:text-[#fffbe7] transition-colors text-justify drop-shadow-lg">
+                      <span className="inline-block bg-gradient-to-br from-[#d4af37]/90 via-[#ffeec3]/70 to-[#fff5d2]/80 bg-clip-text text-transparent font-semibold tracking-wide">
+                        {event.desc}
+                      </span>
                     </p>
-                    <div className="mb-7 sm:mb-8 space-y-2 text-sm text-left sm:text-base">
-                      <div className="flex items-center gap-2 text-[#cdbe98] group-hover:text-[#d4af37] font-semibold">
-                        <span className="text-lg sm:text-xl">📅</span>
-                        <span>{event.date}</span>
+                    
+                    <div className="mb-6 space-y-2 text-sm text-left sm:text-base font-semibold">
+                      <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
+                        <span className="text-lg sm:text-xl"> 
+                          <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.6" fill="none"/>
+                            <rect x="8.5" y="5" width="3" height="6.5" rx="1.2" fill="#ffd966" />
+                            <circle cx="10" cy="14.1" r="1.1" fill="#d4af37" />
+                          </svg>
+                        </span>
+                        <span className="font-bold text-md">{event.date}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-[#cdbe98] group-hover:text-[#d4af37] font-semibold">
-                        <span className="text-lg sm:text-xl">📍</span>
-                        <span>{event.place}</span>
+                      <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
+                        <span className="text-lg sm:text-xl">
+                          <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.1" fill="none"/>
+                            <circle cx="10" cy="12.1" r="3" fill="#d4af37" />
+                            <rect x="9.2" y="6" width="1.6" height="5" rx="0.7" fill="#ffd966"/>
+                          </svg>
+                        </span>
+                        <span className="font-bold text-md">{event.place}</span>
                       </div>
                     </div>
+                    {/* Royal Button */}
                     <button
                       onClick={handleNominateClick}
-                      className="relative overflow-hidden rounded-full bg-gradient-to-r from-[#eed47c] via-[#d4af37] to-[#a28533] px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-bold text-black transition-all duration-300 hover:scale-105 focus:scale-100 hover:shadow-lg focus:ring-2 focus:ring-[#d4af37] shadow-[#d4af3777] focus:outline-none"
+                      className="relative overflow-hidden rounded-full bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#a28533] px-7 sm:px-10 py-2.5 sm:py-3.5 text-md sm:text-lg font-black uppercase tracking-wider text-[#644b0d] shadow-[#d4af3733] shadow-md hover:shadow-xl transition-all duration-400 hover:scale-105 focus:scale-100 focus:outline-none focus:ring-2 focus:ring-[#ffeec3] group"
+                      style={{
+                        letterSpacing: '0.065em',
+                        boxShadow: '0 6px 34px -8px #fddc8a44, 0 0.5px 0 #ffeec398 inset',
+                      }}
                     >
-                      <span className="relative z-10">Nominate Now</span>
-                      <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 pointer-events-none"></span>
+                      <span className="relative z-10 flex items-center gap-2 font-extrabold">
+                        <svg className="w-5 h-5 text-[#d4af37] drop-shadow" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M4 10h12M10 4l6 6-6 6" stroke="#b79024" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                        </svg>
+                        <span>Nominate Now</span>
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-[#fbf7e1]/30 to-[#ffd966]/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 pointer-events-none rounded-full"></span>
                     </button>
                   </div>
                 </div>
