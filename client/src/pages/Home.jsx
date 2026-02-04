@@ -121,7 +121,7 @@ export default function Home() {
   return (
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
       {/* ================= HERO ================= */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
+      <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e] ">
         {/* ===== BACKGROUND VIDEO: Responsive & Premium ===== */}
         <div className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none">
           <video

@@ -1,5 +1,5 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaHome,
   FaListAlt,
@@ -27,6 +27,24 @@ export default function Navbar() {
   const isOtherPage = !isHomePage && !isAdminRoute && !isNominateRoute;
   const isUser = user?.role === "user";
   const isAdminUser = user?.role === "admin";
+  // Ref for scrolling trick on tab change
+  const headerRef = useRef();
+
+  // Fix: Scroll to top ONLY relative to header on route (tab) change, but only scroll if not already near top
+  useEffect(() => {
+    if (!isAdminRoute && !isNominateRoute) {
+      // Only scroll up if header is visible
+      if (window.innerWidth < 768 && headerRef.current) {
+        // Check if page is near the bottom, then scroll to just below header
+        const y = window.scrollY;
+        if (y > 80) {
+          // Determine how much to scroll down so header doesn't overlap
+          window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
+        }
+      }
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
 
   useEffect(() => {
     if (isAdminRoute) return;
@@ -45,14 +63,12 @@ export default function Navbar() {
 
   const handleLoginClick = () => {
     if (isAdminRoute) {
-      // Admin area: only admin role considered "logged in"
       if (isAdminUser) {
         logout();
       } else {
         navigate("/admin/login");
       }
     } else {
-      // User-facing area: only normal users considered "logged in"
       if (isUser) {
         logout();
       } else {
@@ -61,7 +77,6 @@ export default function Navbar() {
     }
   };
 
-  // Hide header for nomination form
   if (isNominateRoute) {
     return null;
   }
@@ -84,7 +99,6 @@ export default function Navbar() {
               </span>
             </div>
           </div>
-
           <div className="flex items-center gap-3">
             {isAdminUser && user ? (
               <span className="hidden md:inline text-xs text-gray-200">
@@ -105,20 +119,16 @@ export default function Navbar() {
     );
   }
 
-  /* ========================= MOBILE VIEW (PHONE) ================================ */
-  // Only hamburger + logout button, menu slides in drawer
+  /* ========================= MOBILE VIEW (PHONE) & DESKTOP ================================ */
   return (
     <>
       {/* Large screen header (hidden on phone) */}
       <div className="hidden md:block">
         {!showPill && (
-          <header className="fixed top-0 w-full z-50 text-white">
-            {/* ===== TOP STRIP ===== */}
+          <header className="fixed top-0 w-full z-50 text-white" ref={headerRef}>
             <div className="bg-transparent h-14">
               <div className="max-w-7xl mx-auto px-6 h-full flex items-center text-sm">
-                {/* LEFT : LOGO + TEXT (GROUPED) */}
                 <div className="flex items-center gap-3 overflow-hidden">
-                  {/* LOGO (VISUALLY BIG, HEIGHT FIXED) */}
                   <div className="w-16 h-10 flex items-center justify-center">
                     <img
                       src="/images/primetimelogo.gif"
@@ -126,9 +136,8 @@ export default function Navbar() {
                       className="h-full w-auto object-contain scale-125"
                     />
                   </div>
-                  {/* TEXT STARTS FROM LOGO SIDE */}
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
-                    <span>Primetimemedia</span>
+                    <span>Primetime Research Media</span>
                     <span className="opacity-70">Global Healthcare Award</span>
                     <span className="opacity-60">14th Edition</span>
                   </div>
@@ -159,11 +168,9 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-
-            {/* ===== MENU STRIP ===== */}
             <nav className="bg-transparent h-12">
               <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-6 text-sm">
-                {menuLinks("white")}
+                {menuLinks("white", undefined, headerRef)}
               </div>
             </nav>
           </header>
@@ -180,34 +187,54 @@ export default function Navbar() {
                   className="h-7 w-auto object-contain"
                 />
               </div>
-              <div className="flex gap-5">
-                {menuLinks("black")}
-              </div>
+              <div className="flex gap-5">{menuLinks("black", undefined, headerRef)}</div>
             </div>
           </div>
         )}
       </div>
       {/* ===================== MOBILE HEADER ====================== */}
       <div className="block md:hidden">
-        {/* Top bar: logout + menu hamburger */}
-        <header className="fixed top-0 left-0 w-full z-50 bg-[#101016] border-b border-white/10 flex items-center h-14 px-4 justify-between">
-          {/* Only shows Logout, Hamburger on mobile */}
-          <div className="flex-1" />
-          {isUser && (
+        {/* Phone header with logo, title, hamburger, login/logout */}
+        <header
+          className="fixed top-0 left-0 w-full z-50 bg-[#210a0e] border-b border-white/10 flex items-center h-14 px-3 justify-between"
+          ref={headerRef}
+        >
+          {/* LOGO + app title (left side) */}
+          <div className="flex items-center gap-2">
+            <img
+              src="/images/primetimelogo.gif"
+              alt="PrimeTime Logo"
+              className="h-9 w-auto object-contain"
+              style={{ maxWidth: 40 }}
+            />
+            <span className="text-[13px] font-semibold whitespace-nowrap text-white">Primetime Research Media</span>
+          </div>
+          {/* Welcome & logout/login */}
+          <div className="flex items-center gap-1">
+            {isUser && (
+              <button
+                onClick={handleLoginClick}
+                className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
+              >
+                Logout
+              </button>
+            )}
+            {!isUser && (
+              <button
+                onClick={handleLoginClick}
+                className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
+              >
+                Login
+              </button>
+            )}
             <button
-              onClick={handleLoginClick}
-              className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
+              aria-label="Open Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              className="ml-2 text-white text-xl flex items-center justify-center"
             >
-              Logout
+              <FaBars />
             </button>
-          )}
-          <button
-            aria-label="Open Menu"
-            onClick={() => setMobileMenuOpen(true)}
-            className="ml-3 text-white text-xl flex items-center justify-center"
-          >
-            <FaBars />
-          </button>
+          </div>
         </header>
         {/* Slide-in Drawer */}
         <MobileMenuDrawer
@@ -216,6 +243,7 @@ export default function Navbar() {
           user={user}
           isAuthenticated={isUser}
           handleLoginClick={handleLoginClick}
+          headerRef={headerRef}
         />
       </div>
     </>
@@ -224,19 +252,33 @@ export default function Navbar() {
 
 /* ================= MENU ================= */
 
-const menuLinks = (color, onClick) => (
-  <>
-    <NavItem to="/" icon={<FaHome />} label="Home" color={color} onClick={onClick} />
-    <NavItem to="/categories" icon={<FaListAlt />} label="Category" color={color} onClick={onClick} />
-    <NavItem to="/jury" icon={<FaUsers />} label="Guest" color={color} onClick={onClick} />
-    <NavItem to="/guidelines" icon={<FaBook />} label="Entry Guidelines" color={color} onClick={onClick} />
-    <NavItem to="/judging" icon={<FaGavel />} label="Selection Process" color={color} onClick={onClick} />
-    <NavItem to="/terms" icon={<FaFileContract />} label="T&C" color={color} onClick={onClick} />
-    <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={onClick} />
-    <NavItem to="/winners" icon={<FaTrophy />} label="Winners" color={color} onClick={onClick} />
-    <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={onClick} />
-  </>
-);
+// onClick will be used to close drawer, headerRef for scroll fix on tab switch.
+const menuLinks = (color, onClick, headerRef) => {
+  // Will scroll page to just under header if in mobile and not at top
+  const createNavHandler = (routeHandler) => (e) => {
+    if (onClick) onClick();
+    setTimeout(() => {
+      // Gives enough time for route to change before trying to scroll
+      if (window.innerWidth < 768 && headerRef && headerRef.current) {
+        window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
+      }
+    }, 0);
+    if (routeHandler && typeof routeHandler === 'function') routeHandler(e);
+  };
+  return (
+    <>
+      <NavItem to="/" icon={<FaHome />} label="Home" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/categories" icon={<FaListAlt />} label="Category" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/jury" icon={<FaUsers />} label="Guest" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/guidelines" icon={<FaBook />} label="Entry Guidelines" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/judging" icon={<FaGavel />} label="Selection Process" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/terms" icon={<FaFileContract />} label="T&C" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/winners" icon={<FaTrophy />} label="Winners" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
+    </>
+  );
+};
 
 function NavItem({ to, icon, label, color, onClick }) {
   return (
@@ -268,6 +310,7 @@ function MobileMenuDrawer({
   user,
   isAuthenticated,
   handleLoginClick,
+  headerRef,
 }) {
   // Esc key or overlay for closing drawer
   useEffect(() => {
@@ -279,11 +322,23 @@ function MobileMenuDrawer({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // Scroll to top logic for mobile menu tab change
+  const handleNavClick = (navHandler) => (e) => {
+    if (navHandler) navHandler(e);
+    setTimeout(() => {
+      if (window.innerWidth < 768 && headerRef && headerRef.current) {
+        window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
+      }
+    }, 0);
+  };
+
   return (
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${
+          open ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
         aria-hidden={!open}
         onClick={onClose}
       ></div>
@@ -294,6 +349,7 @@ function MobileMenuDrawer({
         } flex flex-col`}
         style={{ transitionProperty: "transform, opacity" }}
       >
+        {/* Drawer header with logo */}
         <div className="flex items-center justify-between px-4 h-14 border-b border-white/10">
           <div className="flex items-center gap-2">
             <img
@@ -301,7 +357,7 @@ function MobileMenuDrawer({
               alt="PrimeTime Logo"
               className="h-8 w-auto object-contain"
             />
-            <span className="font-semibold text-sm">Primetimemedia</span>
+            <span className="font-semibold text-sm text-white">Primetime Research Media</span>
           </div>
           <button
             aria-label="Close Menu"
@@ -313,7 +369,8 @@ function MobileMenuDrawer({
         </div>
         <div className="flex-1 flex flex-col justify-between">
           <nav className="flex flex-col gap-3 mt-6 px-4">
-            {menuLinks("white", onClose)}
+            {/* Give headerRef to menuLinks for scroll fix */}
+            {menuLinks("white", onClose, headerRef)}
           </nav>
           <div className="mt-6 border-t border-white/10 px-4 py-4 flex flex-col gap-2">
             {user && (
