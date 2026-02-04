@@ -129,10 +129,12 @@ export default function Footer() {
               <div className="flex items-start gap-2">
                 <span className="inline-block w-5 mt-0.5 text-[#d4af37]">🏢</span>
                 <span>
-                  Prime Time Research Media Private Limited<br />
-                  housing complex, Plot No C31, Najafgarh Rd, Block C,<br />
-                  Vipin Garden, Nawada, New Delhi, Delhi, 110059
-                </span>
+                <strong>Registered Office:</strong><br />
+                   Prime Time Research Media Private Limited<br />
+                          C-31, Nawada Housing Complex,<br />
+                           Shivaji Marg, New Delhi – 110059
+                 </span>
+
               </div>
               <div className="flex items-start gap-2">
                 <span className="inline-block w-5 mt-0.5 text-[#d4af37]">📞</span>
@@ -178,17 +180,29 @@ export default function Footer() {
       />
 
       {/* BOTTOM BAR */}
-      <div className="text-center text-xs md:text-sm py-6 px-3 border-t border-[#d4af37]/20"
-        style={{background: "rgba(0,0,0,0.10)"}}
-      >
-        <span className="text-[#f5f3f0] font-semibold text-base sm:text-lg" style={{background: goldGrad, WebkitBackgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent"}}>
-          Global Healthcare Awards
-        </span>{" "}
-        &bull; <span>© {new Date().getFullYear()}</span>
-        {" "} | Organised by{" "}
-        <span className="text-[#d4af37] font-bold">Primetime Media</span>
-        . All Rights Reserved.
+      <div
+  className="text-center text-xs md:text-sm py-6 px-3 border-t border-[#d4af37]/20"
+  style={{ background: "rgba(0,0,0,0.10)" }}
+>
+  <span
+    className="font-semibold text-base sm:text-lg"
+    style={{
+      background: goldGrad,
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      color: "transparent",
+    }}
+  >
+    Global Healthcare Awards
+  </span>
+
+  {" "} &bull; © {new Date().getFullYear()} All Rights Reserved  
+  {" "} | This page is owned by{" "}
+  <span className="text-[#d4af37] font-bold">
+    Prime Time Research Media
+  </span>
       </div>
+
     </footer>
   );
 }

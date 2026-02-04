@@ -1,3 +1,5 @@
+const DEFAULT_BASE_URL = "http://localhost:5000";
+
 function getBaseUrl() {
   // Prefer explicit API base URL if provided
   const fromEnv =

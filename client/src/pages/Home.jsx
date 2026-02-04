@@ -62,7 +62,7 @@ export default function Home() {
     {
       title: "Global Healthcare Awards 2026",
       desc: "Recognising excellence and innovation in healthcare leadership.",
-      date: "9 May 2026",
+      date: "9 June 2026",
       place: "London",
     },
   ];
@@ -78,8 +78,30 @@ export default function Home() {
     { name: "Mr. Brad Hogg", designation: "Former Australian Cricketer" },
     { name: "Dr. Najma A. Heptulla", designation: "Former Governor, Manipur" },
     { name: "Shri Anand Kumar", designation: "Founder & Director, Super 30" },
-    { name: "Shri Amar Singh", designation: "Hon’ble Member of Parliament" },
-    { name: "Ms. Arti Mehra", designation: "CEO, NABH; Former Mayor, Municipal Corporation of Delhi" },
+  ];
+
+  // Previous Media Partners
+  const mediaPartners = [
+    {
+      name: "Times Healthcare",
+      tagline: "Leading Healthcare News Network",
+      logo: "/images/media-times.png",
+    },
+    {
+      name: "Health Today",
+      tagline: "India's Trusted Health Magazine",
+      logo: "/images/media-health-today.png",
+    },
+    {
+      name: "Medical Insight",
+      tagline: "Clinical Research & Insight Platform",
+      logo: "/images/media-medical-insight.png",
+    },
+    {
+      name: "Global MedNews",
+      tagline: "International Healthcare News Channel",
+      logo: "/images/media-global-med.png",
+    },
   ];
 
   // Responsive and premium utility variables
@@ -362,6 +384,16 @@ export default function Home() {
                       </span>
                     ),
                     border: 'from-[#ffeb98] to-[#ffeec3]',
+                  },               
+                  {
+                    title: 'Award Ceremony – Dubai',
+                    date: '26 May 2026',
+                    icon: (
+                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
+                        <span className="text-xl">🇦🇪</span>
+                      </span>
+                    ),
+                    border: 'from-[#d4af37] to-[#ead481]',
                   },
                   {
                     title: 'Award Ceremony – London',
@@ -372,16 +404,6 @@ export default function Home() {
                       </span>
                     ),
                     border: 'from-[#386bb7] to-[#81b0ea]',
-                  },
-                  {
-                    title: 'Award Ceremony – Dubai',
-                    date: '26 May 2026',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
-                        <span className="text-xl">🇦🇪</span>
-                      </span>
-                    ),
-                    border: 'from-[#d4af37] to-[#ead481]',
                   },
                 ].map((item, idx) => (
                   <div key={idx} className="relative group"
@@ -531,82 +553,152 @@ export default function Home() {
       </section>
       {/* ================= RESEARCH METHODOLOGY ================= */}
       <section className={`relative overflow-hidden pt-6 md:pt-10 pb-6 ${SECTION_BG}`}>
-        {/* ...Glow and BG... */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-          <div className="absolute top-1/3 right-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#d4af37]/8 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/3 left-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#c62828]/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        </div>
-        {/* ...rest unchanged... */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Heading and Cards */}
-          {/* Unchanged */}
-          {/* ... */}
-          <div className="text-center mb-16">
-            <h2 className="text-2xl xs:text-4xl md:text-5xl font-semibold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent">
-              Research Methodology
-            </h2>
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
-          </div>
-          {/* Cards similar as original */}
-          {/* ... */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-            {[
-              {
-                title: "Data Collection & Screening",
-                desc: "All nominations are collected through a structured submission process. Each entry undergoes an initial screening to ensure eligibility, completeness, and alignment with the award category.",
-                number: "01",
-              },
-              {
-                title: "Qualitative & Quantitative Analysis",
-                desc: "Submissions are evaluated using a balanced research framework combining qualitative insights and quantitative metrics to assess performance, innovation, and impact.",
-                number: "02",
-              },
-              {
-                title: "Expert Jury Evaluation",
-                desc: "An independent panel of industry experts, academicians, and subject-matter specialists reviews shortlisted entries to ensure unbiased and credible assessment.",
-                number: "03",
-              },
-              {
-                title: "Benchmarking & Industry Standards",
-                desc: "Each nomination is benchmarked against industry best practices, regulatory standards, and emerging global trends to measure relevance and excellence.",
-                number: "04",
-              },
-              {
-                title: "Score Normalisation & Validation",
-                desc: "Scores from multiple evaluators are normalised to eliminate bias and ensure consistency, fairness, and transparency across all categories.",
-                number: "05",
-              },
-              {
-                title: "Final Review & Approval",
-                desc: "The final results undergo an internal audit and validation process before approval, ensuring accuracy, integrity, and credibility of the award outcomes.",
-                number: "06",
-              },
-            ].map((item, index) => (
-              <div key={index} className="group h-full flex">
-                {/* CARD */}
-                <div className="relative flex flex-col flex-grow min-h-[250px] bg-gradient-to-br from-black/80 via-black/40 to-black/70 backdrop-blur-lg rounded-3xl p-6 sm:p-8 md:p-10 border border-[#efd779]/10 hover:border-[#ffe98c]/60 hover:scale-105 hover:shadow-[0_8px_32px_-10px_#eed47ccc] transition-all duration-500">
-                  {/* Number Badge */}
-                  <div className="absolute -top-4 -left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#f7e7a1] via-[#eed47c] to-[#c9a530] flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border-2 border-[#d4af37] ring-2 ring-white/10">
-                    {item.number}
-                  </div>
-                  {/* Title */}
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-[#f1d46b] to-[#d4af37] bg-clip-text text-transparent">
-                    {item.title}
-                  </h3>
-                  {/* Description */}
-                  <p className="text-sm sm:text-base text-[#e6ddcc] leading-relaxed flex-grow">
-                    {item.desc}
-                  </p>
-                  {/* Bottom Accent Line */}
-                  <div className="mt-5 sm:mt-6 h-1 w-12 sm:w-14 bg-gradient-to-r from-[#d4af37] to-transparent opacity-40 rounded-full"></div>
-                  {/* Hover Glow */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/0 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/20 transition-all duration-700 -z-10"></div>
+  {/* Glow Background */}
+  <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+    <div className="absolute top-1/3 right-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#d4af37]/8 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute bottom-1/3 left-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#c62828]/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
+  </div>
+
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+    {/* Heading */}
+    <div className="text-center mb-16">
+      <h2 className="text-2xl xs:text-4xl md:text-5xl font-semibold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent">
+        Research Methodology
+      </h2>
+      <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
+    </div>
+
+    {/* DATA */}
+    {(() => {
+      const items = [
+        {
+          title: "Data Collection & Screening",
+          desc: "All nominations are collected through a structured submission process. Each entry undergoes an initial screening to ensure eligibility, completeness, and alignment with the award category.",
+          number: "01",
+        },
+        {
+          title: "Qualitative & Quantitative Analysis",
+          desc: "Submissions are evaluated using a balanced research framework combining qualitative insights and quantitative metrics to assess performance, innovation, and impact.",
+          number: "02",
+        },
+        {
+          title: "Expert Jury Evaluation",
+          desc: "An independent panel of industry experts, academicians, and subject-matter specialists reviews shortlisted entries to ensure unbiased and credible assessment.",
+          number: "03",
+        },
+        {
+          title: "Benchmarking & Industry Standards",
+          desc: "Each nomination is benchmarked against industry best practices, regulatory standards, and emerging global trends to measure relevance and excellence.",
+          number: "04",
+        },
+        {
+          title: "Score Normalisation & Validation",
+          desc: "Scores from multiple evaluators are normalised to eliminate bias and ensure consistency, fairness, and transparency across all categories.",
+          number: "05",
+        },
+        {
+          title: "Final Review & Approval",
+          desc: "The final results undergo an internal audit and validation process before approval, ensuring accuracy, integrity, and credibility of the award outcomes.",
+          number: "06",
+        },
+      ];
+
+      return (
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+          {items.map((item, index) => (
+            <div key={index} className="relative group flex flex-col items-center">
+              
+              {/* CARD */}
+              <div className="relative w-full flex flex-col min-h-[250px] bg-gradient-to-br from-black/80 via-black/40 to-black/70 backdrop-blur-lg rounded-3xl p-6 sm:p-8 md:p-10 border border-[#efd779]/10 hover:border-[#ffe98c]/60 hover:scale-105 hover:shadow-[0_8px_32px_-10px_#eed47ccc] transition-all duration-500">
+                
+                {/* Number */}
+                <div className="absolute -top-4 -left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#f7e7a1] via-[#eed47c] to-[#c9a530] flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg border-2 border-[#d4af37] ring-2 ring-white/10">
+                  {item.number}
                 </div>
+
+                {/* Title */}
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-[#f1d46b] to-[#d4af37] bg-clip-text text-transparent">
+                  {item.title}
+                </h3>
+
+                {/* Desc */}
+                <p className="text-sm sm:text-base text-[#e6ddcc] leading-relaxed flex-grow">
+                  {item.desc}
+                </p>
+
+                <div className="mt-5 sm:mt-6 h-1 w-12 sm:w-14 bg-gradient-to-r from-[#d4af37] to-transparent opacity-40 rounded-full"></div>
               </div>
-            ))}
-          </div>
+
+              {/* ARROWS */}
+              {index !== items.length - 1 && (
+                <>
+                  {/* Desktop Right Arrow */}
+                  <div className="hidden md:flex absolute right-[-40px] top-1/2 -translate-y-1/2 z-20">
+                    <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
+                      <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
+                        <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
+                          <defs>
+                            <radialGradient id={`arrowGradient${index}`} cx="50%" cy="50%" r="70%">
+                              <stop offset="0%" stopColor="#ffd657"/>
+                              <stop offset="80%" stopColor="#d4af37"/>
+                              <stop offset="100%" stopColor="#c62828"/>
+                            </radialGradient>
+                          </defs>
+                          <circle cx="17" cy="17" r="16" fill="url(#arrowGradient0)" opacity="0.21"/>
+                          <path
+                            d="M10 17h14m0 0l-5-5m5 5l-5 5"
+                            stroke="#d4af37"
+                            strokeWidth="2.7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            filter="url(#dropshadow)"
+                          />
+                          <filter id="dropshadow" x="0" y="0" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
+                          </filter>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mobile Down Arrow */}
+                  <div className="md:hidden flex flex-col items-center mt-4 z-20">
+                    <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
+                      <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
+                        <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
+                          <defs>
+                            <radialGradient id={`arrowGradientMobile${index}`} cx="50%" cy="50%" r="70%">
+                              <stop offset="0%" stopColor="#ffd657"/>
+                              <stop offset="80%" stopColor="#d4af37"/>
+                              <stop offset="100%" stopColor="#c62828"/>
+                            </radialGradient>
+                          </defs>
+                          <circle cx="17" cy="17" r="16" fill="url(#arrowGradientMobile0)" opacity="0.21"/>
+                          <path
+                            d="M17 10v14m0 0l5-5m-5 5l-5-5"
+                            stroke="#d4af37"
+                            strokeWidth="2.7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            filter="url(#dropshadowMobile)"
+                          />
+                          <filter id="dropshadowMobile" x="0" y="0" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
+                          </filter>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
         </div>
-      </section>
+      );
+    })()}
+  </div>
+</section>
+
       {/* ================= GUESTS & SPEAKERS ================= */}
       <section className={`relative pt-6 md:pt-12 pb-8 overflow-hidden ${HIGHLIGHT_BG}`}>
         {/* Animated Background */}
@@ -680,6 +772,105 @@ export default function Home() {
                 <p className="text-xs xs:text-sm md:text-base text-[#dbc6ad] leading-relaxed group-hover:text-[#fffbe9] transition-colors duration-300 line-clamp-2">
                   {member.designation}
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* ================= PREVIOUS MEDIA PARTNERS ================= */}
+      <section
+        className={`relative pt-10 md:pt-16 pb-12 md:pb-20 overflow-hidden ${SECTION_BG}`}
+        style={{ WebkitTapHighlightColor: "transparent" }}
+      >
+        {/* Decorative mesh gradients for premium depth */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[260px] xs:w-[390px] md:w-[580px] h-[260px] xs:h-[390px] md:h-[580px] bg-[#d4af37]/15 rounded-full blur-[80px] sm:blur-[110px] animate-pulse -z-10" />
+          <div className="absolute -bottom-20 right-[7%] w-[140px] xs:w-[240px] md:w-[350px] h-[160px] xs:h-[240px] md:h-[350px] bg-[#c62828]/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse delay-1000 -z-10" />
+          <div className="absolute top-1/4 left-[-10%] w-36 h-60 bg-[#ffd966]/10 rounded-full blur-2xl rotate-12" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-3 xs:px-4 sm:px-6">
+          <div className="text-center mb-8 md:mb-14">
+            <h2 className="text-xl xs:text-3xl md:text-5xl font-heading font-extrabold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+              Our Previous Media Partners
+            </h2>
+            <div className="w-20 xs:w-28 sm:w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-2" />
+            <p className="mt-3 text-xs xs:text-sm sm:text-base text-[#e8ddc9] max-w-xl xs:max-w-2xl mx-auto leading-relaxed font-medium drop-shadow-sm">
+              A strong network of media partners has helped amplify the Global Healthcare Awards
+              across India and internationally.
+            </p>
+          </div>
+
+          <div
+            className={`
+              grid
+              gap-5 xs:gap-6 sm:gap-8 md:gap-10
+              grid-cols-1 
+              xs:grid-cols-2
+              md:grid-cols-3
+              lg:grid-cols-4
+            `}
+          >
+            {mediaPartners.map((partner, idx) => (
+              <div
+                key={partner.name + idx}
+                className="group flex h-full"
+              >
+                <div
+                  className="
+                    relative
+                    flex flex-col items-center text-center flex-grow
+                    rounded-3xl
+                    bg-gradient-to-br from-black/70 via-black/50 to-[#2b140d]/80
+                    border border-[#eed47c]/15
+                    hover:border-[#ffd966]/70
+                    hover:shadow-[0_8px_32px_-10px_#eed47ccc,0_0_0_3px_#ffeec360]
+                    transition-all
+                    duration-500
+                    p-4 xs:p-6 sm:p-8
+                    min-h-[240px] sm:min-h-[300px] shadow-[0_2px_8px_#1d140e60]
+                  "
+                  style={{
+                    backdropFilter: "blur(1.5px)"
+                  }}
+                >
+                  {/* Logo circle with floating effect and animated border */}
+                  <div className="relative mb-4 sm:mb-5 h-[70px] xs:h-20 w-[70px] xs:w-20 sm:h-24 sm:w-24 rounded-full bg-[#21170d]/80 flex items-center justify-center overflow-hidden border-2 border-[#efd77c]/25 group-hover:border-[#ffd966]/90 shadow-[0_2px_12px_#d4af3725,0_6px_24px_#0002] group-hover:scale-105 group-hover:shadow-[0_8px_48px_-16px_#ffd96655] transition-all duration-500">
+                    {/* Animated gold ring on hover */}
+                    <div
+                      className="pointer-events-none absolute inset-0 rounded-full border-2 border-transparent group-hover:border-[#d4af37]/10 group-hover:bg-gradient-to-br group-hover:from-[#ffd966]/30 group-hover:via-[#d4af37]/20 group-hover:to-[#fff6d0]/0 transition-all duration-500"
+                      style={{ zIndex: 1 }}
+                    />
+                    {partner.logo ? (
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="h-4/5 w-4/5 object-contain select-none transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                        draggable="false"
+                        style={{ filter: "drop-shadow(0 2px 18px #d4af372f)" }}
+                      />
+                    ) : (
+                      <span className="text-[#ffd966] text-xl sm:text-2xl font-black">
+                        {partner.name[0]}
+                      </span>
+                    )}
+                    {/* Glow overlay */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  </div>
+                  {/* Name and tagline */}
+                  <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-[#ffeec3] mb-0.5 xs:mb-1 sm:mb-2 tracking-tight group-hover:text-[#ffd966] transition-colors drop-shadow-sm line-clamp-1">
+                    {partner.name}
+                  </h3>
+                  <p className="text-[10px] xs:text-xs sm:text-sm text-[#e2d3c0] font-medium max-w-xs mx-auto group-hover:text-[#fffbe9] transition-colors line-clamp-2">
+                    {partner.tagline}
+                  </p>
+                  {/* Bottom accent line */}
+                  <div className="w-12 xs:w-16 h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#e9c969] to-transparent mx-auto mt-3 opacity-60"></div>
+                </div>
               </div>
             ))}
           </div>
