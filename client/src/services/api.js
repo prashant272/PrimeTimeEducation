@@ -1,0 +1,87 @@
+const DEFAULT_BASE_URL = "http://localhost:5000";
+
+function getBaseUrl() {
+  // Prefer explicit API base URL if provided
+  const fromEnv =
+    typeof import.meta !== "undefined"
+      ? import.meta.env?.VITE_API_BASE_URL || import.meta.env?.VITE_API_URL
+      : undefined;
+
+  const raw = (fromEnv || DEFAULT_BASE_URL).replace(/\/$/, "");
+
+  // If env accidentally includes `/api` (e.g. http://localhost:5000/api),
+  // strip it so that paths like `/api/auth/login` don't become `/api/api/...`.
+  const normalized = raw.endsWith("/api") ? raw.slice(0, -4) : raw;
+
+  return normalized;
+}
+
+async function request(path, { method = "GET", token, body } = {}) {
+  const url = `${getBaseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(url, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  const isJson = res.headers.get("content-type")?.includes("application/json");
+  const data = isJson ? await res.json() : null;
+
+  if (!res.ok) {
+    const message = data?.message || `Request failed (${res.status})`;
+    throw new Error(message);
+  }
+
+  return data;
+}
+
+/* ---------------- Auth ---------------- */
+export function registerUser(payload) {
+  return request("/api/auth/register", { method: "POST", body: payload });
+}
+
+export function loginUser(payload) {
+  return request("/api/auth/login", { method: "POST", body: payload });
+}
+
+export function adminLogin(payload) {
+  return request("/api/admin/login", { method: "POST", body: payload });
+}
+
+/* ---------------- Nominations (user) ---------------- */
+export function createNomination(payload, token) {
+  return request("/api/nominations", { method: "POST", body: payload, token });
+}
+
+export function fetchMyNominations(token) {
+  return request("/api/nominations/my", { method: "GET", token });
+}
+
+/* ---------------- Nominations (admin) ---------------- */
+export function fetchAdminNominations(token) {
+  return request("/api/admin/nominations", { method: "GET", token });
+}
+
+export function updateNominationStatus(id, status, token) {
+  return request(`/api/admin/nominations/${id}/status`, {
+    method: "PATCH",
+    body: { status },
+    token,
+  });
+}
+
+export function updateNomination(id, payload, token) {
+  return request(`/api/admin/nominations/${id}`, {
+    method: "PUT",
+    body: payload,
+    token,
+  });
+}
+
+export function deleteNomination(id, token) {
+  return request(`/api/admin/nominations/${id}`, { method: "DELETE", token });
+}
+

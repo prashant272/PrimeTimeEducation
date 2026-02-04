@@ -1,0 +1,236 @@
+import { Mail, Phone, Globe, MapPin, Facebook, Instagram, Youtube, Linkedin, MessageCircle } from "lucide-react";
+
+const socialLinks = [
+  { icon: Facebook, href: "https://www.facebook.com/primetimeresearch", color: "from-blue-600 to-blue-500", bgColor: "bg-blue-600" },
+  { icon: Instagram, href: "https://www.instagram.com/primetimeresearchmedia/", color: "from-pink-600 to-purple-600", bgColor: "bg-gradient-to-br from-pink-600 to-purple-600" },
+  { icon: Youtube, href: "https://www.youtube.com/@primetimermedia", color: "from-red-600 to-red-500", bgColor: "bg-red-600" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/primetimeresearch-media/", color: "from-blue-700 to-blue-600", bgColor: "bg-blue-700" },
+  { icon: MessageCircle, href: "https://wa.me/919810882769", color: "from-green-600 to-green-500", bgColor: "bg-green-600" },
+];
+
+export default function Contact() {
+  // Phone numbers (with main, label and number for each)
+  const phones = [
+    {
+      tel: "+911169268754",
+      label: "Board Lines",
+      display: "+91 11 69268754"
+    },
+    {
+      tel: "+911135773024",
+      label: "Board Lines",
+      display: "+91-11-35773024"
+    },
+    {
+      tel: "+919810910686",
+      label: "Helpline",
+      display: "+91 9810 91 0686"
+    },
+    {
+      tel: "+919971002984",
+      label: "For Sponsorship",
+      display: "+91 9971 00 2984"
+    },
+    {
+      tel: "+919810882769",
+      label: "For Nominations",
+      display: "+91 9810 88 2769"
+    }
+  ];
+
+  return (
+    <section className="relative min-h-screen overflow-hidden py-20 bg-[#4b1e1e] text-white selection:bg-[#7e2546]/60">
+      {/* Decorative mesh gradients */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute -top-32 -left-1/4 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-[#d4af37]/20 via-[#c62828]/10 to-transparent blur-[100px]" />
+        <div className="absolute bottom-0 right-[-10%] w-[450px] h-[450px] rounded-full bg-gradient-to-br from-[#ffeec3]/20 via-[#4b1e1e]/10 to-transparent blur-[100px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:56px_56px]" />
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 py-12">
+        {/* Widened card: max-w-4xl instead of max-w-3xl */}
+        <div className="mx-auto max-w-4xl p-8 lg:p-12 rounded-3xl border border-[#ffd966]/20 bg-white/[0.04] shadow-xl backdrop-blur-2xl flex flex-col gap-10 relative overflow-hidden">
+          {/* Title and subtitle */}
+          <div className="flex flex-col items-center text-center gap-2">
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-7 w-1 rounded-xl bg-gradient-to-b from-[#d4af37] to-[#c62828]" />
+              <h1 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-white via-[#ffd966] to-[#d4af37] bg-clip-text text-transparent drop-shadow">
+                Contact Us
+              </h1>
+              <span className="h-7 w-1 rounded-xl bg-gradient-to-b from-[#d4af37] to-[#c62828]" />
+            </div>
+            <p className="max-w-xl text-[#ffeec3]/80 text-base sm:text-lg mt-3 leading-relaxed font-medium">
+              We’d love to connect with you! Reach out for inquiries about nominations, partnerships, media, or anything else.
+            </p>
+          </div>
+          
+          {/* Gold gradient line below header title */}
+          <div className="h-1 mt-6 mb-0 bg-gradient-to-r from-[#d4af37] via-[#ffd966] to-[#c62828]" />
+
+          {/* Contact Info Grid */}
+          <div className="w-full grid gap-6 md:grid-cols-2">
+            <div className="space-y-5">
+              <a
+                href="mailto:info@globalhealthcareawards.com"
+                className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+              >
+                <div className="rounded-lg bg-gradient-to-br from-[#d4af37] via-[#ffd966] to-[#b2994c] p-2 shadow group-hover:scale-110 transition">
+                  <Mail className="w-6 h-6 text-[#4b1e1e]" />
+                </div>
+                <div>
+                  <div className="text-xs text-[#ffeec3]/70 font-semibold">Email</div>
+                  <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">info@globalhealthcareawards.com</div>
+                </div>
+              </a>
+
+              {/* Phone Numbers */}
+              <div className="flex flex-col gap-3">
+                {/* Board Line 1 */}
+                <a
+                  href="tel:+911169268754"
+                  className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+                >
+                  <div className="rounded-lg bg-gradient-to-br from-[#ffd966] to-[#d4af37] p-2 shadow group-hover:scale-110 transition">
+                    <Phone className="w-6 h-6 text-[#c62828]" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-[#ffeec3]/70 font-semibold">Board Lines</div>
+                    <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">
+                      +91 11 69268754
+                    </div>
+                  </div>
+                </a>
+                {/* Board Line 2 */}
+                <a
+                  href="tel:+911135773024"
+                  className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+                >
+                  <div className="rounded-lg bg-gradient-to-br from-[#ffd966] to-[#d4af37] p-2 shadow group-hover:scale-110 transition">
+                    <Phone className="w-6 h-6 text-[#c62828]" />
+                  </div>
+                  <div>
+                    {/* no label to avoid repeating label, could use Board Lines if preferred */}
+                    <div className="text-xs text-[#ffeec3]/70 font-semibold sr-only">Board Lines</div>
+                    <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">
+                      +91-11-35773024
+                    </div>
+                  </div>
+                </a>
+                {/* Helpline */}
+                <a
+                  href="tel:+919810910686"
+                  className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+                >
+                  <div className="rounded-lg bg-gradient-to-br from-[#ffd966] to-[#d4af37] p-2 shadow group-hover:scale-110 transition">
+                    <Phone className="w-6 h-6 text-[#c62828]" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-[#ffeec3]/70 font-semibold">Helpline</div>
+                    <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">
+                      +91 9810 91 0686
+                    </div>
+                  </div>
+                </a>
+                {/* For Sponsorship */}
+                <a
+                  href="tel:+919971002984"
+                  className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+                >
+                  <div className="rounded-lg bg-gradient-to-br from-[#ffd966] to-[#d4af37] p-2 shadow group-hover:scale-110 transition">
+                    <Phone className="w-6 h-6 text-[#c62828]" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-[#ffeec3]/70 font-semibold">For Sponsorship</div>
+                    <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">
+                      +91 9971 00 2984
+                    </div>
+                  </div>
+                </a>
+                {/* For Nominations */}
+                <a
+                  href="tel:+919810882769"
+                  className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+                >
+                  <div className="rounded-lg bg-gradient-to-br from-[#ffd966] to-[#d4af37] p-2 shadow group-hover:scale-110 transition">
+                    <Phone className="w-6 h-6 text-[#c62828]" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-[#ffeec3]/70 font-semibold">For Nominations</div>
+                    <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">
+                      +91 9810 88 2769
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <a
+                href="https://maps.app.goo.gl/A9eWn25eF8uXr3pF9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+              >
+                <div className="rounded-lg bg-gradient-to-br from-[#d4af37]/90 to-[#c62828]/90 p-2 shadow group-hover:scale-110 transition">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs text-[#ffeec3]/70 font-semibold">Location</div>
+                  <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">Delhi, India</div>
+                </div>
+              </a>
+              <a
+                href="https://globalhealthcareawards.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-5 rounded-xl border border-[#ffd966]/15 bg-[#251114]/80 hover:shadow-lg hover:bg-[#3b191a] transition-all duration-300 group"
+              >
+                <div className="rounded-lg bg-gradient-to-br from-[#c62828] to-[#ffd966] p-2 shadow group-hover:scale-110 transition">
+                  <Globe className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs text-[#ffeec3]/70 font-semibold">Website</div>
+                  <div className="font-bold text-[#ffeec3] tracking-wide text-[1.08rem]">www.globalhealthcareawards.com</div>
+                </div>
+              </a>
+            </div>
+            {/* Social & Info */}
+            <div className="flex flex-col h-full items-center justify-center gap-7">
+              <div className="rounded-2xl bg-gradient-to-br from-[#2b1517]/80 via-[#d4af37]/10 to-[#2b1517]/90 border border-[#ffd966]/15 shadow-lg p-6 w-full text-center group transition">
+                <h3 className="text-lg font-extrabold bg-gradient-to-r from-[#ffecd1] via-[#ffd966] to-[#d4af37] bg-clip-text text-transparent mb-1">Follow Us</h3>
+                <p className="text-[#ffeec3]/80 text-sm mb-3 font-medium">
+                  Stay updated with the latest news, photos and announcements.
+                </p>
+                <div className="flex justify-center gap-4 mt-2">
+                  {socialLinks.map((social, i) => {
+                    const Icon = social.icon;
+                    return (
+                      <a
+                        key={i}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`w-11 h-11 rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-2xl transition-all duration-300 group ${social.bgColor}`}
+                        aria-label="Social media link"
+                      >
+                        <Icon className="w-5 h-5 text-white" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="hidden md:block mt-4">
+                <div className="w-48 h-1 rounded-full bg-gradient-to-r from-[#ffeec3]/40 via-[#d4af37]/40 to-[#ffd966]/40 mx-auto" />
+              </div>
+              <div className="mt-4 text-sm text-[#ffeec3]/60 text-center">
+                <span className="font-bold text-[#fffbe7]">Office Hours:</span> 10:00 AM – 6:00 PM (Mon - Fri) <br />
+                <span className="font-bold text-[#ffd966]">Response time:</span> Within 1 business day
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom gradient line */}
+      <div className="relative z-10 h-1 bg-gradient-to-r from-[#c62828] via-[#ffd966] to-[#d4af37]" />
+    </section>
+  );
+}
