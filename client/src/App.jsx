@@ -17,6 +17,7 @@ import Register from "./pages/Register.jsx";
 import NominationForm from "./pages/NominationForm.jsx";
 import UserDashboard from "./pages/UserDashboard.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import AdminRegister from "./pages/AdminRegister.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
@@ -60,6 +61,7 @@ export default function App() {
             }
           />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
           <Route
             path="/admin"
             element={

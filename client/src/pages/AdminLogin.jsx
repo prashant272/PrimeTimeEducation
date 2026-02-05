@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function AdminLogin() {
@@ -19,15 +19,23 @@ export default function AdminLogin() {
     try {
       setSubmitting(true);
       await loginAsAdmin(email, password);
-
-      const from = location.state?.from?.pathname || "/admin";
-      navigate(from, { replace: true });
+      // Navigation will be handled by useEffect to avoid race conditions
     } catch (err) {
       setError(err.message || "Unable to login as admin");
-    } finally {
       setSubmitting(false);
     }
   };
+
+  // Watch for successful admin login
+
+  const { user, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated && user?.role === "admin") {
+      const from = location.state?.from?.pathname || "/admin";
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, user, navigate, location]);
 
   return (
     <section className="min-h-screen w-full bg-gradient-to-br from-[#161e34] via-[#232953] to-[#111827] flex items-center justify-center px-3 py-28 sm:px-6 md:px-10 lg:px-0">
@@ -130,6 +138,16 @@ export default function AdminLogin() {
             )}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-sm text-blue-200/70">
+          Need a new admin account?{" "}
+          <Link
+            to="/admin/register"
+            className="text-blue-300 hover:text-blue-100 font-semibold underline decoration-blue-400/30"
+          >
+            Register here
+          </Link>
+        </p>
       </div>
     </section>
   );
