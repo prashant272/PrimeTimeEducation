@@ -12,6 +12,7 @@ import {
   FaTimes,
   FaTrophy,
   FaHistory,
+  FaRegClone,
 } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext.jsx";
 
@@ -170,7 +171,7 @@ export default function Navbar() {
             </div>
             <nav className="bg-transparent h-12">
               <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-6 text-sm">
-                {menuLinks("white", undefined, headerRef)}
+                {menuLinks("white", undefined, headerRef, isUser)}
               </div>
             </nav>
           </header>
@@ -187,14 +188,14 @@ export default function Navbar() {
                   className="h-7 w-auto object-contain"
                 />
               </div>
-              <div className="flex gap-5">{menuLinks("black", undefined, headerRef)}</div>
+              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser)}</div>
             </div>
           </div>
         )}
       </div>
       {/* ===================== MOBILE HEADER ====================== */}
       <div className="block md:hidden">
-        {/* Phone header with logo, title, hamburger, login/logout */}
+        {/* Phone header with logo, title, my nominations (if user), hamburger, login/logout */}
         <header
           className="fixed top-0 left-0 w-full z-50 bg-[#210a0e] border-b border-white/10 flex items-center h-14 px-3 justify-between"
           ref={headerRef}
@@ -209,8 +210,18 @@ export default function Navbar() {
             />
             <span className="text-[13px] font-semibold whitespace-nowrap text-white">Primetime Research Media</span>
           </div>
-          {/* Welcome & logout/login */}
+          {/* Welcome & mynominations & logout/login */}
           <div className="flex items-center gap-1">
+            {isUser && (
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="border border-[#d4af37] px-2 py-[2px] rounded-full text-[11px] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition"
+                style={{ fontWeight: 600, marginRight: 6 }}
+              >
+                <FaRegClone className="inline-block mr-1 mb-[2px]" />
+                My Nominations
+              </button>
+            )}
             {isUser && (
               <button
                 onClick={handleLoginClick}
@@ -244,6 +255,7 @@ export default function Navbar() {
           isAuthenticated={isUser}
           handleLoginClick={handleLoginClick}
           headerRef={headerRef}
+          isUser={isUser}
         />
       </div>
     </>
@@ -253,7 +265,7 @@ export default function Navbar() {
 /* ================= MENU ================= */
 
 // onClick will be used to close drawer, headerRef for scroll fix on tab switch.
-const menuLinks = (color, onClick, headerRef) => {
+const menuLinks = (color, onClick, headerRef, isUser) => {
   // Will scroll page to just under header if in mobile and not at top
   const createNavHandler = (routeHandler) => (e) => {
     if (onClick) onClick();
@@ -276,6 +288,15 @@ const menuLinks = (color, onClick, headerRef) => {
       <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/winners" icon={<FaTrophy />} label="Winners" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
+      {isUser && (
+        <NavItem
+          to="/dashboard"
+          icon={<FaRegClone />}
+          label="My Nominations"
+          color={color}
+          onClick={createNavHandler(onClick)}
+        />
+      )}
     </>
   );
 };
@@ -311,6 +332,7 @@ function MobileMenuDrawer({
   isAuthenticated,
   handleLoginClick,
   headerRef,
+  isUser
 }) {
   // Esc key or overlay for closing drawer
   useEffect(() => {
@@ -369,8 +391,8 @@ function MobileMenuDrawer({
         </div>
         <div className="flex-1 flex flex-col justify-between">
           <nav className="flex flex-col gap-3 mt-6 px-4">
-            {/* Give headerRef to menuLinks for scroll fix */}
-            {menuLinks("white", onClose, headerRef)}
+            {/* Give headerRef & isUser to menuLinks for scroll fix and user-related links */}
+            {menuLinks("white", onClose, headerRef, isUser)}
           </nav>
           <div className="mt-6 border-t border-white/10 px-4 py-4 flex flex-col gap-2">
             {user && (
