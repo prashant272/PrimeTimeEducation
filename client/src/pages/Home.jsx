@@ -82,27 +82,78 @@ export default function Home() {
 
   // Previous Media Partners
   const mediaPartners = [
+    // ===== Premium National & International Media =====
     {
-      name: "Times Healthcare",
-      tagline: "Leading Healthcare News Network",
-      logo: "/images/media-times.png",
+      name: "India Today",
+      tagline: "India’s Leading News & Media Network",
+      logo: "../india-today.png",
     },
     {
-      name: "Health Today",
-      tagline: "India's Trusted Health Magazine",
-      logo: "/images/media-health-today.png",
+      name: "Aaj Tak",
+      tagline: "India’s No.1 Hindi News Channel",
+      logo: "../aaj-tak.png",
     },
     {
-      name: "Medical Insight",
-      tagline: "Clinical Research & Insight Platform",
-      logo: "/images/media-medical-insight.png",
+      name: "CNN ",
+      tagline: "Global & National News Network",
+      logo: "../cnn.jpg",
     },
     {
-      name: "Global MedNews",
-      tagline: "International Healthcare News Channel",
-      logo: "/images/media-global-med.png",
+      name: "News18 India",
+      tagline: "Trusted Hindi News Network",
+      logo: "../news.png",
+    },
+  
+    // ===== Strong National Hindi News =====
+    {
+      name: "Bharat 24",
+      tagline: "Hindi News & Current Affairs Channel",
+      logo: "../bharat.jpg",
+    },
+    {
+      name: "Doordarshan's",
+      tagline: "India’s Public Service News Channel",
+      logo: "../dd.jpg",
+    },
+    {
+      name: "News 1 India",
+      tagline: "National Hindi News Channel",
+      logo: "../new1.png",
+    },
+    {
+      name: "News 10 India",
+      tagline: "National News & Current Affairs Network",
+      logo: "../news10.jpg",
+    },
+  
+    // ===== Regional / Specialised Media =====
+    {
+      name: "Delhi Aaj Tak",
+      tagline: "Regional Hindi News Network",
+      logo: "../delhiaajtk.jpg",
+    },
+  
+    // ===== Event & Partner Media =====
+    {
+      name: "Prime Time",
+      tagline: "National News & Media Network",
+      logo: "../logo.png",
+    },
+    {
+      name: "Time Cyber Media",
+      tagline: "National Digital News & Cyber Media Network",
+      logo: "../timecyber.png",
+    },
+  
+    // ===== Production & Foundation =====
+    {
+      name: "Xoom Studio",
+      tagline: "Media Production & Event Coverage Partner",
+      logo: "../xoom.jpg",
     },
   ];
+  
+  
 
   // Responsive and premium utility variables
   const getGridCols = (len) => {
@@ -460,7 +511,7 @@ export default function Home() {
                   },
                   {
                     title: 'Award Ceremony – London',
-                    date: '9 May 2026',
+                    date: '9 June 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#386bb7] to-[#81b0ea] flex items-center justify-center shadow-lg">
                         <span className="text-xl">🇬🇧</span>
@@ -842,33 +893,37 @@ export default function Home() {
       </section>
       {/* ================= PREVIOUS MEDIA PARTNERS ================= */}
       <section
-        className={`relative pt-10 md:pt-16 pb-12 md:pb-20 overflow-hidden ${SECTION_BG}`}
+        className={`relative pt-8 sm:pt-10 md:pt-16 pb-8 sm:pb-12 md:pb-20 overflow-hidden ${SECTION_BG}`}
         style={{ WebkitTapHighlightColor: "transparent" }}
       >
-        {/* Decorative mesh gradients for premium depth */}
+        {/* Decorative mesh gradients for premium depth - responsive sizes */}
         <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[260px] xs:w-[390px] md:w-[580px] h-[260px] xs:h-[390px] md:h-[580px] bg-[#d4af37]/15 rounded-full blur-[80px] sm:blur-[110px] animate-pulse -z-10" />
-          <div className="absolute -bottom-20 right-[7%] w-[140px] xs:w-[240px] md:w-[350px] h-[160px] xs:h-[240px] md:h-[350px] bg-[#c62828]/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse delay-1000 -z-10" />
-          <div className="absolute top-1/4 left-[-10%] w-36 h-60 bg-[#ffd966]/10 rounded-full blur-2xl rotate-12" />
+          <div className="absolute top-[-50px] xs:top-[-80px] left-1/2 -translate-x-1/2 w-[160px] xs:w-[260px] sm:w-[350px] md:w-[500px] lg:w-[580px] h-[160px] xs:h-[260px] sm:h-[350px] md:h-[500px] lg:h-[580px] bg-[#d4af37]/15 rounded-full blur-[32px] xs:blur-[80px] sm:blur-[110px] animate-pulse -z-10" />
+          <div className="absolute -bottom-10 xs:-bottom-20 right-[4%] xs:right-[7%] w-[90px] xs:w-[140px] sm:w-[200px] md:w-[310px] lg:w-[350px] h-[90px] xs:h-[160px] sm:h-[200px] md:h-[310px] lg:h-[350px] bg-[#c62828]/10 rounded-full blur-[32px] xs:blur-[80px] sm:blur-[120px] animate-pulse delay-1000 -z-10" />
+          <div className="absolute top-1/4 left-[-13%] xs:left-[-10%] w-16 xs:w-24 sm:w-36 h-24 xs:h-36 sm:h-60 bg-[#ffd966]/10 rounded-full blur-xl xs:blur-2xl rotate-12" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-3 xs:px-4 sm:px-6">
-          <div className="text-center mb-8 md:mb-14">
-            <h2 className="text-xl xs:text-3xl md:text-5xl font-heading font-extrabold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+        <div className="relative z-10 max-w-7xl mx-auto px-2 xs:px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8 md:mb-14">
+            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-2 sm:mb-4 md:mb-6 bg-gradient-to-r from-[#f7e791] via-[#d4af37] to-[#f7e791] bg-clip-text text-transparent drop-shadow-lg tracking-tight">
               Our Previous Media Partners
             </h2>
-            <div className="w-20 xs:w-28 sm:w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-2" />
-            <p className="mt-3 text-xs xs:text-sm sm:text-base text-[#e8ddc9] max-w-xl xs:max-w-2xl mx-auto leading-relaxed font-medium drop-shadow-sm">
-              A strong network of media partners has helped amplify the Global Healthcare Awards
-              across India and internationally.
+            <div className="w-20 xs:w-28 sm:w-36 md:w-40 h-1 rounded-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-1 sm:mb-2" />
+            <p className="mt-2 text-sm xs:text-base sm:text-lg md:text-xl text-[#faecc6] max-w-xs xs:max-w-lg sm:max-w-2xl mx-auto leading-snug font-semibold drop-shadow">
+              <span className="italic text-[#ffd966] font-display text-base sm:text-lg md:text-2xl">“</span>
+              <span className="font-serif">
+                A strong network of media partners has helped amplify the <span className="text-[#ffd966] font-semibold">Global Healthcare Awards</span> across India and internationally.
+              </span>
+              <span className="italic text-[#ffd966] font-display text-base sm:text-lg md:text-2xl">”</span>
             </p>
           </div>
 
+          {/* Responsive grid: 1 on xs, 2 on sm, 3 on md, 4 on lg+ */}
           <div
             className={`
               grid
-              gap-5 xs:gap-6 sm:gap-8 md:gap-10
-              grid-cols-1 
+              gap-5 xs:gap-7 sm:gap-8 md:gap-10 lg:gap-12
+              grid-cols-1
               xs:grid-cols-2
               md:grid-cols-3
               lg:grid-cols-4
@@ -881,65 +936,66 @@ export default function Home() {
               >
                 <div
                   className="
-                    relative
-                    flex flex-col items-center text-center flex-grow
-                    rounded-3xl
-                    bg-gradient-to-br from-black/70 via-black/50 to-[#2b140d]/80
+                    relative flex flex-col
+                    items-center justify-between flex-grow
+                    rounded-2xl
+                    bg-gradient-to-br from-black/80 via-[#251c10]/90 to-[#b0872b14]
                     border border-[#eed47c]/15
-                    hover:border-[#ffd966]/70
-                    hover:shadow-[0_8px_32px_-10px_#eed47ccc,0_0_0_3px_#ffeec360]
-                    transition-all
-                    duration-500
-                    p-4 xs:p-6 sm:p-8
-                    min-h-[240px] sm:min-h-[300px] shadow-[0_2px_8px_#1d140e60]
+                    hover:border-[#ffd966]/80
+                    hover:shadow-[0_12px_40px_-12px_#efd77c88,0_0_0_4px_#ffd96633]
+                    shadow-[0_4px_18px_#1d140e55]
+                    transition-all duration-500
+                    px-4 py-5 xs:px-5 xs:py-7 sm:px-7 sm:py-9 md:px-9 md:py-10
+                    min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] md:min-h-[360px]
+                    overflow-hidden
                   "
-                  style={{
-                    backdropFilter: "blur(1.5px)"
-                  }}
+                  style={{ backdropFilter: "blur(2px)" }}
                 >
-                  {/* Logo circle with floating effect and animated border */}
-                  <div className="relative mb-4 sm:mb-5 h-[70px] xs:h-20 w-[70px] xs:w-20 sm:h-24 sm:w-24 rounded-full bg-[#21170d]/80 flex items-center justify-center overflow-hidden border-2 border-[#efd77c]/25 group-hover:border-[#ffd966]/90 shadow-[0_2px_12px_#d4af3725,0_6px_24px_#0002] group-hover:scale-105 group-hover:shadow-[0_8px_48px_-16px_#ffd96655] transition-all duration-500">
-                    {/* Animated gold ring on hover */}
-                    <div
-                      className="pointer-events-none absolute inset-0 rounded-full border-2 border-transparent group-hover:border-[#d4af37]/10 group-hover:bg-gradient-to-br group-hover:from-[#ffd966]/30 group-hover:via-[#d4af37]/20 group-hover:to-[#fff6d0]/0 transition-all duration-500"
-                      style={{ zIndex: 1 }}
-                    />
+                  {/* Square image with soft shadow & border, responsive sizing */}
+                  <div className="relative mb-5 sm:mb-6 md:mb-8 w-[60px] xs:w-[80px] sm:w-[96px] md:w-[110px] aspect-square rounded-xl overflow-hidden flex items-center justify-center transition-all duration-500 shadow-[0_2px_14px_#d4af3744,0_6px_32px_#0003] group-hover:scale-105 group-hover:shadow-[0_8px_32px_-10px_#ffd96677] border-2 border-[#eed47c]/15 group-hover:border-[#ffd966]/70 bg-[#251c10]">
+                    {/* Animated square border and soft overlay on hover */}
+                    <div className="pointer-events-none absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#d4af37]/30 group-hover:bg-gradient-to-br group-hover:from-[#ffd966]/20 group-hover:via-[#d4af37]/10 group-hover:to-[#fff6d0]/0 transition-all duration-500 z-10"></div>
                     {partner.logo ? (
                       <img
                         src={partner.logo}
                         alt={partner.name}
-                        className="h-4/5 w-4/5 object-contain select-none transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+                        className="w-full h-full object-contain object-center select-none transition-all duration-400 group-hover:scale-110 group-hover:brightness-110 bg-[#21170d]"
                         loading="lazy"
-                        onError={(e) => {
-                          e.target.style.display = "none";
-                        }}
                         draggable="false"
-                        style={{ filter: "drop-shadow(0 2px 18px #d4af372f)" }}
+                        style={{
+                          aspectRatio: '1/1',
+                          backgroundColor: '#1d140e',
+                          borderRadius: '0.75rem'
+                        }}
+                        onError={(e) => { e.target.style.display = "none"; }}
                       />
                     ) : (
-                      <span className="text-[#ffd966] text-xl sm:text-2xl font-black">
-                        {partner.name[0]}
-                      </span>
+                      <span className="text-[#ffd966] text-xl sm:text-2xl md:text-3xl font-extrabold">{partner.name[0]}</span>
                     )}
                     {/* Glow overlay */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-transparent via-white/10 to-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"></div>
                   </div>
-                  {/* Name and tagline */}
-                  <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-[#ffeec3] mb-0.5 xs:mb-1 sm:mb-2 tracking-tight group-hover:text-[#ffd966] transition-colors drop-shadow-sm line-clamp-1">
+                  {/* Name */}
+                  <h3 className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold tracking-wide text-[#ffeec3] mb-1.5 sm:mb-2 md:mb-2.5 drop-shadow-sm group-hover:text-[#ffd966] transition-colors line-clamp-1 font-heading uppercase tracking-wider">
                     {partner.name}
                   </h3>
-                  <p className="text-[10px] xs:text-xs sm:text-sm text-[#e2d3c0] font-medium max-w-xs mx-auto group-hover:text-[#fffbe9] transition-colors line-clamp-2">
-                    {partner.tagline}
+                  {/* Tagline */}
+                  <p className="text-xs xs:text-sm sm:text-base text-[#f0e4c4] font-medium text-center max-w-[140px] xs:max-w-xs sm:max-w-sm mx-auto px-1 group-hover:text-[#fffbe9] transition-colors duration-300 italic leading-snug tracking-tight line-clamp-2">
+                    <span className="inline-block px-0.5">
+                      <span className="relative after:block after:absolute after:inset-x-0 after:-bottom-0.5 after:h-1.5 after:bg-[#d4af3755] after:rounded-lg after:blur-sm">
+                        {partner.tagline}
+                      </span>
+                    </span>
                   </p>
-                  {/* Bottom accent line */}
-                  <div className="w-12 xs:w-16 h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#e9c969] to-transparent mx-auto mt-3 opacity-60"></div>
+                  {/* Bottom decorative accent */}
+                  <div className="w-10 xs:w-14 sm:w-20 h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#e9c969] to-transparent mx-auto mt-3 sm:mt-4 md:mt-5 opacity-70 group-hover:w-16 sm:group-hover:w-24 transition-all duration-500"></div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-      {/* How awards work */}
+      {/* Selection Process */}
       <section className={`relative pt-10 md:pt-20 pb-16 md:pb-24 overflow-hidden ${SECTION_BG}`}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] xs:w-[450px] md:w-[600px] h-[320px] xs:h-[450px] md:h-[600px] bg-[#d4af37]/10 rounded-full blur-3xl animate-pulse"></div>
@@ -948,7 +1004,7 @@ export default function Home() {
           {/* ...content unchanged... */}
           <div className="text-center mb-10 md:mb-16">
             <h2 className="text-2xl xs:text-4xl md:text-5xl font-heading font-bold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              How Our Awards Work
+              Selection Process.
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>
@@ -1011,7 +1067,7 @@ export default function Home() {
           </h2>
           <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-5 sm:mb-8"></div>
           <p className="mb-8 sm:mb-12 text-[#ebdcc8] text-base sm:text-lg md:text-xl">
-            Nomination Extended Deadline – <span className="font-semibold bg-gradient-to-r from-[#d4af37] to-[#f1d46b] bg-clip-text text-transparent">30 January 2026</span>
+            Nomination Extended Deadline – <span className="font-semibold bg-gradient-to-r from-[#d4af37] to-[#f1d46b] bg-clip-text text-transparent">15 April 2026</span>
           </p>
           <button
             type="button"

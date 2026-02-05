@@ -102,16 +102,46 @@ const nominationSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // General remarks visible to both admin and user
     remarks: {
       type: String,
       trim: true,
       default: "",
     },
 
+    // Nomination evaluation status (admin-controlled)
     status: {
       type: String,
-      enum: ["nominated", "evaluation", "selected", "rejected"],
+      enum: ["nominated", "evaluation", "in_progress", "selected", "rejected"],
       default: "nominated",
+    },
+
+    // Financial / follow-up status (admin-only)
+    paymentStatus: {
+      type: String,
+      enum: ["not_paid", "initial_paid", "paid", "not_interested"],
+      default: "not_paid",
+    },
+
+    // Amount agreed/paid for this nomination (admin-only)
+    amount: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    // Final category decided by admin (can differ from user-selected category)
+    assignedCategory: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    // Internal remark for admin about status / payment / communication
+    adminRemark: {
+      type: String,
+      trim: true,
+      default: "",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -127,6 +157,7 @@ const nominationSchema = new mongoose.Schema(
 // Helpful indexes for faster admin queries & filtering
 nominationSchema.index({ user: 1, createdAt: -1 });
 nominationSchema.index({ status: 1, createdAt: -1 });
+nominationSchema.index({ paymentStatus: 1, createdAt: -1 });
 
 const Nomination = mongoose.model("Nomination", nominationSchema);
 
