@@ -137,7 +137,7 @@ export default function Home() {
     {
       name: "Prime Time",
       tagline: "National News & Media Network",
-      logo: "../logo.png",
+      logo: "../prime.png",
     },
     {
       name: "Time Cyber Media",
