@@ -27,10 +27,10 @@ export default function EditionDetail() {
               Back to Previous Editions
             </Link>
             <Link
-              to="/winners"
+              to="/media"
               className="rounded-full border border-white/20 px-5 py-2 text-sm hover:bg-white hover:text-black transition"
             >
-              Winners
+              Media
             </Link>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function EditionDetail() {
 
             <div className="flex gap-2">
               <Link
-                to={from === "winners" ? "/winners" : "/previous-editions"}
+                to={from === "media" ? "/media" : "/previous-editions"}
                 className="rounded-full border border-white/20 px-5 py-2 text-sm hover:bg-white hover:text-black transition"
               >
                 Back
@@ -102,10 +102,10 @@ export default function EditionDetail() {
               <ul className="text-sm text-gray-200 space-y-2">
                 <li>
                   <Link
-                    to="/winners"
+                    to="/media"
                     className="underline text-[#9fd4ff] hover:text-white"
                   >
-                    Winners page
+                    Media page
                   </Link>
                 </li>
                 <li>
@@ -126,11 +126,10 @@ export default function EditionDetail() {
                     key={e.year}
                     to={`/editions/${e.year}`}
                     state={{ from }}
-                    className={`rounded-full border px-3 py-1 text-xs transition ${
-                      e.year === edition.year
+                    className={`rounded-full border px-3 py-1 text-xs transition ${e.year === edition.year
                         ? "border-[#d4af37] text-[#d4af37]"
                         : "border-white/20 text-gray-200 hover:bg-white hover:text-black"
-                    }`}
+                      }`}
                   >
                     {e.year}
                   </Link>

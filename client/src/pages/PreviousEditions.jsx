@@ -49,7 +49,7 @@ export default function PreviousEditions() {
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
-            gap-x-8 gap-y-16
+            gap-x-8 gap-y-14
             px-0 mb-14 animate-fadein
           "
           style={{ justifyItems: "center", alignItems: "stretch" }}
@@ -66,46 +66,43 @@ export default function PreviousEditions() {
               aria-label={`View details for ${e.year} edition`}
               className={`
                 group
-                bg-gradient-to-br from-[#1f1303] to-[#322109]
-                border-[3.5px] border-[#f9d563] hover:border-[#ffd700] transition-all
-                rounded-2xl
-                shadow-[0_10px_35px_rgba(198,163,59,0.32),0_4px_12px_#ffd70048]
+                bg-gradient-to-br from-[#24170b] to-[#322109]
+                border-2 border-[#f9d563] hover:border-[#ffd700] transition-all
+                rounded-xl
+                shadow-[0_8px_32px_rgba(198,163,59,0.18),0_2px_10px_#ffd70035]
                 flex flex-col items-center
                 relative overflow-hidden
-                w-full max-w-[370px] min-w-[260px]
-                py-6 px-6
-                min-h-[560px] h-[560px] max-h-[560px]
+                w-full max-w-[370px] min-w-[240px]
+                py-6 px-5
+                min-h-[540px] h-[540px] max-h-[540px]
                 cursor-pointer
                 focus:outline-none
                 bg-clip-padding
               `}
               style={{
-                background: "linear-gradient(120deg, #23201b 88%, #4d3309 100%)",
+                background: "linear-gradient(120deg, #23180c 85%, #4d3309 100%)",
                 boxShadow:
-                  "0 8px 36px 0 rgba(212,175,55,0.13), 0 2px 16px 0 #f7e7a848",
+                  "0 8px 32px 0 rgba(212,175,55,0.10), 0 2px 10px 0 #fde8b847",
               }}
             >
               {/* Light Glow - reduced opacity and less white */}
-              <span className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-br from-[#ffe18833] via-[#ffd70008] to-transparent opacity-35 group-hover:opacity-60 transition rounded-2xl" />
+              <span className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-br from-[#fde18838] via-[#ffd70008] to-transparent opacity-60 group-hover:opacity-75 transition rounded-xl" />
 
               {/* Top badge */}
-              <span className="absolute top-5 right-5 bg-[#f8e88a] border border-[#ffd70095] text-[#9e832b] font-bold px-3 py-0.5 text-xs rounded-full z-20 shadow">
-                WIN
-              </span>
 
               {/* Chief Guest Section */}
-              <div className="mt-2 mb-4 flex flex-col items-center w-full z-20">
+              <div className="mt-1 mb-3 flex flex-col items-center w-full z-20">
                 <div className="mb-2 w-full flex justify-center">
-                  <span className="bg-[#ffe09a]/70 text-[#a88725] font-extrabold text-xs px-3 py-1 rounded-full border border-[#f9e7b3] shadow whitespace-nowrap">
+                  <span className="bg-[#ffe09a]/80 text-[#a88725] font-extrabold text-xs px-2.5 py-1 rounded-lg border border-[#f9e7b3] shadow whitespace-nowrap">
                     Chief Guest
                   </span>
                 </div>
-                <div className="w-24 h-24 rounded-full border-4 border-[#ffe391d5] bg-[#fff8e3cc] shadow-md overflow-hidden flex items-center justify-center relative">
+                <div className="w-[176px] h-[176px] rounded-md border-[3px] border-[#ffe391d5] bg-[#fff8e3cc] shadow-md overflow-hidden flex items-center justify-center relative">
                   {e.chiefGuest?.photo ? (
                     <img
                       src={e.chiefGuest.photo}
                       alt={e.chiefGuest.name}
-                      className="object-cover w-24 h-24 rounded-full"
+                      className="object-cover w-[176px] h-[176px] rounded-none"
                       loading="lazy"
                       style={{ display: "block" }}
                       onError={event => {
@@ -113,10 +110,10 @@ export default function PreviousEditions() {
                       }}
                     />
                   ) : (
-                    <div className="w-full h-full bg-[#ffe391bb] rounded-full" />
+                    <div className="w-full h-full bg-[#ffe391bb] rounded-md" />
                   )}
                 </div>
-                <span className="text-[1.12rem] font-bold block text-center mt-3 text-[#f8ea9c] leading-tight max-w-[95%] truncate">
+                <span className="text-[1.11rem] font-semibold block text-center mt-2 text-[#ffe9b5] leading-tight max-w-[95%] truncate">
                   {e.chiefGuest?.name || (
                     <span className="text-[#dac572] italic">TBA</span>
                   )}
@@ -127,14 +124,14 @@ export default function PreviousEditions() {
               </div>
 
               {/* Divider */}
-              <div className="w-[72%] mx-auto h-[2px] bg-gradient-to-r from-[#ffe695]/60 via-[#baa13d]/70 to-[#ffd991]/60 opacity-70 rounded-full my-2" />
+              <div className="w-[73%] mx-auto h-[2px] bg-gradient-to-r from-[#ffe695]/60 via-[#baa13d]/70 to-[#ffd991]/60 opacity-80 rounded-full my-2" />
 
               {/* Edition Info */}
-              <div className="w-full flex flex-col items-center z-20 px-0">
-                <span className="text-[#ffe595] font-semibold text-sm text-center mt-0 max-w-full break-words leading-snug">
+              <div className="w-full flex flex-col items-center z-20 px-0 mt-2">
+                <span className="text-[#ffe595] font-semibold text-[0.96rem] text-center mt-0 max-w-full break-words leading-snug">
                   {e.title}
                 </span>
-                <span className="text-[#bdb383] text-xs mt-1 text-center block truncate w-full">
+                <span className="text-[#bdb383] text-[0.85rem] mt-1 text-center block truncate w-full">
                   {e.locations?.join(" · ")}
                 </span>
                 <div className="mt-1 text-[#fdc537] text-base font-bold tracking-wide max-w-full text-center truncate">
@@ -146,13 +143,6 @@ export default function PreviousEditions() {
               </div>
 
               {/* Award (if any) */}
-              {e.winners && Array.isArray(e.winners) && e.winners[0]?.award && (
-                <div className="w-full flex justify-center items-center my-2">
-                  <span className="bg-[#fffef324] border border-[#ffe28e73] px-3 py-1 rounded-full text-xs font-bold text-[#ac9638] shadow whitespace-nowrap max-w-[92%] overflow-hidden text-ellipsis">
-                    {e.winners[0].award}
-                  </span>
-                </div>
-              )}
 
               {/* Spacer */}
               <div className="flex-1" />
@@ -165,8 +155,8 @@ export default function PreviousEditions() {
               </div>
 
               {/* Card border glow and bottom shadow */}
-              <span className="pointer-events-none absolute inset-0 rounded-2xl border-[2.5px] border-[#fffbed12] group-hover:border-[#fff7c055] transition-all duration-300 z-30"></span>
-              <span className="pointer-events-none absolute bottom-0 left-0 w-full h-8 rounded-b-2xl bg-gradient-to-t from-[#fffbd908] to-transparent z-10" />
+              <span className="pointer-events-none absolute inset-0 rounded-xl border-[2px] border-[#fffbed12] group-hover:border-[#fff7c055] transition-all duration-300 z-30"></span>
+              <span className="pointer-events-none absolute bottom-0 left-0 w-full h-7 rounded-b-xl bg-gradient-to-t from-[#fffbd908] to-transparent z-10" />
             </button>
           ))}
         </div>

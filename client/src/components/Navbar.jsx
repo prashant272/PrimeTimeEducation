@@ -129,12 +129,12 @@ export default function Navbar() {
           <header className="fixed top-0 w-full z-50 text-white" ref={headerRef}>
             <div className="bg-transparent h-14">
               <div className="max-w-7xl mx-auto px-6 h-full flex items-center text-sm">
-                <div className="flex items-center gap-3 overflow-hidden">
-                  <div className="w-16 h-10 flex items-center justify-center">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-24 h-10 flex items-center justify-center">
                     <img
                       src="/images/primetimelogo.gif"
                       alt="PrimeTime Logo"
-                      className="h-full w-auto object-contain scale-125"
+                      className="absolute top-[-10px] left-0 h-[100px] w-auto max-w-none object-contain z-50 drop-shadow-md"
                     />
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
@@ -171,7 +171,7 @@ export default function Navbar() {
             </div>
             <nav className="bg-transparent h-12">
               <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-6 text-sm">
-                {menuLinks("white", undefined, headerRef, isUser)}
+                {menuLinks("white", undefined, headerRef, isUser, false)}
               </div>
             </nav>
           </header>
@@ -188,7 +188,7 @@ export default function Navbar() {
                   className="h-7 w-auto object-contain"
                 />
               </div>
-              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser)}</div>
+              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser, false)}</div>
             </div>
           </div>
         )}
@@ -210,18 +210,8 @@ export default function Navbar() {
             />
             <span className="text-[13px] font-semibold whitespace-nowrap text-white">Primetime Research Media</span>
           </div>
-          {/* Welcome & mynominations & logout/login */}
+          {/* Welcome & logout/login */}
           <div className="flex items-center gap-1">
-            {isUser && (
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="border border-[#d4af37] px-2 py-[2px] rounded-full text-[11px] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition"
-                style={{ fontWeight: 600, marginRight: 6 }}
-              >
-                <FaRegClone className="inline-block mr-1 mb-[2px]" />
-                My Nominations
-              </button>
-            )}
             {isUser && (
               <button
                 onClick={handleLoginClick}
@@ -265,7 +255,8 @@ export default function Navbar() {
 /* ================= MENU ================= */
 
 // onClick will be used to close drawer, headerRef for scroll fix on tab switch.
-const menuLinks = (color, onClick, headerRef, isUser) => {
+// Added showDashboard param to control visibility of "My Nominations" link
+const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
   // Will scroll page to just under header if in mobile and not at top
   const createNavHandler = (routeHandler) => (e) => {
     if (onClick) onClick();
@@ -286,9 +277,9 @@ const menuLinks = (color, onClick, headerRef, isUser) => {
       <NavItem to="/judging" icon={<FaGavel />} label="Selection Process" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/terms" icon={<FaFileContract />} label="T&C" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
-      <NavItem to="/winners" icon={<FaTrophy />} label="Winners" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
-      {isUser && (
+      {isUser && showDashboard && (
         <NavItem
           to="/dashboard"
           icon={<FaRegClone />}
@@ -307,12 +298,10 @@ function NavItem({ to, icon, label, color, onClick }) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `flex items-center gap-1 ${
-          isActive
-            ? `font-semibold border-b-2 ${
-                color === "white" ? "border-white" : "border-black"
-              }`
-            : color === "white"
+        `flex items-center gap-1 ${isActive
+          ? `font-semibold border-b-2 ${color === "white" ? "border-white" : "border-black"
+          }`
+          : color === "white"
             ? "opacity-80 hover:opacity-100"
             : "text-gray-700 hover:text-black"
         }`
@@ -358,17 +347,15 @@ function MobileMenuDrawer({
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${
-          open ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${open ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
         aria-hidden={!open}
         onClick={onClose}
       ></div>
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 z-[60] w-4/5 max-w-xs h-full bg-[#17171c] text-white shadow-lg transform transition-transform duration-250 ${
-          open ? "translate-x-0" : "translate-x-full"
-        } flex flex-col`}
+        className={`fixed top-0 right-0 z-[60] w-4/5 max-w-xs h-full bg-[#17171c] text-white shadow-lg transform transition-transform duration-250 ${open ? "translate-x-0" : "translate-x-full"
+          } flex flex-col`}
         style={{ transitionProperty: "transform, opacity" }}
       >
         {/* Drawer header with logo */}
@@ -392,7 +379,8 @@ function MobileMenuDrawer({
         <div className="flex-1 flex flex-col justify-between">
           <nav className="flex flex-col gap-3 mt-6 px-4">
             {/* Give headerRef & isUser to menuLinks for scroll fix and user-related links */}
-            {menuLinks("white", onClose, headerRef, isUser)}
+            {/* Pass true for showDashboard to show My Nominations in mobile drawer */}
+            {menuLinks("white", onClose, headerRef, isUser, true)}
           </nav>
           <div className="mt-6 border-t border-white/10 px-4 py-4 flex flex-col gap-2">
             {user && (

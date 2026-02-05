@@ -212,11 +212,10 @@ export default function AdminDashboard() {
           {filteredNominations.map((n, idx) => (
             <tr
               key={n._id}
-              className={`transition border-t border-[#eaca5f22] h-[72px] ${
-                idx % 2 === 0
-                  ? "bg-gradient-to-r from-[#14100a]/60 to-[#2a271ed9]"
-                  : "bg-gradient-to-r from-[#211c12be] to-[#35341be6]"
-              }`}
+              className={`transition border-t border-[#eaca5f22] h-[72px] ${idx % 2 === 0
+                ? "bg-gradient-to-r from-[#14100a]/60 to-[#2a271ed9]"
+                : "bg-gradient-to-r from-[#211c12be] to-[#35341be6]"
+                }`}
             >
               <td className="px-4 py-4 font-semibold text-[#fee5af]">{n.registrationType}</td>
               <td className="px-4 py-4">{n.category}</td>
@@ -355,15 +354,14 @@ export default function AdminDashboard() {
               n.status === "in_progress"
                 ? "Shortlisted"
                 : STATUS_OPTIONS.find((s) => s.value === n.status)?.label ||
-                  "Nomination Received";
+                "Nomination Received";
             return (
               <tr
                 key={n._id}
-                className={`border-t border-[#eaca5f22] h-[60px] ${
-                  idx % 2 === 0
-                    ? "bg-gradient-to-r from-[#18130a]/60 to-[#352a1eae]"
-                    : "bg-gradient-to-r from-[#242108be] to-[#352a1eda]"
-                }`}
+                className={`border-t border-[#eaca5f22] h-[60px] ${idx % 2 === 0
+                  ? "bg-gradient-to-r from-[#18130a]/60 to-[#352a1eae]"
+                  : "bg-gradient-to-r from-[#242108be] to-[#352a1eda]"
+                  }`}
               >
                 <td className="px-4 py-3">
                   <div className="font-semibold text-lg text-[#eed99b]">{n.nomineeName}</div>
@@ -431,11 +429,10 @@ export default function AdminDashboard() {
             {rows.map((row, idx) => (
               <tr
                 key={row.email}
-                className={`border-t border-[#eaca5f22] h-[52px] ${
-                  idx % 2 === 0
-                    ? "bg-gradient-to-r from-[#202012]/60 to-[#392b1eae]"
-                    : "bg-gradient-to-r from-[#23201abe] to-[#463a1eda]"
-                }`}
+                className={`border-t border-[#eaca5f22] h-[52px] ${idx % 2 === 0
+                  ? "bg-gradient-to-r from-[#202012]/60 to-[#392b1eae]"
+                  : "bg-gradient-to-r from-[#23201abe] to-[#463a1eda]"
+                  }`}
               >
                 <td className="px-4 py-3 font-semibold text-[#fee5af]">{row.email}</td>
                 <td className="px-4 py-3">{row.count}</td>
@@ -461,15 +458,14 @@ export default function AdminDashboard() {
         <ShieldCheck className="inline text-[#ffe36d]" size={22} /> Admin Section
       </h2>
       <p className="mb-2 text-[#e9e3be]">
-        Ye section abhi primarily nominations ke status, payment aur remarks manage karne ke liye hai.<br />
-        Future me yahan dedicated admin listing / permissions bhi add ki ja sakti hai.
+       future content 
       </p>
       <ul className="list-disc list-inside space-y-1 text-[13px] text-[#c4b889]">
         <li>
-          <span className="font-semibold text-[#e1c36a]">Nominations</span> tab se aap full data edit kar sakte hain (including amount & assigned category).
+          <span className="font-semibold text-[#e1c36a]">Nominations</span> 
         </li>
         <li>
-          <span className="font-semibold text-[#e1c36a]">Status</span> tab se aap high level pipeline dekh sakte hain – user ko "Shortlisted" tab dikh raha hai jab status "In Progress" hota hai.
+          <span className="font-semibold text-[#e1c36a]">Status</span> 
         </li>
       </ul>
     </div>
@@ -477,107 +473,87 @@ export default function AdminDashboard() {
 
   /* ================== UI ================== */
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#18130d] via-[#241b0a] to-[#11161c] text-white">
-      {/* Top golden bar */}
+    <section className="min-h-screen bg-gradient-to-br from-[#18130d] via-[#241b0a] to-[#11161c] text-white flex flex-col">
+      {/* Top golden bar - optional, keeping as accent */}
       <div
-        className="h-2 md:h-2.5 shadow-lg"
+        className="h-2 shadow-lg z-30 relative"
         style={{
           background: goldGrad,
           boxShadow: "0 3px 24px 6px #bb970f44, 0 1px 0 0 #d3b94f55",
-          borderBottomLeftRadius: "22px",
-          borderBottomRightRadius: "22px",
         }}
       />
 
-      <div className="max-w-7xl w-full mx-auto px-4 flex gap-6 pt-8 md:gap-8">
-        {/* Sidebar */}
-        <aside className="w-64 shrink-0 bg-gradient-to-br from-[#262002]/80 via-[#30260b]/90 to-[#16140b]/80 border border-[#edd14870] rounded-2xl p-6 space-y-6 shadow-2xl shadow-[#d4af3710] sticky top-[88px] h-fit z-20 backdrop-blur-md">
-          <div className="flex items-center gap-2 mb-5">
-            <ShieldCheck className="text-[#fbe376]" size={24} />
-            <span className="font-bold text-lg tracking-wider gradient-text bg-gradient-to-r from-[#d2c44c] to-[#eddb92] bg-clip-text text-transparent">Admin Panel</span>
-          </div>
-          <nav className="space-y-3 text-base font-medium">
-            <button
-              onClick={() => setActiveTab("nominations")}
-              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
-                activeTab === "nominations"
-                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
-                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
-              }`}
-            >
-              🏆 Nominations
-            </button>
-            <button
-              onClick={() => setActiveTab("status")}
-              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
-                activeTab === "status"
-                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
-                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
-              }`}
-            >
-              💸 Status & Payment
-            </button>
-            <button
-              onClick={() => setActiveTab("users")}
-              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
-                activeTab === "users"
-                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
-                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
-              }`}
-            >
-              👤 Users
-            </button>
-            <button
-              onClick={() => setActiveTab("admins")}
-              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
-                activeTab === "admins"
-                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
-                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
-              }`}
-            >
-              🛡️ Admin Section
-            </button>
-          </nav>
+      <div className="flex flex-1">
+        {/* Sidebar - Fixed to the left side */}
+        <aside className="w-72 shrink-0 bg-[#16120b] border-r border-[#edd14830] shadow-2xl z-20 sticky top-0 h-screen overflow-y-auto custom-scrollbar">
+          <div className="p-6 space-y-8">
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="text-[#fbe376]" size={28} />
+              <span className="font-bold text-xl tracking-wider gradient-text bg-gradient-to-r from-[#d2c44c] to-[#eddb92] bg-clip-text text-transparent">
+                Admin Panel
+              </span>
+            </div>
 
-          <div className="mt-7 text-[13px] text-[#e8e2c7] space-y-1 pl-1">
-            <div className="flex justify-between">
-              <span>Total</span>
-              <span className="text-[#dbbe4f] font-bold">{paymentSummary.total}</span>
+            <div className="text-[13px] text-[#e8e2c7] space-y-2 bg-[#262002]/40 p-4 rounded-xl border border-[#edd14820]">
+              <div className="flex justify-between">
+                <span>Total Nominations</span>
+                <span className="text-[#dbbe4f] font-bold">
+                  {paymentSummary.total}
+                </span>
+              </div>
+              <div className="h-px bg-[#edd14830] my-1" />
+              <div className="flex justify-between opacity-80">
+                <span>Completed</span>
+                <span>{paymentSummary.paid}</span>
+              </div>
+              <div className="flex justify-between opacity-80">
+                <span>Pending</span>
+                <span>{paymentSummary.not_paid}</span>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span>Not paid</span>
-              <span>{paymentSummary.not_paid}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Initial paid</span>
-              <span>{paymentSummary.initial_paid}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Paid</span>
-              <span>{paymentSummary.paid}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Not interested</span>
-              <span>{paymentSummary.not_interested}</span>
-            </div>
+
+            <nav className="space-y-2 font-medium">
+              {[
+                { id: "nominations", label: "Nominations", icon: "🏆" },
+                { id: "status", label: "Status & Payment", icon: "💸" },
+                { id: "users", label: "Registered Users", icon: "👤" },
+                { id: "admins", label: "Admin Settings", icon: "🛡️" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-200 font-semibold tracking-wide flex items-center gap-3 ${activeTab === tab.id
+                    ? "bg-gradient-to-r from-[#ffe9a1] to-[#d4af37] text-black shadow-lg translate-x-1"
+                    : "text-[#fbe6b8] hover:bg-[#ffffff0d] hover:text-[#ffe090]"
+                    }`}
+                >
+                  <span className="text-xl">{tab.icon}</span>
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
           </div>
         </aside>
 
-        {/* Main content */}
-        <div className="flex-1 min-w-0 mt-6 pb-10">
-          <h1 className="text-4xl font-extrabold mb-1 bg-gradient-to-r from-[#ffe78c] via-[#c09a21] to-[#fae36e] bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-            Admin Dashboard
-          </h1>
-          <p className="text-base text-[#eddfae] mb-6 font-medium">
-            Manage nominations, user status &amp; payment pipeline with premium style
-          </p>
+        {/* Main content - Scrollable */}
+        <div className="flex-1 min-w-0 bg-[#0f0c08]/50 p-6 md:p-10">
+          <header className="mb-10">
+            <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-[#ffe78c] via-[#c09a21] to-[#fae36e] bg-clip-text text-transparent drop-shadow-sm tracking-tight">
+              Dashboard Overview
+            </h1>
+            <p className="text-[#eddfae] text-lg font-medium opacity-80">
+              Manage nominations and user pipeline
+            </p>
+          </header>
 
-          <div className="flex flex-wrap items-center gap-3 mb-6 bg-gradient-to-l from-[#231d11]/30 to-transparent px-3 py-2 rounded-xl shadow">
-            <label className="text-md text-[#c7ba7e] font-semibold">Filter by Status</label>
+          <div className="flex flex-wrap items-center gap-4 mb-8 bg-[#1a160a]/40 p-4 rounded-2xl border border-[#ffffff0d] backdrop-blur-md">
+            <span className="text-[#c7ba7e] font-semibold text-sm uppercase tracking-wider">
+              Filter Status:
+            </span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-gradient-to-br from-[#1a160a]/60 via-[#272316]/70 to-[#fffbe61a] border border-[#edd14890] rounded px-3 py-2 text-[#fbe376] font-medium text-base backdrop-blur-sm"
+              className="bg-[#272316] border border-[#edd14850] rounded-lg px-4 py-2 text-[#fbe376] text-sm focus:outline-none focus:ring-2 focus:ring-[#d4af37] transition shadow-inner"
             >
               {STATUS_FILTER_OPTIONS.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -585,33 +561,23 @@ export default function AdminDashboard() {
                 </option>
               ))}
             </select>
-            <span className="text-xs text-[#ffd975] font-semibold">
-              ({filteredNominations.length})
+            <span className="text-xs text-[#ffd975] font-mono bg-[#d4af37]/10 px-3 py-1 rounded-full border border-[#d4af37]/20">
+              {filteredNominations.length} records
             </span>
-            {error && <span className="ml-4 text-sm text-red-400 italic">Error: {error}</span>}
+            {error && (
+              <span className="ml-auto text-sm text-red-400 bg-red-900/20 px-3 py-1 rounded border border-red-500/30">
+                Error: {error}
+              </span>
+            )}
             {loading && (
-              <span className="ml-4 text-sm flex items-center gap-1 text-yellow-300">
-                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="#C7B362"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="#f8df8e"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  />
-                </svg>
-                Loading...
+              <span className="ml-auto text-sm flex items-center gap-2 text-yellow-300">
+                <div className="w-2 h-2 rounded-full bg-yellow-400 animate-ping" />
+                Loading data...
               </span>
             )}
           </div>
 
-          <div className="w-full min-w-0">
+          <div className="w-full">
             {activeTab === "nominations" && renderNominationsTable()}
             {activeTab === "status" && renderStatusTab()}
             {activeTab === "users" && renderUsersTab()}
@@ -758,9 +724,8 @@ export default function AdminDashboard() {
                 <label className="text-xs text-[#f6e589] font-semibold">Address</label>
                 <input
                   className={inputClass}
-                  value={`${editForm.street || ""}, ${editForm.city || ""}, ${
-                    editForm.state || ""
-                  } ${editForm.zip || ""}`}
+                  value={`${editForm.street || ""}, ${editForm.city || ""}, ${editForm.state || ""
+                    } ${editForm.zip || ""}`}
                   readOnly
                   placeholder="Full address shown here"
                 />
