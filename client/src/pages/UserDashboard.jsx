@@ -6,6 +6,7 @@ import { Crown, UserCircle } from "lucide-react";
 const STATUS_LABELS = {
   nominated: "Nominated",
   evaluation: "Under Evaluation",
+  in_progress: "Shortlisted",
   selected: "Selected",
   rejected: "Rejected",
 };
@@ -16,6 +17,8 @@ const STATUS_COLORS = {
     "bg-gradient-to-tr from-yellow-900/70 via-yellow-400/20 to-yellow-800/10 text-yellow-100 border-yellow-400/50",
   selected:
     "bg-gradient-to-tr from-emerald-800/60 via-emerald-500/20 to-emerald-700/10 text-emerald-100 border-emerald-400/50",
+  in_progress:
+    "bg-gradient-to-tr from-lime-900/70 via-lime-400/20 to-lime-800/10 text-lime-100 border-lime-400/50",
   rejected:
     "bg-gradient-to-tr from-red-900/60 via-red-500/20 to-red-800/10 text-red-100 border-red-400/50",
 };

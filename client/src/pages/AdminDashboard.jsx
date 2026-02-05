@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   fetchAdminNominations,
   updateNominationStatus,
@@ -6,16 +6,17 @@ import {
   deleteNomination,
 } from "../services/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { ShieldCheck, Edit2, Trash2, X } from "lucide-react";
+import { ShieldCheck, Edit2, Trash2 } from "lucide-react";
 
 /* ------------------ Constants ------------------ */
 const goldGrad =
-  "linear-gradient(90deg,#dbc267 0%,#d2ad36 40%,#fee19a 70%,#bc9830 100%)";
+  "linear-gradient(90deg,#e9d781 0%,#dac24a 29.69%,#fee19a 70%,#bc9830 100%)";
 
 const STATUS_OPTIONS = [
-  { value: "nominated", label: "Nominated" },
+  { value: "nominated", label: "Nomination Received" },
   { value: "evaluation", label: "Under Evaluation" },
-  { value: "selected", label: "Selected" },
+  { value: "in_progress", label: "In Progress (Shortlisted for user)" },
+  { value: "selected", label: "Selected (Winner)" },
   { value: "rejected", label: "Rejected" },
 ];
 
@@ -26,25 +27,40 @@ const STATUS_FILTER_OPTIONS = [
 
 /* ------------------ Status Badge ------------------ */
 function StatusBadge({ status }) {
-  const label =
-    STATUS_OPTIONS.find((s) => s.value === status)?.label || "Nominated";
+  const normalized = status || "nominated";
+  const adminLabel =
+    STATUS_OPTIONS.find((s) => s.value === normalized)?.label ||
+    "Nomination Received";
 
   const colorClasses = {
-    nominated: "bg-[#232e45] text-blue-100 border-blue-400/60",
-    evaluation: "bg-[#7b6543] text-yellow-200 border-yellow-400/60",
-    selected: "bg-[#194f3c] text-emerald-200 border-emerald-400/60",
-    rejected: "bg-[#512a23] text-red-200 border-red-400/60",
-  }[status || "nominated"];
+    nominated:
+      "bg-gradient-to-r from-[#393d63] to-[#5263a6] text-blue-50 border-blue-400/60 shadow shadow-blue-800/40",
+    evaluation:
+      "bg-gradient-to-r from-[#a38e65] to-[#ffe69d] text-yellow-800 border-yellow-400/60 shadow shadow-yellow-900/20",
+    in_progress:
+      "bg-gradient-to-r from-[#4d7330] to-[#bafa6b] text-lime-900 border-lime-400/60 shadow shadow-lime-800/20",
+    selected:
+      "bg-gradient-to-r from-[#155449] to-[#4eecbe] text-emerald-50 border-emerald-400/70 shadow shadow-emerald-800/20",
+    rejected:
+      "bg-gradient-to-r from-[#512a23] to-[#a04534] text-red-50 border-red-400/60 shadow shadow-red-800/30",
+  }[normalized];
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${colorClasses}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.3 text-[11px] font-semibold uppercase tracking-wide backdrop-blur-sm ${colorClasses}`}
     >
       <span className="w-1.5 h-1.5 rounded-full bg-current" />
-      {label}
+      {adminLabel}
     </span>
   );
 }
+
+const PAYMENT_STATUS_OPTIONS = [
+  { value: "not_paid", label: "Not Paid" },
+  { value: "initial_paid", label: "Initial Payment" },
+  { value: "paid", label: "Paid (Completed)" },
+  { value: "not_interested", label: "Not Interested" },
+];
 
 /* ================== MAIN COMPONENT ================== */
 export default function AdminDashboard() {
@@ -61,6 +77,8 @@ export default function AdminDashboard() {
   const [editingNomination, setEditingNomination] = useState(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
   const [editForm, setEditForm] = useState({});
+
+  const [activeTab, setActiveTab] = useState("nominations");
 
   /* ------------------ Load Data ------------------ */
   useEffect(() => {
@@ -89,6 +107,21 @@ export default function AdminDashboard() {
       );
     }
   }, [nominations, statusFilter]);
+
+  const paymentSummary = useMemo(() => {
+    const summary = {
+      total: nominations.length,
+      not_paid: 0,
+      initial_paid: 0,
+      paid: 0,
+      not_interested: 0,
+    };
+    nominations.forEach((n) => {
+      const key = n.paymentStatus || "not_paid";
+      if (summary[key] != null) summary[key] += 1;
+    });
+    return summary;
+  }, [nominations]);
 
   /* ------------------ Status Change ------------------ */
   const handleStatusChange = async (id, status) => {
@@ -147,174 +180,630 @@ export default function AdminDashboard() {
   };
 
   const inputClass =
-    "w-full rounded-md bg-black/40 border border-white/20 px-3 py-2 text-sm text-white";
+    "w-full rounded-lg bg-gradient-to-br from-[#23251c]/60 to-[#141015]/80 border border-[#d4af3790]/50 px-3 py-2 text-sm text-white shadow focus:(outline-none ring-2 ring-[#d4af37]/60) placeholder:text-[#d1c894]/60 font-semibold transition";
+
+  /* ================== HELPERS ================== */
+  const renderNominationsTable = () => (
+    <div className="overflow-x-auto max-h-[90vh] border border-[#eaca5f80] rounded-2xl bg-gradient-to-tr from-[#23201aee] via-[#2b2313cf] to-[#10161aee] shadow-xl shadow-[#d4af3722] backdrop-blur relative">
+      <table className="min-w-[1600px] w-full text-xs border-separate border-spacing-0">
+        <thead>
+          <tr className="bg-gradient-to-r from-[#231e09] to-[#2e2612] text-[#f2eab6] border-0">
+            <th className="px-4 py-3 text-left rounded-tl-2xl">Reg Type</th>
+            <th className="px-4 py-3 text-left">Category</th>
+            <th className="px-4 py-3 text-left">Assigned Category</th>
+            <th className="px-4 py-3 text-left">Nominee</th>
+            <th className="px-4 py-3 text-left">Status</th>
+            <th className="px-4 py-3 text-left">Payment</th>
+            <th className="px-4 py-3 text-left">Amount</th>
+            <th className="px-4 py-3 text-left">Org Head</th>
+            <th className="px-4 py-3 text-left">Contact</th>
+            <th className="px-4 py-3 text-left">Business</th>
+            <th className="px-4 py-3 text-left">Address</th>
+            <th className="px-4 py-3 text-left">Remarks</th>
+            <th className="px-4 py-3 text-left">Admin Remark</th>
+            <th className="px-4 py-3 text-left">Submitted By</th>
+            <th className="px-4 py-3 text-left">Date</th>
+            <th className="px-4 py-3 sticky right-0 bg-[#18130e] text-[#fae36f] z-20 w-[110px] rounded-tr-2xl shadow-xl">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredNominations.map((n, idx) => (
+            <tr
+              key={n._id}
+              className={`transition border-t border-[#eaca5f22] h-[72px] ${
+                idx % 2 === 0
+                  ? "bg-gradient-to-r from-[#14100a]/60 to-[#2a271ed9]"
+                  : "bg-gradient-to-r from-[#211c12be] to-[#35341be6]"
+              }`}
+            >
+              <td className="px-4 py-4 font-semibold text-[#fee5af]">{n.registrationType}</td>
+              <td className="px-4 py-4">{n.category}</td>
+              <td className="px-4 py-4">
+                {n.assignedCategory ? (
+                  <span className="font-semibold text-yellow-300">
+                    {n.assignedCategory}
+                  </span>
+                ) : (
+                  <span className="text-gray-500">—</span>
+                )}
+              </td>
+              <td className="px-4 py-4">
+                <div className="font-semibold text-lg text-[#d4af37]">{n.nomineeName}</div>
+                <div className="text-gray-300 text-[11px] font-mono">
+                  {n.organization}
+                </div>
+              </td>
+              <td className="px-4 py-4">
+                <StatusBadge status={n.status} />
+                <select
+                  value={n.status || "nominated"}
+                  onChange={(e) => handleStatusChange(n._id, e.target.value)}
+                  className="mt-1 w-full rounded bg-[#282313]/60 border border-[#fae36f80] px-1 py-1 text-[11px] text-[#d4af37]"
+                >
+                  {STATUS_OPTIONS.map((s) => (
+                    <option key={s.value} value={s.value}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </td>
+              <td className="px-4 py-4">
+                <select
+                  value={n.paymentStatus || "not_paid"}
+                  onChange={(e) =>
+                    setNominations((prev) =>
+                      prev.map((row) =>
+                        row._id === n._id
+                          ? { ...row, paymentStatus: e.target.value }
+                          : row
+                      )
+                    )
+                  }
+                  onBlur={() =>
+                    updateNomination(n._id, { paymentStatus: n.paymentStatus }, token)
+                  }
+                  className="w-full rounded bg-[#282313]/60 border border-[#fae36f80] px-1 py-1 text-[11px] text-[#d6ae37]"
+                >
+                  {PAYMENT_STATUS_OPTIONS.map((s) => (
+                    <option key={s.value} value={s.value}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </td>
+              <td className="px-4 py-4 text-[11px] text-[#e3cd96] font-semibold">
+                {n.amount || <span className="text-gray-400 italic">—</span>}
+              </td>
+              <td className="px-4 py-4 text-[11px]">
+                {n.orgHeadName}
+                <br />
+                <span className="text-gray-400">{n.orgHeadEmail}</span>
+              </td>
+              <td className="px-4 py-4 text-[11px]">
+                {n.contactName}
+                <br />
+                <span className="text-gray-400">{n.contactEmail}</span>
+              </td>
+              <td className="px-4 py-4 text-[11px]">
+                <span className="font-semibold">Website:</span>{" "}
+                {n.website || "-"}
+                <br />
+                <span className="font-semibold">Turnover:</span>{" "}
+                {n.turnover || "-"}
+              </td>
+              <td className="px-4 py-4 text-[11px]">
+                {n.city}, {n.state}
+              </td>
+              <td className="px-4 py-4 max-w-xs">
+                <div className="line-clamp-3">{n.remarks}</div>
+              </td>
+              <td className="px-4 py-4 max-w-xs text-[11px]">
+                <div className="line-clamp-3">
+                  {n.adminRemark || <span className="text-gray-500">—</span>}
+                </div>
+              </td>
+              <td className="px-4 py-4 text-[11px]">
+                {n.user?.email}
+              </td>
+              <td className="px-4 py-4 text-[11px] whitespace-nowrap">
+                {new Date(n.createdAt).toLocaleString()}
+              </td>
+              <td className="px-4 py-4 sticky right-0 bg-gradient-to-l from-[#18130e] to-[#1f1810ac] z-20 shadow-lg rounded-tr-xl rounded-br-xl">
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(n)}
+                    className="w-8 h-8 flex items-center justify-center border border-[#d4af37]/70 bg-[#2b2512]/70 text-[#d4af37] rounded-full shadow transition hover:bg-gradient-to-tr hover:from-[#fbe399] hover:to-[#ceb655] hover:text-[#221d10]"
+                  >
+                    <Edit2 size={16} />
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirmId(n._id)}
+                    className="w-8 h-8 flex items-center justify-center border border-red-400/50 bg-[#231010]/60 text-red-400 rounded-full shadow transition hover:bg-gradient-to-tr hover:from-[#fbad99] hover:to-[#ce5a3a] hover:text-[#321010]"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="absolute pointer-events-none left-0 top-0 h-full w-8 z-30 bg-gradient-to-r from-[#13110a] via-[#18130e00] to-transparent" />
+      <div className="absolute pointer-events-none right-0 top-0 h-full w-8 z-30 bg-gradient-to-l from-[#13110a] via-[#18130e00] to-transparent" />
+    </div>
+  );
+
+  const renderStatusTab = () => (
+    <div className="overflow-x-auto max-h-[90vh] border border-[#eaca5f80] rounded-2xl bg-gradient-to-tr from-[#2b2313cf] via-[#23201aee] to-[#10161aee] shadow-xl shadow-[#d4af3722] backdrop-blur relative">
+      <table className="min-w-[1100px] w-full text-xs border-separate border-spacing-0">
+        <thead>
+          <tr className="bg-gradient-to-r from-[#231e09] to-[#2e2612] text-[#f2eab6]">
+            <th className="px-4 py-3 text-left rounded-tl-2xl">Name</th>
+            <th className="px-4 py-3 text-left">Mobile</th>
+            <th className="px-4 py-3 text-left">Email</th>
+            <th className="px-4 py-3 text-left">Nomination Status (User View)</th>
+            <th className="px-4 py-3 text-left">Payment Status</th>
+            <th className="px-4 py-3 text-left">Amount</th>
+            <th className="px-4 py-3 text-left rounded-tr-2xl">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+          {nominations.map((n, idx) => {
+            const userLabel =
+              n.status === "in_progress"
+                ? "Shortlisted"
+                : STATUS_OPTIONS.find((s) => s.value === n.status)?.label ||
+                  "Nomination Received";
+            return (
+              <tr
+                key={n._id}
+                className={`border-t border-[#eaca5f22] h-[60px] ${
+                  idx % 2 === 0
+                    ? "bg-gradient-to-r from-[#18130a]/60 to-[#352a1eae]"
+                    : "bg-gradient-to-r from-[#242108be] to-[#352a1eda]"
+                }`}
+              >
+                <td className="px-4 py-3">
+                  <div className="font-semibold text-lg text-[#eed99b]">{n.nomineeName}</div>
+                </td>
+                <td className="px-4 py-3 text-[11px]">
+                  {n.contactMobile || n.orgHeadMobile || "—"}
+                </td>
+                <td className="px-4 py-3 text-[11px]">
+                  {n.user?.email || n.contactEmail || "—"}
+                </td>
+                <td className="px-4 py-3 text-[11px]">{userLabel}</td>
+                <td className="px-4 py-3 text-[11px]">
+                  {PAYMENT_STATUS_OPTIONS.find(
+                    (s) => s.value === (n.paymentStatus || "not_paid")
+                  )?.label || "Not Paid"}
+                </td>
+                <td className="px-4 py-3 text-[11px]">
+                  {n.amount || "—"}
+                </td>
+                <td className="px-4 py-3 text-[11px]">
+                  {n.adminRemark || "—"}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="absolute pointer-events-none left-0 top-0 h-full w-8 z-30 bg-gradient-to-r from-[#13110a] via-[#18130e00] to-transparent" />
+      <div className="absolute pointer-events-none right-0 top-0 h-full w-8 z-30 bg-gradient-to-l from-[#13110a] via-[#18130e00] to-transparent" />
+    </div>
+  );
+
+  const renderUsersTab = () => {
+    const byUser = new Map();
+    nominations.forEach((n) => {
+      if (!n.user?.email) return;
+      const key = n.user.email;
+      const existing = byUser.get(key) || {
+        email: n.user.email,
+        count: 0,
+        latestStatus: n.status,
+        latestAt: n.createdAt,
+      };
+      existing.count += 1;
+      if (!existing.latestAt || new Date(n.createdAt) > new Date(existing.latestAt)) {
+        existing.latestAt = n.createdAt;
+        existing.latestStatus = n.status;
+      }
+      byUser.set(key, existing);
+    });
+    const rows = Array.from(byUser.values());
+
+    return (
+      <div className="overflow-x-auto max-h-[90vh] border border-[#eaca5f80] rounded-2xl bg-gradient-to-tr from-[#23201aee] via-[#2b2313cf] to-[#10161aee] shadow-xl shadow-[#d4af3722] backdrop-blur relative">
+        <table className="min-w-[800px] w-full text-xs border-separate border-spacing-0">
+          <thead>
+            <tr className="bg-gradient-to-r from-[#231e09] to-[#2e2612] text-[#f2eab6]">
+              <th className="px-4 py-3 text-left rounded-tl-2xl">Email</th>
+              <th className="px-4 py-3 text-left">Total Nominations</th>
+              <th className="px-4 py-3 text-left">Latest Status</th>
+              <th className="px-4 py-3 text-left rounded-tr-2xl">Last Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, idx) => (
+              <tr
+                key={row.email}
+                className={`border-t border-[#eaca5f22] h-[52px] ${
+                  idx % 2 === 0
+                    ? "bg-gradient-to-r from-[#202012]/60 to-[#392b1eae]"
+                    : "bg-gradient-to-r from-[#23201abe] to-[#463a1eda]"
+                }`}
+              >
+                <td className="px-4 py-3 font-semibold text-[#fee5af]">{row.email}</td>
+                <td className="px-4 py-3">{row.count}</td>
+                <td className="px-4 py-3">
+                  <StatusBadge status={row.latestStatus} />
+                </td>
+                <td className="px-4 py-3 text-[11px]">
+                  {row.latestAt ? new Date(row.latestAt).toLocaleString() : "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="absolute pointer-events-none left-0 top-0 h-full w-8 z-30 bg-gradient-to-r from-[#13110a] via-[#18130e00] to-transparent" />
+        <div className="absolute pointer-events-none right-0 top-0 h-full w-8 z-30 bg-gradient-to-l from-[#13110a] via-[#18130e00] to-transparent" />
+      </div>
+    );
+  };
+
+  const renderAdminsTab = () => (
+    <div className="border border-[#eaca5f80] rounded-2xl bg-gradient-to-tr from-[#23201aee] to-[#18130e] p-8 text-md text-[#e9e5ca] shadow-xl shadow-[#d4af3722] backdrop-blur-[3px]">
+      <h2 className="text-2xl font-semibold mb-3 text-[#ffe9a1] flex items-center gap-2">
+        <ShieldCheck className="inline text-[#ffe36d]" size={22} /> Admin Section
+      </h2>
+      <p className="mb-2 text-[#e9e3be]">
+        Ye section abhi primarily nominations ke status, payment aur remarks manage karne ke liye hai.<br />
+        Future me yahan dedicated admin listing / permissions bhi add ki ja sakti hai.
+      </p>
+      <ul className="list-disc list-inside space-y-1 text-[13px] text-[#c4b889]">
+        <li>
+          <span className="font-semibold text-[#e1c36a]">Nominations</span> tab se aap full data edit kar sakte hain (including amount & assigned category).
+        </li>
+        <li>
+          <span className="font-semibold text-[#e1c36a]">Status</span> tab se aap high level pipeline dekh sakte hain – user ko "Shortlisted" tab dikh raha hai jab status "In Progress" hota hai.
+        </li>
+      </ul>
+    </div>
+  );
 
   /* ================== UI ================== */
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#18130d] via-[#392801] to-[#11161c] text-white">
-      {/* Gold bar */}
+    <section className="min-h-screen bg-gradient-to-br from-[#18130d] via-[#241b0a] to-[#11161c] text-white">
+      {/* Top golden bar */}
       <div
-        className="h-1.5"
-        style={{ background: goldGrad, boxShadow: "0 4px 18px #bb970f60" }}
+        className="h-2 md:h-2.5 shadow-lg"
+        style={{
+          background: goldGrad,
+          boxShadow: "0 3px 24px 6px #bb970f44, 0 1px 0 0 #d3b94f55",
+          borderBottomLeftRadius: "22px",
+          borderBottomRightRadius: "22px",
+        }}
       />
 
-      <div className="max-w-7xl mx-auto p-4">
-        <h1 className="text-3xl font-semibold mb-1">Nominations Dashboard</h1>
-        <p className="text-sm text-gray-300 mb-4">
-          Manage submissions and evaluation status
-        </p>
+      <div className="max-w-7xl w-full mx-auto px-4 flex gap-6 pt-8 md:gap-8">
+        {/* Sidebar */}
+        <aside className="w-64 shrink-0 bg-gradient-to-br from-[#262002]/80 via-[#30260b]/90 to-[#16140b]/80 border border-[#edd14870] rounded-2xl p-6 space-y-6 shadow-2xl shadow-[#d4af3710] sticky top-[88px] h-fit z-20 backdrop-blur-md">
+          <div className="flex items-center gap-2 mb-5">
+            <ShieldCheck className="text-[#fbe376]" size={24} />
+            <span className="font-bold text-lg tracking-wider gradient-text bg-gradient-to-r from-[#d2c44c] to-[#eddb92] bg-clip-text text-transparent">Admin Panel</span>
+          </div>
+          <nav className="space-y-3 text-base font-medium">
+            <button
+              onClick={() => setActiveTab("nominations")}
+              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
+                activeTab === "nominations"
+                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
+                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
+              }`}
+            >
+              🏆 Nominations
+            </button>
+            <button
+              onClick={() => setActiveTab("status")}
+              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
+                activeTab === "status"
+                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
+                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
+              }`}
+            >
+              💸 Status & Payment
+            </button>
+            <button
+              onClick={() => setActiveTab("users")}
+              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
+                activeTab === "users"
+                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
+                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
+              }`}
+            >
+              👤 Users
+            </button>
+            <button
+              onClick={() => setActiveTab("admins")}
+              className={`w-full text-left px-4 py-2.5 rounded-md transition font-semibold tracking-wide ${
+                activeTab === "admins"
+                  ? "bg-gradient-to-br from-[#ffe9a1] to-[#d4af37] text-black shadow-md"
+                  : "bg-gradient-to-r from-[#1f160b80] to-[#1c1a1460] hover:from-[#47402c60] hover:to-[#23210f60] text-[#fbe6b8] hover:text-[#ffe090]"
+              }`}
+            >
+              🛡️ Admin Section
+            </button>
+          </nav>
 
-        {/* Filter */}
-        <div className="flex items-center gap-3 mb-4">
-          <label className="text-sm">Filter by Status</label>
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-black/40 border border-white/20 px-3 py-2 rounded"
-          >
-            {STATUS_FILTER_OPTIONS.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-          <span className="text-xs text-gray-400">
-            ({filteredNominations.length})
-          </span>
-        </div>
+          <div className="mt-7 text-[13px] text-[#e8e2c7] space-y-1 pl-1">
+            <div className="flex justify-between">
+              <span>Total</span>
+              <span className="text-[#dbbe4f] font-bold">{paymentSummary.total}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Not paid</span>
+              <span>{paymentSummary.not_paid}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Initial paid</span>
+              <span>{paymentSummary.initial_paid}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Paid</span>
+              <span>{paymentSummary.paid}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Not interested</span>
+              <span>{paymentSummary.not_interested}</span>
+            </div>
+          </div>
+        </aside>
 
-        {/* Table */}
-        <div className="overflow-x-auto max-h-[90vh] border border-white/10 rounded-xl bg-black/40">
-          <table className="min-w-[1400px] w-full text-xs">
-            <thead className="bg-white/5 sticky top-0 z-10">
-              <tr>
-                <th className="px-3 py-3 text-left">Reg Type</th>
-                <th className="px-3 py-3 text-left">Category</th>
-                <th className="px-3 py-3 text-left">Nominee</th>
-                <th className="px-3 py-3 text-left">Status</th>
-                <th className="px-3 py-3 text-left">Org Head</th>
-                <th className="px-3 py-3 text-left">Contact</th>
-                <th className="px-3 py-3 text-left">Business</th>
-                <th className="px-3 py-3 text-left">Address</th>
-                <th className="px-3 py-3 text-left">Remarks</th>
-                <th className="px-3 py-3 text-left">Submitted By</th>
-                <th className="px-3 py-3 text-left">Date</th>
+        {/* Main content */}
+        <div className="flex-1 min-w-0 mt-6 pb-10">
+          <h1 className="text-4xl font-extrabold mb-1 bg-gradient-to-r from-[#ffe78c] via-[#c09a21] to-[#fae36e] bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+            Admin Dashboard
+          </h1>
+          <p className="text-base text-[#eddfae] mb-6 font-medium">
+            Manage nominations, user status &amp; payment pipeline with premium style
+          </p>
 
-                {/* ✅ FIXED ACTIONS HEADER */}
-                <th className="px-3 py-3 sticky right-0 bg-[#14100a] text-[#d4af37] z-20 w-[110px]">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredNominations.map((n) => (
-                <tr key={n._id} className="border-t border-white/10 h-[72px]">
-                  <td className="px-3 py-4">{n.registrationType}</td>
-                  <td className="px-3 py-4">{n.category}</td>
-                  <td className="px-3 py-4">
-                    <div className="font-semibold">{n.nomineeName}</div>
-                    <div className="text-gray-400 text-[11px]">
-                      {n.organization}
-                    </div>
-                  </td>
-
-                  <td className="px-3 py-4">
-                    <StatusBadge status={n.status} />
-                    <select
-                      value={n.status || "nominated"}
-                      onChange={(e) =>
-                        handleStatusChange(n._id, e.target.value)
-                      }
-                      className="mt-1 w-full bg-black/40 border border-white/20 text-[10px]"
-                    >
-                      {STATUS_OPTIONS.map((s) => (
-                        <option key={s.value} value={s.value}>
-                          {s.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    {n.orgHeadName}
-                    <br />
-                    {n.orgHeadEmail}
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    {n.contactName}
-                    <br />
-                    {n.contactEmail}
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    Website: {n.website || "-"}
-                    <br />
-                    Turnover: {n.turnover || "-"}
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    {n.city}, {n.state}
-                  </td>
-
-                  <td className="px-3 py-4 max-w-xs">
-                    <div className="line-clamp-3">{n.remarks}</div>
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    {n.user?.email}
-                  </td>
-
-                  <td className="px-3 py-4 text-[11px]">
-                    {new Date(n.createdAt).toLocaleString()}
-                  </td>
-
-                  {/* ✅ FIXED ACTIONS CELL */}
-                  <td className="px-3 py-4 sticky right-0 bg-[#14100a] z-20">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEdit(n)}
-                        className="w-8 h-8 flex items-center justify-center border border-[#d4af37]/40 text-[#d4af37] rounded hover:bg-[#d4af37]/20"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      <button
-                        onClick={() => setDeleteConfirmId(n._id)}
-                        className="w-8 h-8 flex items-center justify-center border border-red-400/40 text-red-400 rounded hover:bg-red-500/20"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+          <div className="flex flex-wrap items-center gap-3 mb-6 bg-gradient-to-l from-[#231d11]/30 to-transparent px-3 py-2 rounded-xl shadow">
+            <label className="text-md text-[#c7ba7e] font-semibold">Filter by Status</label>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="bg-gradient-to-br from-[#1a160a]/60 via-[#272316]/70 to-[#fffbe61a] border border-[#edd14890] rounded px-3 py-2 text-[#fbe376] font-medium text-base backdrop-blur-sm"
+            >
+              {STATUS_FILTER_OPTIONS.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
               ))}
-            </tbody>
-          </table>
+            </select>
+            <span className="text-xs text-[#ffd975] font-semibold">
+              ({filteredNominations.length})
+            </span>
+            {error && <span className="ml-4 text-sm text-red-400 italic">Error: {error}</span>}
+            {loading && (
+              <span className="ml-4 text-sm flex items-center gap-1 text-yellow-300">
+                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="#C7B362"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="#f8df8e"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                Loading...
+              </span>
+            )}
+          </div>
+
+          <div className="w-full min-w-0">
+            {activeTab === "nominations" && renderNominationsTable()}
+            {activeTab === "status" && renderStatusTab()}
+            {activeTab === "users" && renderUsersTab()}
+            {activeTab === "admins" && renderAdminsTab()}
+          </div>
         </div>
       </div>
 
       {/* ================== EDIT MODAL ================== */}
       {editingNomination && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-[#18130e] p-6 rounded-xl max-w-xl w-full min-h-[320px] flex flex-col justify-between">
-            <h2 className="text-xl font-semibold mb-4">Edit Nomination</h2>
-
-            <input
-              className={inputClass}
-              value={editForm.nomineeName || ""}
-              onChange={(e) =>
-                setEditForm({ ...editForm, nomineeName: e.target.value })
-              }
-            />
-
-            <div className="flex justify-end gap-3 mt-4">
-              <button onClick={() => setEditingNomination(null)}>Cancel</button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] backdrop-blur-sm">
+          <div className="bg-gradient-to-tr from-[#2e2b18] via-[#18130e] to-[#18130e] border-2 border-[#eaca5faa] shadow-2xl shadow-[#d4af3780] p-8 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-4 text-[#ffe6a3]">Edit Nomination Details</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Nominee Name</label>
+                <input
+                  className={inputClass}
+                  value={editForm.nomineeName || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, nomineeName: e.target.value })
+                  }
+                  placeholder="Enter nominee name"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Organization</label>
+                <input
+                  className={inputClass}
+                  value={editForm.organization || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, organization: e.target.value })
+                  }
+                  placeholder="Organization name"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Registration Type</label>
+                <input
+                  className={inputClass}
+                  value={editForm.registrationType || ""}
+                  onChange={(e) =>
+                    setEditForm({
+                      ...editForm,
+                      registrationType: e.target.value,
+                    })
+                  }
+                  placeholder="Type"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Category (User Selected)
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.category || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, category: e.target.value })
+                  }
+                  placeholder="Category"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Assigned Category (Admin)
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.assignedCategory || ""}
+                  onChange={(e) =>
+                    setEditForm({
+                      ...editForm,
+                      assignedCategory: e.target.value,
+                    })
+                  }
+                  placeholder="Assigned Category"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Amount</label>
+                <input
+                  className={inputClass}
+                  placeholder="e.g. ₹25,000"
+                  value={editForm.amount || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, amount: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Organization Head Name
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.orgHeadName || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, orgHeadName: e.target.value })
+                  }
+                  placeholder="Org Head Name"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Organization Head Email
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.orgHeadEmail || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, orgHeadEmail: e.target.value })
+                  }
+                  placeholder="Email"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Contact Name
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.contactName || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, contactName: e.target.value })
+                  }
+                  placeholder="Contact Person"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Contact Mobile
+                </label>
+                <input
+                  className={inputClass}
+                  value={editForm.contactMobile || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, contactMobile: e.target.value })
+                  }
+                  placeholder="Mobile"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-[#f6e589] font-semibold">Address</label>
+                <input
+                  className={inputClass}
+                  value={`${editForm.street || ""}, ${editForm.city || ""}, ${
+                    editForm.state || ""
+                  } ${editForm.zip || ""}`}
+                  readOnly
+                  placeholder="Full address shown here"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Public Remarks (User also sees)
+                </label>
+                <textarea
+                  className={`${inputClass} min-h-[70px]`}
+                  value={editForm.remarks || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, remarks: e.target.value })
+                  }
+                  placeholder="Remark for user (visible)"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-[#f6e589] font-semibold">
+                  Admin Remark (Internal only)
+                </label>
+                <textarea
+                  className={`${inputClass} min-h-[70px]`}
+                  value={editForm.adminRemark || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, adminRemark: e.target.value })
+                  }
+                  placeholder="Only for admin view"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-8">
+              <button
+                onClick={() => setEditingNomination(null)}
+                className="px-5 py-2.5 text-md font-medium text-[#f4e3a6] bg-gradient-to-r from-[#19140b]/80 to-[#0e0b08]/70 border border-[#bba44b80] rounded-lg shadow hover:bg-[#191400]/80 transition"
+              >
+                Cancel
+              </button>
               <button
                 onClick={handleSaveEdit}
-                className="bg-[#d4af37] text-black px-4 py-2 rounded"
+                className="bg-gradient-to-r from-[#ecd26c] to-[#d49d28] text-[#232012] border border-[#d4af37a8] px-8 py-2.5 rounded-lg text-md font-extrabold shadow-lg tracking-wider hover:from-[#fdf0bc] hover:to-[#fae36e] transition"
               >
-                Save
+                Save Changes
               </button>
             </div>
           </div>
@@ -323,20 +812,25 @@ export default function AdminDashboard() {
 
       {/* ================== DELETE MODAL ================== */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-[#18130e] p-6 rounded-xl max-w-md w-full min-h-[200px] flex flex-col justify-between">
-            <h2 className="text-xl font-semibold mb-3">
-              Delete Nomination?
+        <div className="fixed inset-0 bg-[#13110aee] backdrop-blur-[1.5px] flex items-center justify-center z-[9999]">
+          <div className="bg-gradient-to-br from-[#292112f6] to-[#18130e] border border-[#edcc68be] shadow-2xl rounded-2xl max-w-md w-full min-h-[220px] flex flex-col justify-between py-10 px-8 gap-2">
+            <h2 className="text-2xl font-semibold mb-2 text-[#fae36f] flex gap-2 items-center">
+              <Trash2 className="text-red-400" size={26} /> Delete Nomination?
             </h2>
-            <p className="text-sm text-gray-300 mb-4">
-              This action cannot be undone.
+            <p className="text-base text-[#ffe8a7] mb-4">
+              This action cannot be undone.<br />
+              Are you sure you want to delete this nomination?
             </p>
-
-            <div className="flex justify-end gap-3 mt-4">
-              <button onClick={() => setDeleteConfirmId(null)}>Cancel</button>
+            <div className="flex justify-end gap-5 mt-4">
+              <button
+                onClick={() => setDeleteConfirmId(null)}
+                className="bg-gradient-to-r from-[#793717] to-[#161614] border border-[#dbbe4fad] text-[#ffe9a1] px-5 py-2 rounded-lg font-semibold hover:bg-[#edca8aec] shadow"
+              >
+                Cancel
+              </button>
               <button
                 onClick={handleDelete}
-                className="bg-red-600 px-4 py-2 rounded"
+                className="bg-gradient-to-tr from-[#f43e2c] to-[#7a1b0a] text-[#ffebd2] px-8 py-2 rounded-lg font-extrabold shadow-md hover:from-[#d42121] hover:to-[#772014]"
               >
                 Delete
               </button>
@@ -344,6 +838,7 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+
     </section>
   );
 }
