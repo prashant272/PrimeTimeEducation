@@ -124,6 +124,10 @@ const nominationSchema = new mongoose.Schema(
   }
 );
 
+// Helpful indexes for faster admin queries & filtering
+nominationSchema.index({ user: 1, createdAt: -1 });
+nominationSchema.index({ status: 1, createdAt: -1 });
+
 const Nomination = mongoose.model("Nomination", nominationSchema);
 
 export default Nomination;

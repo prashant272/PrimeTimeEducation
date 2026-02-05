@@ -6,10 +6,10 @@ import { signToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Register normal user
+// Register user (optionally as admin via secret code)
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, secretCode } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Name, email and password are required" });
@@ -23,11 +23,26 @@ router.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
+    // Warn clearly in logs if someone is trying to use secretCode
+    // but the backend is not configured with ADMIN_CREATE_SECRET.
+    if (secretCode && !process.env.ADMIN_CREATE_SECRET) {
+      console.warn(
+        "ADMIN_CREATE_SECRET is not set in environment; cannot create admin users securely."
+      );
+    }
+
+    const role =
+      secretCode &&
+      process.env.ADMIN_CREATE_SECRET &&
+      secretCode === process.env.ADMIN_CREATE_SECRET
+        ? "admin"
+        : "user";
+
     const user = await User.create({
       name,
       email: email.toLowerCase(),
       passwordHash,
-      role: "user",
+      role,
     });
 
     const token = signToken({ id: user._id, email: user.email, role: user.role, name: user.name });
