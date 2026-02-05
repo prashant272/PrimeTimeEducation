@@ -10,34 +10,37 @@ const router = express.Router();
 // Admin login
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body || {};
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
-    }
+    const { email, password } = req.body;
 
-    const user = await User.findOne({ email: String(email).toLowerCase() });
+    console.log("LOGIN EMAIL:", email);
+    console.log("LOGIN PASSWORD:", password);
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+
+    console.log("FOUND USER:", user ? "YES" : "NO");
+
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    if (user.role !== "admin") {
-      return res.status(403).json({ message: "Admin access required" });
-    }
+
+    console.log("USER ROLE:", user.role);
+    console.log("HASH FROM DB:", user.passwordHash);
 
     const ok = await bcrypt.compare(password, user.passwordHash);
+    console.log("BCRYPT MATCH:", ok);
+
     if (!ok) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    const token = signToken({ id: user._id, email: user.email, role: user.role, name: user.name });
-    return res.json({
-      token,
-      user: { id: user._id, name: user.name, email: user.email, role: user.role },
-    });
+    const token = signToken({ id: user._id, role: user.role });
+    return res.json({ token });
   } catch (err) {
-    console.error("Admin login error:", err);
-    return res.status(500).json({ message: "Server error during admin login" });
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // List all nominations (admin)
 router.get("/nominations", authenticate, requireAdmin, async (_req, res) => {
