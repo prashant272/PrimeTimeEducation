@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppButton() {
     const whatsappNumber = "+919810882769";
@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
 
             {/* Button Body */}
             <div className="relative bg-[#25D366] text-white p-3 rounded-full shadow-[0_10px_25px_-5px_#25d366aa] hover:shadow-[0_15px_35px_-5px_#25d366cc] transform hover:scale-110 transition-all duration-300 border-2 border-white/20">
-                <MessageCircle className="w-8 h-8 fill-white/10" />
+                <FaWhatsapp className="w-8 h-8" />
             </div>
 
             {/* Tooltip */}
