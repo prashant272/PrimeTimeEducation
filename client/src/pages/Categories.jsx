@@ -4,189 +4,102 @@ export default function Categories() {
   const categories = [
     // Category array unchanged, just above for brevity
     {
-      category: "Healthcare Institution",
-      title: "Excellence in AI-Driven Hospital Transformation",
-      desc: "Recognizes hospitals that have strategically adopted Artificial Intelligence across clinical care, diagnostics, operations, and patient engagement to improve outcomes, efficiency, and innovation.",
+      category: "Academic Institution",
+      title: "Excellence in Higher Education & University Leadership",
+      desc: "Recognizes universities and colleges demonstrating excellence in research, academic rigor, student-centricity, and global accreditation standards.",
     },
     {
-      category: "Healthcare Institution",
-      title: "Outstanding Future-Ready Healthcare Institution",
-      desc: "Honors healthcare institutions demonstrating visionary leadership in digital transformation, smart infrastructure, sustainability, and technology-enabled patient-centric care.",
+      category: "Academic Institution",
+      title: "Outstanding School of the Year (K-12)",
+      desc: "Honors schools that provide a balanced environment for academic excellence, character building, sports, and holistic student development.",
     },
     {
-      category: "Healthcare Institution",
-      title: "Excellence in Digital & Smart Hospital Infrastructure",
-      desc: "Recognizes hospitals implementing advanced digital infrastructure such as HIS, EMR/EHR, IoT-enabled facilities, smart ICUs, and automated clinical workflows.",
+      category: "Academic Institution",
+      title: "Most Innovative Research-Based Institution",
+      desc: "Recognizes institutions that bridge the gap between theory and practice through cutting-edge research and industrial collaboration.",
     },
     {
-      category: "Healthcare Institution",
-      title: "Excellence in Telemedicine & Virtual Care",
-      desc: "Celebrates healthcare providers delivering high-quality care through teleconsultation platforms, remote monitoring, virtual diagnostics, and digital health ecosystems.",
+      category: "Academic Institution",
+      title: "Excellence in Vocational & Skills Training",
+      desc: "Honors institutes providing impactful skill-based education, industry-aligned certifications, and vocational excellence.",
     },
     {
-      category: "Healthcare Institution",
-      title: "Excellence in Digital Diagnostics & Imaging Innovation",
-      desc: "Recognizes healthcare institutions leveraging AI-powered diagnostics, advanced imaging systems, and data-driven clinical decision support.",
-    },
-    {
-      category: "Healthcare Institution",
-      title: "Excellence in Patient Experience & Engagement Innovation",
-      desc: "Honors hospitals enhancing patient experience through digital platforms, AI chatbots, mobile health apps, and personalized care journeys.",
-    },
-    {
-      category: "Healthcare Institution",
-      title: "Outstanding Technology-Driven Medical Education & Training Institute",
-      desc: "Honors medical colleges and healthcare training institutes using simulation labs, virtual learning, AI-assisted diagnostics training, and immersive education technologies.",
+      category: "Academic Institution",
+      title: "Best Private School for Infrastructure & Facilities",
+      desc: "Recognizes schools providing world-class campus facilities, smart classrooms, laboratories, and sports infrastructure.",
     },
 
-    // ========== LEADERSHIP ==========
+    // ========== LEADERSHIP & FACULTY ==========
     {
-      category: "Leadership",
-      title: "Visionary Healthcare Leader in Digital Transformation",
-      desc: "Honors healthcare leaders driving large-scale digital transformation, innovation, and technology-led healthcare excellence.",
+      category: "Leadership & Faculty",
+      title: "Visionary Academic Leader of the Year",
+      desc: "Honors Chancellors, Vice-Chancellors, and Entrepreneurs driving large-scale educational transformation and global impact.",
     },
     {
-      category: "Leadership",
-      title: "Transformative Hospital CEO of the Year",
-      desc: "Recognizes hospital CEOs leading technology-driven growth, operational excellence, and patient-centric innovation.",
+      category: "Leadership & Faculty",
+      title: "Outstanding Principal for Pedagogical Excellence",
+      desc: "Recognizes school leaders who have implemented groundbreaking teaching methods, teacher training programs, and academic discipline.",
     },
     {
-      category: "Leadership",
-      title: "Pioneering Medical Director in Clinical Innovation",
-      desc: "Honors medical directors advancing clinical excellence through AI-driven diagnostics, digital treatment models, and innovation-led care delivery.",
+      category: "Leadership & Faculty",
+      title: "Teacher of the Year for Digital Innovation",
+      desc: "Honors educators leveraging technology, gamification, and interactive digital tools to enhance the learning experience.",
     },
     {
-      category: "Leadership",
-      title: "Outstanding Doctor in Technology-Enabled Patient Care",
-      desc: "Recognizes doctors leveraging digital tools, telemedicine, AI, and advanced technologies to deliver superior patient outcomes.",
-    },
-    {
-      category: "Leadership",
-      title: "Emerging Healthcare Leader in Digital Innovation",
-      desc: "Recognizes rising healthcare leaders demonstrating early impact through innovation, technology adoption, and digital healthcare initiatives.",
+      category: "Leadership & Faculty",
+      title: "Outstanding Contribution to Global Academic Research",
+      desc: "Recognizes professors and researchers whose work has significantly impacted global knowledge or industry practices.",
     },
 
-    // ========== HEALTHTECH / MEDTECH ==========
+    // ========== EDTECH & DIGITAL LEARNING ==========
     {
-      category: "HealthTech / MedTech",
-      title: "Excellence in AI-Powered Healthcare Solutions",
-      desc: "Recognizes companies delivering AI-driven platforms for diagnostics, clinical decision support, and healthcare automation.",
+      category: "EdTech & Digital Learning",
+      title: "Excellence in AI-Powered Educational Solutions",
+      desc: "Recognizes companies delivering AI-driven platforms for personalized learning, adaptive assessments, and institutional automation.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Excellence in Digital Health & Telemedicine Innovation",
-      desc: "Honors organizations redefining healthcare delivery through telehealth platforms, virtual care, and remote monitoring technologies.",
+      category: "EdTech & Digital Learning",
+      title: "Best EdTech Platform for Skill Development",
+      desc: "Honors organizations redefining skill acquisition through professional courses, remote learning, and industry certifications.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Excellence in Medical Devices & Smart Health Technologies",
-      desc: "Recognizes MedTech companies innovating in connected devices, smart diagnostics, wearables, and medical hardware solutions.",
+      category: "EdTech & Digital Learning",
+      title: "Excellence in Virtual & Hybrid Learning Environments",
+      desc: "Recognizes institutions and platforms that provide high-quality education through immersive virtual labs and hybrid models.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Excellence in Healthcare Data Analytics & Intelligence Platforms",
-      desc: "Honors companies leveraging healthcare data, predictive analytics, and AI to drive better outcomes and operational efficiency.",
+      category: "EdTech & Digital Learning",
+      title: "Outstanding Innovation in Digital Curriculum Design",
+      desc: "Honors curriculum developers creating technology-enabled, interactive, and outcome-oriented course content.",
+    },
+
+    // ========== STUDENT DEVELOPMENT & WELL-BEING ==========
+    {
+      category: "Student Development",
+      title: "Excellence in Holistic Student Development",
+      desc: "Recognizes institutions focusing on sports, performing arts, mental health, and soft-skill development alongside academics.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Excellence in Digital Mental Health & Wellness Technology",
-      desc: "Honors platforms delivering digital mental health services, therapy solutions, wellbeing apps, and emotional support technologies.",
+      category: "Student Development",
+      title: "Outstanding Contribution to Special Education Needs (SEN)",
+      desc: "Honors schools and organizations providing specialized support, inclusive environments, and personalized learning for differently-abled students.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Rising Star HealthTech / MedTech Company",
-      desc: "Celebrates emerging healthcare technology companies demonstrating strong innovation, scalability, and market impact.",
+      category: "Student Development",
+      title: "Best Career Counseling & Placement Support",
+      desc: "Recognizes institutions providing exemplary guidance for higher studies, competitive exams, and career pathways.",
+    },
+
+    // ========== SOCIAL IMPACT & OUTREACH ==========
+    {
+      category: "Social Impact",
+      title: "Excellence in Community Education & Adult Literacy",
+      desc: "Honors NGOs and institutions making quality education accessible to marginalized communities and promoting lifelong learning.",
     },
     {
-      category: "HealthTech / MedTech",
-      title: "Outstanding HealthTech / MedTech Company of the Year",
-      desc: "Recognizes an organization demonstrating exceptional leadership, innovation, and impact in healthcare technology.",
-    },
-    //PATIENT CARE & CLINICAL EXCELLENCE
-    {
-      category: "Patient Care & Clinical Excellence",
-      title: "Excellence in Patient-Centric Care Model",
-      desc: "Recognizes healthcare institutions delivering holistic, personalized, and outcome-driven patient care through integrated clinical and digital approaches.",
-    },
-    {
-      category: "Patient Care & Clinical Excellence",
-      title: "Excellence in Clinical Outcomes & Quality Care",
-      desc: "Honors hospitals achieving superior clinical outcomes, patient safety, and quality benchmarks through evidence-based and technology-supported practices.",
-    },
-    {
-      category: "Patient Care & Clinical Excellence",
-      title: "Excellence in Multispecialty Care Delivery",
-      desc: "Recognizes institutions providing comprehensive multispecialty healthcare with seamless coordination, advanced treatment protocols, and patient-focused services.",
-    },
-    // PUBLIC HEALTH & SOCIAL IMPACT
-    {
-      category: "Public Health & Social Impact",
-      title: "Excellence in Community Healthcare Outreach",
-      desc: "Honors organizations improving healthcare access through community programs, rural health initiatives, and preventive care outreach.",
-    },
-    {
-      category: "Public Health & Social Impact",
-      title: "Excellence in Preventive & Population Health Management",
-      desc: "Recognizes initiatives focused on preventive healthcare, population health analytics, and proactive disease management strategies.",
-    },
-    {
-      category: "Public Health & Social Impact",
-      title: "Outstanding Contribution to Public Health Innovation",
-      desc: "Celebrates organizations driving impactful public health solutions through policy innovation, technology, and large-scale health programs.",
-    },
-    //NURSING & ALLIED HEALTHCARE PROFESSIONALS
-    {
-      category: "Nursing & Allied Healthcare Professionals",
-      title: "Excellence in Nursing Leadership & Care",
-      desc: "Honors nursing leaders and teams demonstrating exceptional patient care, clinical excellence, and compassionate healthcare delivery.",
-    },
-    {
-      category: "Nursing & Allied Healthcare Professionals",
-      title: "Outstanding Allied Healthcare Professional of the Year",
-      desc: "Recognizes allied healthcare professionals contributing significantly to diagnostics, therapy, rehabilitation, and patient support services.",
-    },
-    //PHARMA & LIFE SCIENCES
-    {
-      category: "Pharma & Life Sciences",
-      title: "Excellence in Pharmaceutical Innovation",
-      desc: "Recognizes pharmaceutical companies driving innovation in drug development, research, and advanced therapeutic solutions.",
-    },
-    {
-      category: "Pharma & Life Sciences",
-      title: "Excellence in Clinical Research & Trials",
-      desc: "Honors organizations advancing healthcare through ethical, technology-enabled clinical research and trials.",
-    },
-    {
-      category: "Pharma & Life Sciences",
-      title: "Excellence in Biotechnology & Life Sciences",
-      desc: "Recognizes companies innovating in biotechnology, genomics, and life sciences to improve healthcare outcomes.",
-    },
-    //DIGITAL SECURITY & COMPLIANCE
-    {
-      category: "Digital Security & Compliance",
-      title: "Excellence in Healthcare Cybersecurity",
-      desc: "Recognizes organizations ensuring robust cybersecurity, patient data protection, and compliance with healthcare data regulations.",
-    },
-    {
-      category: "Digital Security & Compliance",
-      title: "Excellence in Healthcare Data Privacy & Compliance",
-      desc: "Honors institutions maintaining high standards of data privacy, regulatory compliance, and ethical digital healthcare practices.",
-    },
-    //SPECIALTY HEALTHCARE
-    {
-      category: "Specialty Healthcare",
-      title: "Excellence in Oncology Care & Innovation",
-      desc: "Recognizes healthcare providers delivering advanced cancer care through precision medicine, technology, and patient-centered approaches.",
-    },
-    {
-      category: "Specialty Healthcare",
-      title: "Excellence in Cardiac Care & Innovation",
-      desc: "Honors institutions achieving excellence in cardiac treatment, digital diagnostics, and interventional cardiology.",
-    },
-    {
-      category: "Specialty Healthcare",
-      title: "Excellence in Women & Child Healthcare",
-      desc: "Recognizes organizations delivering comprehensive, technology-enabled care for women’s health and pediatric services.",
+      category: "Social Impact",
+      title: "Best CSR Initiative in the Education Sector",
+      desc: "Recognizes corporate organizations contributing significantly to school infrastructure, scholarship programs, and rural education.",
     },
   ];
 
@@ -216,7 +129,7 @@ export default function Categories() {
         {/* Heading Section */}
         <div className="text-center mb-16 sm:mb-20">
           <h1 className="relative inline-block text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-transparent bg-gradient-to-br from-[#fff5bd] via-[#fb7185] to-[#fbbf24] bg-clip-text drop-shadow-[0_5px_28px_#fbbf2466] mb-5 sm:mb-6 tracking-tight">
-            Healthcare Award{" "}
+            Education Award{" "}
             <span className="inline-block animate-shine bg-gradient-to-br from-[#fde68a] via-[#fbbf24] to-[#fb7185] bg-[length:310%_100%] bg-clip-text text-transparent drop-shadow-[0_2px_9px_#fbbf24aa]">
               Categories
               <span className="inline-block absolute -top-2 -right-8 animate-pulse text-3xl sm:text-4xl text-[#fde68a] drop-shadow-xl">✨</span>
@@ -224,7 +137,7 @@ export default function Categories() {
           </h1>
           <div className="w-52 h-[4px] sm:w-80 bg-gradient-to-r from-transparent via-[#fb7185]/90 to-transparent mx-auto rounded-full shadow-xl shadow-[#fbbf2466]" />
           <p className="max-w-2xl mx-auto text-[#fde68a] text-lg xs:text-xl font-medium mt-5 px-1 text-shadow-glow">
-            Recognizing <span className="text-[#fb7185] font-bold">global excellence</span> and <span className="text-[#fbbf24] font-bold">innovation</span> across healthcare, leadership and technology.
+            Recognizing <span className="text-[#fb7185] font-bold">academic excellence</span> and <span className="text-[#fbbf24] font-bold">pedagogical innovation</span> across schools, universities, and EdTech.
           </p>
         </div>
         {/* Responsive Card Grid */}

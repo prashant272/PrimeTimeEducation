@@ -97,7 +97,7 @@ export default function Media() {
                   [Sample] The Print – Special Coverage <span className="ml-2 text-[#ffe783]">May 2024</span>
                 </div>
                 <div className="bg-gradient-to-br from-[#231711]/80 to-[#cec07311] rounded-2xl p-5 border border-[#ffe6b41a] hover:border-[#ebbb3a]/80 transition h-[126px] flex items-center justify-center text-[#dacd96b7] text-base shadow-lg font-medium italic tracking-wide">
-                  [Sample] Twitter: #GlobalHealthcareAwards Trending <span className="ml-2 text-[#ffe783]">2024</span>
+                  [Sample] Twitter: #GlobalEducationAwards Trending <span className="ml-2 text-[#ffe783]">2024</span>
                 </div>
               </div>
             </div>

@@ -96,7 +96,7 @@ export default function Navbar() {
             <div className="flex flex-col leading-tight">
               <span className="font-semibold">Admin Dashboard</span>
               <span className="text-[11px] text-gray-300">
-                Global Healthcare Awards – Internal Panel
+                Global Education Awards – Internal Panel
               </span>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function Navbar() {
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
                     <span>Primetime Research Media</span>
-                    <span className="opacity-70">Global Healthcare Awards</span>
+                    <span className="opacity-70">Global Education Awards</span>
                     <span className="opacity-60">
                       {location.pathname === "/editions/2026" ? "14th Edition" :
                         location.pathname === "/editions/2025" ? "13th Edition" :

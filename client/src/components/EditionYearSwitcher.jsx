@@ -11,7 +11,7 @@ export default function EditionYearSwitcher({ currentYear }) {
           Previous Editions
         </p>
         <h2 className="text-xl md:text-2xl font-extrabold text-[#ffe9b3]">
-          Global Healthcare Awards – {currentYear}
+          Global Education Awards – {currentYear}
         </h2>
       </div>
       <div className="flex flex-wrap gap-2 text-xs">
@@ -19,11 +19,10 @@ export default function EditionYearSwitcher({ currentYear }) {
           <Link
             key={year}
             to={`/editions/${year}`}
-            className={`px-3 py-1 rounded-full border transition ${
-              year === currentYear
+            className={`px-3 py-1 rounded-full border transition ${year === currentYear
                 ? "border-[#d4af37] bg-[#d4af37]/15 text-[#ffe9b3] font-semibold"
                 : "border-white/20 text-gray-200 hover:bg-white hover:text-black"
-            }`}
+              }`}
           >
             {year}
           </Link>

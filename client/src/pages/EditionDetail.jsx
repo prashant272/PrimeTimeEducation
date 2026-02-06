@@ -183,7 +183,7 @@ export default function EditionDetail() {
               </p>
             </div>
             <p className="mt-8 text-[#ffeab080] max-w-lg italic">
-              The safety of our healthcare heroes was our top priority during the global pandemic. We returned stronger in the following years.
+              The safety of our educational community was our top priority during the global pandemic. We returned stronger in the following years.
             </p>
           </div>
         ) : (
@@ -199,10 +199,10 @@ export default function EditionDetail() {
               ✨ {edition.editionLabel}
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 sm:mb-8 leading-[1.1] tracking-tight">
-              {year} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd966] via-[#f7c53a] to-[#b2872d]">Healthcare Awards</span>
+              {year} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd966] via-[#f7c53a] to-[#b2872d]">Education Awards</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-[#ffeab0a0] leading-relaxed max-w-2xl mx-auto sm:mx-0">
-              {edition.hero || `The ${year} Global Healthcare Excellence Awards celebrated the visionaries, institutions, and clinical leaders who redefined medical standards.`}
+              {edition.hero || `The ${year} Global Education Excellence Awards celebrated the visionaries, institutions, and academic leaders who redefined educational standards.`}
             </p>
           </header>
 
@@ -220,7 +220,7 @@ export default function EditionDetail() {
                       Organized by <strong className="text-[#ffd966]">Prime Time Research Media Pvt. Ltd.</strong>, the {year} ceremony in <strong className="text-[#ffd966]">{edition.locations.join(", ")}</strong> served as a powerful platform for networking and recognition.
                     </p>
                     <p>
-                      From specialized clinics to multi-specialty conglomerates, we identified leaders who prioritize patient safety, ethical practice, and technological advancement.
+                      From private schools to prestigious universities, we identified leaders who prioritize student success, pedagogical innovation, and institutional excellence.
                     </p>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export default function EditionDetail() {
                 {[
                   { label: "500+", sub: "Nominations Received" },
                   { label: "40+", sub: "Award Categories" },
-                  { label: "100+", sub: "Hospitals Represented" },
+                  { label: "100+", sub: "Institutions Represented" },
                   { label: edition.editionLabel.split(" ")[0], sub: "Successful Edition" }
                 ].map((item, i) => (
                   <div key={i} className="bg-[#1a130d] p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-[#d4af37]/10 flex flex-col justify-center text-center group hover:border-[#d4af37]/30 transition-all">
@@ -249,7 +249,7 @@ export default function EditionDetail() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 relative z-10">
               {[
-                { title: "Nomination", desc: "Open call for healthcare leaders and institutions." },
+                { title: "Nomination", desc: "Open call for academic leaders and institutions." },
                 { title: "Audit", desc: "Detailed performance analysis and benchmarking." },
                 { title: "Review", desc: "Secondary feedback from industry peers." },
                 { title: "Jury", desc: "Final verification by our elite board of experts." }

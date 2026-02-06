@@ -47,14 +47,14 @@ export default function Footer() {
               <span
                 className="font-heading text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent"
                 style={{ backgroundImage: goldGrad }}>
-                Global Healthcare Awards 2026
+                Global Education Awards 2026
               </span>
             </div>
             <div
               className="mt-3 rounded-full h-1 w-24 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4"
             />
             <p className="text-sm lg:text-base font-medium leading-relaxed opacity-80">
-              Recognising outstanding leadership, innovation & excellence in global healthcare – celebrating visionary organisations and individuals shaping tomorrow.
+              Recognising outstanding leadership, innovation & excellence in global education – celebrating visionary organisations and individuals shaping tomorrow.
             </p>
           </div>
 
@@ -219,7 +219,7 @@ export default function Footer() {
             color: "transparent",
           }}
         >
-          Global Healthcare Awards
+          Global Education Awards
         </span>
 
         {" "} &bull; © {new Date().getFullYear()} All Rights Reserved

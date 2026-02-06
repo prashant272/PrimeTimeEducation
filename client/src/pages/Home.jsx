@@ -54,14 +54,14 @@ export default function Home() {
 
   const events = [
     {
-      title: "Global Healthcare Awards 2026",
-      desc: "Recognising excellence and innovation in healthcare leadership.",
+      title: "Global Education Awards 2026",
+      desc: "Recognising excellence and innovation in educational leadership.",
       date: "26 May 2026",
       place: "Dubai",
     },
     {
-      title: "Global Healthcare Awards 2026",
-      desc: "Recognising excellence and innovation in healthcare leadership.",
+      title: "Global Education Awards 2026",
+      desc: "Recognising excellence and innovation in educational leadership.",
       date: "9 June 2026",
       place: "London",
     },
@@ -72,7 +72,7 @@ export default function Home() {
   const guests = [
     { name: "Virender Sehwag", designation: "Indian Cricket Commentator & Former Cricketer" },
     { name: "Sunil Manohar Gavaskar", designation: "Indian Cricket Commentator & Former Cricketer" },
-    { name: "Shri Ashwini Kumar Choubey", designation: "Hon’ble Minister of State for Health and Family Welfare" },
+    { name: "Shri Ashwini Kumar Choubey", designation: "Guest of Honour & Former Union Minister" },
     { name: "Dr. Yoganand Shashtri", designation: "Former Reader, Shaheed Bhagat Singh College, Delhi" },
     { name: "Shri G. V. L. Narsimha Rao", designation: "National Spokesperson, BJP" },
     { name: "Mr. Brad Hogg", designation: "Former Australian Cricketer" },
@@ -174,7 +174,7 @@ export default function Home() {
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
       {/* SEO H1 - Hidden */}
       <h1 className="sr-only">
-        Healthcare Awards – Global Healthcare Awards by Prime Time Research Media
+        Education Awards – Global Education Awards by Prime Time Research Media
       </h1>
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
@@ -251,7 +251,7 @@ export default function Home() {
               <span className="inline-block whitespace-nowrap text-center">
                 Global{" "}
                 <span className="bg-gradient-to-r from-[#d4af37] via-[#f1d46b] to-[#b6932f] bg-clip-text text-transparent inline-block font-semibold">
-                  Healthcare
+                  Education
                 </span>{" "}
                 Awards
                 <span className="align-middle text-[#ffeec3] drop-shadow px-1">
@@ -409,7 +409,7 @@ export default function Home() {
               <div>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
                   <span className="bg-gradient-to-r from-white via-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent">
-                    Overview of Healthcare Awards 2026
+                    Overview of Education Awards 2026
                   </span>
                 </h2>
                 <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#c5b471] rounded-full" />
@@ -420,8 +420,8 @@ export default function Home() {
                 <div className="relative bg-[#2a1b12]/80 backdrop-blur-2xl rounded-3xl border border-[#d4af37]/20 shadow-xl overflow-hidden hover:bg-[#392818]/40 hover:border-[#ffeec3]/30 transition-all duration-700 p-8 lg:p-10">
                   {/* SEO Paragraph - Hidden */}
                   <p className="sr-only">
-                    Healthcare Awards by Prime Time Research Media, also known as Global Healthcare
-                    Awards, recognize excellence, innovation, hospitals, doctors, and healthcare
+                    Education Awards by Prime Time Research Media, also known as Global Education
+                    Awards, recognize excellence, innovation, schools, universities, and academic
                     leaders worldwide.
                   </p>
                   {/* Gold Bar */}
@@ -441,17 +441,17 @@ export default function Home() {
                       </div>
                       <div>
                         <h3 className="text-2xl lg:text-3xl font-black text-[#ffeec3] leading-tight">
-                          Global Healthcare Excellence Awards, 2026
+                          Global Education Excellence Awards, 2026
                         </h3>
                         <p className="text-[#ffd966] font-semibold mt-1 text-sm tracking-wide">
-                          Achieving Excellence in Healthcare
+                          Achieving Excellence in Education
                         </p>
                       </div>
                     </div>
                     <p className="text-[#e6dfcc] leading-relaxed text-lg font-medium">
-                      The <span className="font-bold text-[#ffd966]">Global Healthcare Awards, 2026</span> recognize significant contributions in the healthcare sector.<br /><br />
-                      The Awards showcase the highest academic goals and outstanding achievements through <span className="font-semibold text-[#f1d46b]">innovation, leadership, dedication,</span> and commitment towards learning.<br /><br />
-                      <span className="font-semibold text-[#f1d46b]">Global Healthcare Excellence Awards, 2026</span> will be a converging point of the industry's elite – a celebration and recognition of excellence, reputation, and exemplary service.
+                      The <span className="font-bold text-[#ffd966]">Global Education Awards, 2026</span> recognise significant contributions in the academic sector.<br /><br />
+                      The Awards showcase the highest academic goals and outstanding achievements through <span className="font-semibold text-[#f1d46b]">innovation, pedagogy, leadership,</span> and commitment towards student success.<br /><br />
+                      <span className="font-semibold text-[#f1d46b]">Global Education Excellence Awards, 2026</span> will be a converging point of the industry's elite – a celebration and recognition of excellence, reputation, and exemplary academic service.
                     </p>
                     {/* Feature Pills */}
                     <div className="flex flex-wrap gap-3 pt-4">
@@ -569,7 +569,7 @@ export default function Home() {
                     <h4 className="text-xl font-black text-[#ffeec3]">Don't Miss Out!</h4>
                   </div>
                   <p className="text-[#eedea7] leading-relaxed mb-6 font-medium">
-                    Submit your nomination before the deadline and be recognized for healthcare excellence.
+                    Submit your nomination before the deadline and be recognized for educational excellence.
                   </p>
                   <button onClick={handleNominateClick} className="relative w-full py-4 px-6 rounded-xl font-black text-[#392818] overflow-hidden group/btn transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#a28533] shadow hover:shadow-lg ">
                     <span className="relative z-10 text-lg tracking-wide">Nominate Now</span>
@@ -584,7 +584,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 text-[#ffeec3]/70 text-sm">
               <div className="w-12 h-px bg-gradient-to-r from-transparent to-[#ffeec3]/50" />
               <svg className="w-4 h-4 animate-pulse text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
-              <span className="font-medium">Celebrating Excellence in Healthcare</span>
+              <span className="font-medium">Celebrating Excellence in Education</span>
               <svg className="w-4 h-4 animate-pulse animation-delay-1000 text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
               <div className="w-12 h-px bg-gradient-to-l from-transparent to-[#ffeec3]/50" />
             </div>
@@ -607,7 +607,7 @@ export default function Home() {
             className="opacity-0 transform translate-y-8 transition-all duration-700 text-center mb-14 sm:mb-20"
           >
             <h2 className="text-2xl xs:text-4xl md:text-5xl font-extrabold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              Why Enter Healthcare Awards – Global Healthcare Awards 2026
+              Why Enter Education Awards – Global Education Awards 2026
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>
@@ -619,7 +619,7 @@ export default function Home() {
             {[
               {
                 title: "National & Global Recognition",
-                desc: "Gain prestigious recognition across the healthcare industry and position your organisation among the most trusted and respected leaders.",
+                desc: "Gain prestigious recognition across the education sector and position your institution among the most trusted and respected academic leaders.",
                 icon: "🌟",
               },
               {
@@ -629,17 +629,17 @@ export default function Home() {
               },
               {
                 title: "Showcase Innovation & Impact",
-                desc: "Highlight your innovations, achievements, and measurable impact before policymakers, industry leaders, and stakeholders.",
+                desc: "Highlight your pedagogical innovations, academic achievements, and measurable student impact before policymakers and industry leaders.",
                 icon: "💡",
               },
               {
                 title: "Strengthen Brand Authority",
-                desc: "Enhance brand reputation and reinforce trust among partners, clients, investors, and the broader healthcare ecosystem.",
+                desc: "Enhance institutional reputation and reinforce trust among parents, students, partners, and the broader educational ecosystem.",
                 icon: "🏆",
               },
               {
                 title: "Benchmark Against Industry Leaders",
-                desc: "Measure your performance against industry best practices, global standards, and emerging healthcare trends.",
+                desc: "Measure your performance against industry best practices, global standards, and emerging educational trends.",
                 icon: "📊",
               },
               {
@@ -923,7 +923,7 @@ export default function Home() {
             <p className="mt-2 text-sm xs:text-base sm:text-lg md:text-xl text-[#faecc6] max-w-xs xs:max-w-lg sm:max-w-2xl mx-auto leading-snug font-semibold drop-shadow">
               <span className="italic text-[#ffd966] font-display text-base sm:text-lg md:text-2xl">“</span>
               <span className="font-serif">
-                A strong network of media partners has helped amplify the <span className="text-[#ffd966] font-semibold">Global Healthcare Awards</span> across India and internationally.
+                A strong network of media partners has helped amplify the <span className="text-[#ffd966] font-semibold">Global Education Awards</span> across India and internationally.
               </span>
               <span className="italic text-[#ffd966] font-display text-base sm:text-lg md:text-2xl">”</span>
             </p>
@@ -1079,10 +1079,10 @@ export default function Home() {
           {/* Cards as before... */}
           <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 xs:gap-6 md:gap-8">
             {[
-              "Hospitals & Multispeciality Healthcare Institutions",
-              "Medical Colleges, Universities & Training Institutes",
-              "Healthcare Startups, MedTech & HealthTech Companies",
-              "Doctors, Clinicians & Healthcare Industry Leaders",
+              "Schools & K-12 Educational Institutions",
+              "Higher Education Colleges, Universities & Foundations",
+              "EdTech Startups, Digital Learning & LMS Platforms",
+              "Educators, Principals & Academic Industry Leaders",
             ].map((item, index) => (
               <div key={index} className="group">
                 {/* CARD */}

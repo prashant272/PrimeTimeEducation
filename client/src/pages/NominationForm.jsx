@@ -5,34 +5,33 @@ import { createNomination } from "../services/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const categoryMap = {
-  Hospital: [
-    "Best Multispeciality Hospital",
-    "Best Government Hospital",
-    "Best Private Hospital",
-    "Best Patient Care Hospital",
+  School: [
+    "Best Private School (K-12)",
+    "Excellence in Smart Classroom Infrastructure",
+    "Best School for Holistic Development",
+    "Outstanding Primary School of the Year",
   ],
-  Clinic: [
-    "Best Specialty Clinic",
-    "Best Dental Clinic",
-    "Best IVF / Fertility Clinic",
+  "Higher Education": [
+    "Best University for Research & Innovation",
+    "Outstanding Private College of the Year",
+    "Excellence in Vocational & Skills Training",
+    "Best Engineering / Management Institute",
   ],
-  "Diagnostic Center": [
-    "Best Diagnostic Center",
-    "Best Pathology Lab",
-    "Best Imaging Center",
+  "Individual Educator": [
+    "Visionary Leader in Education",
+    "Outstanding Principal of the Year",
+    "Teacher of the Year (Innovation in Pedagogy)",
+    "Lifetime Achievement in Academic Research",
   ],
-  "Pharma Company": [
-    "Best Pharma Company",
-    "Best Generic Medicine Brand",
+  "EdTech & Solutions": [
+    "Best EdTech Platform for K-12",
+    "Excellence in AI-Powered Learning Solutions",
+    "Most Innovative Digital Curriculum Provider",
   ],
-  "Individual Doctor": [
-    "Best Doctor of the Year",
-    "Best Surgeon",
-    "Lifetime Achievement in Healthcare",
-  ],
-  "Healthcare Startup": [
-    "Best Healthcare Startup",
-    "Best HealthTech Innovation",
+  "Social Impact": [
+    "Excellence in Community Education Outreach",
+    "Outstanding NGO for Adult Literacy",
+    "Best CSR Initiative in Education",
   ],
 };
 
@@ -143,7 +142,7 @@ export default function NominationForm() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-semibold">
-            Healthcare Awards Nomination Form
+            Education Awards Nomination Form
           </h1>
           <p className="mt-2 text-sm text-gray-200">
             Please provide accurate details. All fields are required.
@@ -211,7 +210,7 @@ export default function NominationForm() {
           </div>
 
           <div>
-            <label className="block text-sm mb-1 text-white">Organization / Hospital / Clinic</label>
+            <label className="block text-sm mb-1 text-white">Organization / School / Institution</label>
             <input name="organization" value={form.organization} onChange={handleChange} required className={inputClass} />
           </div>
 

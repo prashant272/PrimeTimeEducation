@@ -50,7 +50,7 @@ export default function Judging() {
           <ul className="list-inside list-disc ml-4 mt-2 space-y-1">
             <li>Industry experts</li>
             <li>Senior academicians</li>
-            <li>Healthcare professionals</li>
+            <li>Academic professionals</li>
             <li>Policy and domain specialists</li>
           </ul>
           <span className="block mt-3 text-[#60a5fa] font-semibold">
@@ -154,7 +154,7 @@ export default function Judging() {
       {/* Hero Title */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-8 md:pt-12 pb-5 md:pb-8">
         <h1 className="text-2xl md:text-4xl font-heading font-extrabold bg-gradient-to-r from-[#fde68a] via-[#fbbf24] to-[#eab308] bg-clip-text text-transparent mb-4 drop-shadow-lg tracking-wide">
-          Global Healthcare Excellence Awards 2026: Selection Process
+          Global Education Excellence Awards 2026: Selection Process
         </h1>
         <div className="mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-[#fbbf24]/0 via-[#fde68a]/80 to-[#fbbf24]/0 mb-4 opacity-80" />
         <p className="text-[#fde68a]/90 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
@@ -226,7 +226,7 @@ export default function Judging() {
           Why This Process Matters
         </h2>
         <p className="text-[#fde68a]/80 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-          Our rigorous and transparent selection process ensures awards are merit-based, truly credible, and that every winner enjoys global trust and respect in the healthcare industry.
+          Our rigorous and transparent selection process ensures awards are merit-based, truly credible, and that every winner enjoys global trust and respect in the education sector.
         </p>
       </div>
     </section>
