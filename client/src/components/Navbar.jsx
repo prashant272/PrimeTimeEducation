@@ -139,8 +139,24 @@ export default function Navbar() {
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
                     <span>Primetime Research Media</span>
-                    <span className="opacity-70">Global Healthcare Award</span>
-                    <span className="opacity-60">14th Edition</span>
+                    <span className="opacity-70">Global Healthcare Awards</span>
+                    <span className="opacity-60">
+                      {location.pathname === "/editions/2026" ? "14th Edition" :
+                        location.pathname === "/editions/2025" ? "13th Edition" :
+                          location.pathname === "/editions/2024" ? "12th Edition" :
+                            location.pathname === "/editions/2023" ? "11th Edition" :
+                              location.pathname === "/editions/2022" ? "10th Edition" :
+                                location.pathname === "/editions/2021" ? "9th Edition" :
+                                  location.pathname === "/editions/2020" ? "8th Edition" :
+                                    location.pathname === "/editions/2019" ? "7th Edition" :
+                                      location.pathname === "/editions/2018" ? "6th Edition" :
+                                        location.pathname === "/editions/2017" ? "5th Edition" :
+                                          location.pathname === "/editions/2016" ? "4th Edition" :
+                                            location.pathname === "/editions/2015" ? "3rd Edition" :
+                                              location.pathname === "/editions/2014" ? "2nd Edition" :
+                                                location.pathname === "/editions/2013" ? "1st Edition" :
+                                                  "14th Edition"}
+                    </span>
                   </div>
                 </div>
                 {/* RIGHT : LOGIN */}

@@ -90,55 +90,50 @@ export default function PreviousEditions() {
 
               {/* Top badge */}
 
-              {/* Chief Guest Section */}
-              <div className="mt-1 mb-3 flex flex-col items-center w-full z-20">
-                <div className="mb-2 w-full flex justify-center">
-                  <span className="bg-[#ffe09a]/80 text-[#a88725] font-extrabold text-xs px-2.5 py-1 rounded-lg border border-[#f9e7b3] shadow whitespace-nowrap">
-                    Chief Guest
-                  </span>
-                </div>
-                <div className="w-[176px] h-[176px] rounded-md border-[3px] border-[#ffe391d5] bg-[#fff8e3cc] shadow-md overflow-hidden flex items-center justify-center relative">
-                  {e.chiefGuest?.photo ? (
+              {/* Edition Photo Section */}
+              <div className="mt-1 mb-5 w-full flex flex-col items-center z-20">
+                <div className="w-full h-[220px] rounded-xl border-[3px] border-[#ffe391d5] bg-[#fff8e3cc] shadow-lg overflow-hidden flex items-center justify-center relative group-hover:border-[#ffd700] transition-colors duration-300">
+                  {e.coverImage ? (
                     <img
-                      src={e.chiefGuest.photo}
-                      alt={e.chiefGuest.name}
-                      className="object-cover w-[176px] h-[176px] rounded-none"
+                      src={e.coverImage}
+                      alt={`${e.year} Edition`}
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
-                      style={{ display: "block" }}
                       onError={event => {
-                        if (event.target.src !== "/images/jury1.jpeg") event.target.src = "/images/jury1.jpeg";
+                        if (event.target.src !== "/images/edition_placeholder.jpg") {
+                          event.target.src = "/images/edition_placeholder.jpg";
+                        }
                       }}
                     />
                   ) : (
-                    <div className="w-full h-full bg-[#ffe391bb] rounded-md" />
+                    <div className="w-full h-full bg-[#ffe391bb] flex items-center justify-center">
+                      <span className="text-[#a88725] font-bold">No Photo</span>
+                    </div>
                   )}
+                  {/* Overlay for better text readability if needed, or just style */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <span className="text-[1.11rem] font-semibold block text-center mt-2 text-[#ffe9b5] leading-tight max-w-[95%] truncate">
-                  {e.chiefGuest?.name || (
-                    <span className="text-[#dac572] italic">TBA</span>
-                  )}
-                </span>
-                {e.chiefGuest?.designation && (
-                  <span className="text-[#e0c66d] text-xs font-medium mt-1 block text-center max-w-[90%] truncate">{e.chiefGuest.designation}</span>
-                )}
               </div>
 
-              {/* Divider */}
-              <div className="w-[73%] mx-auto h-[2px] bg-gradient-to-r from-[#ffe695]/60 via-[#baa13d]/70 to-[#ffd991]/60 opacity-80 rounded-full my-2" />
-
               {/* Edition Info */}
-              <div className="w-full flex flex-col items-center z-20 px-0 mt-2">
-                <span className="text-[#ffe595] font-semibold text-[0.96rem] text-center mt-0 max-w-full break-words leading-snug">
-                  {e.title}
-                </span>
-                <span className="text-[#bdb383] text-[0.85rem] mt-1 text-center block truncate w-full">
-                  {e.locations?.join(" · ")}
-                </span>
-                <div className="mt-1 text-[#fdc537] text-base font-bold tracking-wide max-w-full text-center truncate">
-                  {e.editionLabel || "Edition"}
-                </div>
-                <div className="font-extrabold text-[#ffe780] text-3xl mt-1 mb-3 tracking-wide drop-shadow text-center">
+              <div className="w-full flex flex-col items-center z-20 px-0">
+                <div className="font-extrabold text-[#ffe780] text-3xl mb-1 tracking-wide drop-shadow text-center">
                   {e.year}
+                </div>
+                <div className="text-[#fdc537] text-sm font-bold tracking-widest uppercase mb-2">
+                  {e.editionLabel}
+                </div>
+
+                <span className="text-[#ffe595] font-semibold text-[1.1rem] text-center mb-1 max-w-full leading-tight">
+                  {e.fullDate || e.year}
+                </span>
+
+                <div className="flex items-center gap-2 text-[#bdb383] text-[0.9rem] mb-4">
+                  <svg className="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="truncate">{e.locations?.join(" · ")}</span>
                 </div>
               </div>
 

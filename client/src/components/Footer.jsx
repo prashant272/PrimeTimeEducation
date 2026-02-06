@@ -38,16 +38,16 @@ export default function Footer() {
           {/* ==== ABOUT/BRAND ==== */}
           <div className="flex flex-col h-full">
             <div className="flex items-center space-x-3 mb-3">
-              <img 
-                src="/images/primetimelogo.gif" 
-                alt="GHA Logo" 
+              <img
+                src="/images/primetimelogo.gif"
+                alt="GHA Logo"
                 className="w-15 h-15 rounded-full shadow-md ring-2 ring-[#d4af37]/50 bg-black object-contain"
                 loading="lazy"
               />
-              <span 
+              <span
                 className="font-heading text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent"
                 style={{ backgroundImage: goldGrad }}>
-                  Global Healthcare Awards 2026
+                Global Healthcare Awards 2026
               </span>
             </div>
             <div
@@ -60,7 +60,7 @@ export default function Footer() {
 
           {/* ==== QUICK LINKS ==== */}
           <div>
-            <h3 
+            <h3
               className="font-semibold mb-5 text-lg text-[#f5f3f0] tracking-wide 
                 border-l-4 pl-3 border-[#ffeec3]/20"
             >
@@ -79,11 +79,16 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/jury" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
-                  Jury Members
+                  Guest
                 </Link>
               </li>
               <li>
-                <Link to="/previous" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
+                <Link to="/media" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
+                  Media
+                </Link>
+              </li>
+              <li>
+                <Link to="/previous-editions" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
                   Previous Editions
                 </Link>
               </li>
@@ -92,7 +97,7 @@ export default function Footer() {
 
           {/* ==== INFORMATION ==== */}
           <div>
-            <h3 
+            <h3
               className="font-semibold mb-5 text-lg text-[#f5f3f0] tracking-wide
                 border-l-4 pl-3 border-[#ffeec3]/20"
             >
@@ -101,46 +106,67 @@ export default function Footer() {
             <ul className="space-y-3 text-base">
               <li>
                 <Link to="/guidelines" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
-                  Nomination Guidelines
+                  Entry Guidelines
                 </Link>
               </li>
               <li>
                 <Link to="/judging" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
-                  Judging Criteria
+                  Selection Process
                 </Link>
               </li>
               <li>
                 <Link to="/terms" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
-                  Terms &amp; Conditions
+                  T&C
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
+                  Contact Us
                 </Link>
               </li>
             </ul>
           </div>
-          
+
           {/* ==== POWERED BY PRIMETIME MEDIA, OFFICE ADDRESS & MAP ==== */}
           <div>
-            <h3 
+            <h3
               className="font-semibold mb-5 text-lg text-[#f5f3f0] tracking-wide
                 border-l-4 pl-3 border-[#ffeec3]/20"
             >
-              Powered by Primetime Media
+              Reach Us
             </h3>
-            <div className="space-y-2 text-base">
+            <div className="space-y-3 text-base">
               <div className="flex items-start gap-2">
                 <span className="inline-block w-5 mt-0.5 text-[#d4af37]">🏢</span>
-                <span>
-                <strong>Registered Office:</strong><br />
-                   Prime Time Research Media Private Limited<br />
-                          C-31, Nawada Housing Complex,<br />
-                           Shivaji Marg, New Delhi – 110059
-                 </span>
-
+                <span className="text-sm leading-snug">
+                  <strong>Office:</strong> Prime Time Research Media, C-31, Nawada Housing Complex, New Delhi-59
+                </span>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="inline-block w-5 mt-0.5 text-[#d4af37]">📞</span>
-                <a href="tel:09810882769" className="hover:text-[#d4af37] transition-all">
-                  098108 82769
-                </a>
+              <div className="grid grid-cols-1 gap-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-5 text-[#25D366]">📞</span>
+                  <a href="tel:+919810882769" className="hover:text-[#d4af37] transition-all text-sm font-semibold">
+                    +91 9810 88 2769 <span className="text-[10px] opacity-60 font-normal uppercase ml-1">(Nominations)</span>
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-5 text-[#d4af37]">📞</span>
+                  <a href="tel:+919971002984" className="hover:text-[#d4af37] transition-all text-sm font-semibold">
+                    +91 9971 00 2984 <span className="text-[10px] opacity-60 font-normal uppercase ml-1">(Sponsorship)</span>
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-5 text-[#d4af37]">📞</span>
+                  <a href="tel:+919810910686" className="hover:text-[#d4af37] transition-all text-sm font-semibold">
+                    +91 9810 91 0686 <span className="text-[10px] opacity-60 font-normal uppercase ml-1">(Helpline)</span>
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-5 text-[#d4af37]">☎️</span>
+                  <a href="tel:+911169268754" className="hover:text-[#d4af37] transition-all text-sm font-semibold">
+                    +91 11-69268754
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-2 mt-2">
                 <a
@@ -181,26 +207,26 @@ export default function Footer() {
 
       {/* BOTTOM BAR */}
       <div
-  className="text-center text-xs md:text-sm py-6 px-3 border-t border-[#d4af37]/20"
-  style={{ background: "rgba(0,0,0,0.10)" }}
->
-  <span
-    className="font-semibold text-base sm:text-lg"
-    style={{
-      background: goldGrad,
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      color: "transparent",
-    }}
-  >
-    Global Healthcare Awards
-  </span>
+        className="text-center text-xs md:text-sm py-6 px-3 border-t border-[#d4af37]/20"
+        style={{ background: "rgba(0,0,0,0.10)" }}
+      >
+        <span
+          className="font-semibold text-base sm:text-lg"
+          style={{
+            background: goldGrad,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            color: "transparent",
+          }}
+        >
+          Global Healthcare Awards
+        </span>
 
-  {" "} &bull; © {new Date().getFullYear()} All Rights Reserved  
-  {" "} | This page is owned by{" "}
-  <span className="text-[#d4af37] font-bold">
-    Prime Time Research Media
-  </span>
+        {" "} &bull; © {new Date().getFullYear()} All Rights Reserved
+        {" "} | This page is owned by{" "}
+        <span className="text-[#d4af37] font-bold">
+          Prime Time Research Media
+        </span>
       </div>
 
     </footer>

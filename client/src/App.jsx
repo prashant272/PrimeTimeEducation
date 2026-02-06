@@ -34,13 +34,15 @@ import AdminLogin from "./pages/AdminLogin.jsx";
 import AdminRegister from "./pages/AdminRegister.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import WhatsAppButton from "./components/WhatsAppButton.jsx";
 
 export default function App() {
   const location = useLocation();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#3a1418]">
-
+      <ScrollToTop />
       <Navbar />
 
       {/* MAIN CONTENT */}
@@ -106,7 +108,7 @@ export default function App() {
 
 
       {!location.pathname.startsWith("/admin") && <Footer />}
-
+      <WhatsAppButton />
     </div >
   );
 }

@@ -88,11 +88,11 @@ export default function Home() {
       tagline: "India’s Leading News & Media Network",
       logo: "../india-today.png",
     },
-    {
-      name: "Aaj Tak",
-      tagline: "India’s No.1 Hindi News Channel",
-      logo: "../aaj-tak.png",
-    },
+    // {
+    //   name: "Aaj Tak",
+    //   tagline: "India’s No.1 Hindi News Channel",
+    //   logo: "../aaj-tak.png",
+    // },
     {
       name: "CNN ",
       tagline: "Global & National News Network",
@@ -103,7 +103,7 @@ export default function Home() {
       tagline: "Trusted Hindi News Network",
       logo: "../news.png",
     },
-  
+
     // ===== Strong National Hindi News =====
     {
       name: "Bharat 24",
@@ -113,7 +113,7 @@ export default function Home() {
     {
       name: "Doordarshan's",
       tagline: "India’s Public Service News Channel",
-      logo: "../dd.jpg",
+      logo: "../ddd.png",
     },
     {
       name: "News 1 India",
@@ -125,14 +125,14 @@ export default function Home() {
       tagline: "National News & Current Affairs Network",
       logo: "../news10.jpg",
     },
-  
+
     // ===== Regional / Specialised Media =====
     {
       name: "Delhi Aaj Tak",
       tagline: "Regional Hindi News Network",
       logo: "../delhiaajtk.jpg",
     },
-  
+
     // ===== Event & Partner Media =====
     {
       name: "Prime Time",
@@ -140,20 +140,21 @@ export default function Home() {
       logo: "../prime.png",
     },
     {
-      name: "Time Cyber Media",
-      tagline: "National Digital News & Cyber Media Network",
-      logo: "../timecyber.png",
+      logo: "../The-SME-Times.png",
     },
-  
+
     // ===== Production & Foundation =====
     {
       name: "Xoom Studio",
       tagline: "Media Production & Event Coverage Partner",
       logo: "../xoom.jpg",
     },
+    {
+      logo: "../remont.jpg"
+    },
   ];
-  
-  
+
+
 
   // Responsive and premium utility variables
   const getGridCols = (len) => {
@@ -171,6 +172,10 @@ export default function Home() {
 
   return (
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
+      {/* SEO H1 - Hidden */}
+      <h1 className="sr-only">
+        Healthcare Awards – Global Healthcare Awards by Prime Time Research Media
+      </h1>
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
         {/* ===== BACKGROUND VIDEO: Responsive & Premium ===== */}
@@ -273,7 +278,7 @@ export default function Home() {
             <h2 className="mb-6 sm:mb-10 text-0.5xl md:text-0.5xl font-heading font-bold text-center bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
               .
             </h2>
-            <div 
+            <div
               className={`
                 grid gap-7 sm:gap-8 ${getGridCols(events.length)} mx-auto
                 relative
@@ -304,40 +309,40 @@ export default function Home() {
                     backdrop-blur-lg
                     before:absolute before:inset-0 before:z-[-2] before:rounded-inherit before:bg-gradient-to-br before:from-[#d4af37]/10 before:via-transparent before:to-[#c69823]/10
                   "
-                  style={{
-                    background: "rgba(34, 17, 9, 0.48)",
-                    boxShadow: "0 4px 36px -8px #d4af3744, 0 0px 0 #fde68a09 inset",
-                  }}
+                    style={{
+                      background: "rgba(34, 17, 9, 0.48)",
+                      boxShadow: "0 4px 36px -8px #d4af3744, 0 0px 0 #fde68a09 inset",
+                    }}
                   >
                     {/* PREMIUM CORNER ORNAMENTS */}
                     <div className="absolute top-0 left-0 w-10 md:w-12 h-10 md:h-12 border-t-2 border-l-2 border-[#ffe7a1]/30 rounded-tl-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
                     <div className="absolute top-0 right-0 w-10 md:w-12 h-10 md:h-12 border-t-2 border-r-2 border-[#ffe7a1]/30 rounded-tr-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
                     <div className="absolute bottom-0 left-0 w-10 md:w-12 h-10 md:h-12 border-b-2 border-l-2 border-[#ffe7a1]/30 rounded-bl-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
                     <div className="absolute bottom-0 right-0 w-10 md:w-12 h-10 md:h-12 border-b-2 border-r-2 border-[#ffe7a1]/30 rounded-br-2xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    
+
                     {/* CROWN & PREMIUM TITLE */}
                     <div className="flex items-center gap-2 mb-3 md:mb-5">
                       <span className="inline-block align-middle scale-125 drop-shadow-lg">
                         <svg width="26" height="20" viewBox="0 0 26 20" fill="none" className="text-[#d4af37]">
-                          <path d="M2 17L7 2L13 10L19 2L24 17H2Z" stroke="currentColor" strokeWidth="2.1" strokeLinejoin="round" fill="#d4af37" className="opacity-70 group-hover:opacity-100 transition"/>
+                          <path d="M2 17L7 2L13 10L19 2L24 17H2Z" stroke="currentColor" strokeWidth="2.1" strokeLinejoin="round" fill="#d4af37" className="opacity-70 group-hover:opacity-100 transition" />
                         </svg>
                       </span>
                       <h3 className="text-xl md:text-2xl font-black font-heading tracking-tight bg-gradient-to-r from-[#fbf6df] via-[#d4af37] to-[#ffeec3] bg-clip-text text-transparent drop-shadow group-hover:from-[#fffbe7] group-hover:to-[#d4af37] transition duration-300">
                         {event.title}
                       </h3>
                     </div>
-                    
+
                     <p className="mb-6 sm:mb-7 text-[#f4ecd8] text-[1.09rem] leading-relaxed font-medium group-hover:text-[#fffbe7] transition-colors text-justify drop-shadow-lg">
                       <span className="inline-block bg-gradient-to-br from-[#d4af37]/90 via-[#ffeec3]/70 to-[#fff5d2]/80 bg-clip-text text-transparent font-semibold tracking-wide">
                         {event.desc}
                       </span>
                     </p>
-                    
+
                     <div className="mb-6 space-y-2 text-sm text-left sm:text-base font-semibold">
                       <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
-                        <span className="text-lg sm:text-xl"> 
+                        <span className="text-lg sm:text-xl">
                           <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
-                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.6" fill="none"/>
+                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.6" fill="none" />
                             <rect x="8.5" y="5" width="3" height="6.5" rx="1.2" fill="#ffd966" />
                             <circle cx="10" cy="14.1" r="1.1" fill="#d4af37" />
                           </svg>
@@ -347,9 +352,9 @@ export default function Home() {
                       <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
                         <span className="text-lg sm:text-xl">
                           <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
-                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.1" fill="none"/>
+                            <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.1" fill="none" />
                             <circle cx="10" cy="12.1" r="3" fill="#d4af37" />
-                            <rect x="9.2" y="6" width="1.6" height="5" rx="0.7" fill="#ffd966"/>
+                            <rect x="9.2" y="6" width="1.6" height="5" rx="0.7" fill="#ffd966" />
                           </svg>
                         </span>
                         <span className="font-bold text-md">{event.place}</span>
@@ -366,7 +371,7 @@ export default function Home() {
                     >
                       <span className="relative z-10 flex items-center gap-2 font-extrabold">
                         <svg className="w-5 h-5 text-[#d4af37] drop-shadow" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M4 10h12M10 4l6 6-6 6" stroke="#b79024" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                          <path d="M4 10h12M10 4l6 6-6 6" stroke="#b79024" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                         </svg>
                         <span>Nominate Now</span>
                       </span>
@@ -395,7 +400,7 @@ export default function Home() {
               {/* Section Badge */}
               <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#2a1b12]/20 backdrop-blur-2xl border border-[#d4af37]/20 shadow-2xl hover:bg-[#392818]/20 hover:border-[#d4af37]/40 transition-all duration-500 group/badge">
                 <div className="relative">
-                  <svg className="w-5 h-5 text-[#d4af37] group-hover/badge:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z"/></svg>
+                  <svg className="w-5 h-5 text-[#d4af37] group-hover/badge:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
                   <div className="absolute inset-0 bg-[#d4af37]/20 blur-xl rounded-full animate-pulse"></div>
                 </div>
                 <span className="text-sm font-bold tracking-wider text-[#ffeec3]">ABOUT THE AWARDS</span>
@@ -404,27 +409,33 @@ export default function Home() {
               <div>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
                   <span className="bg-gradient-to-r from-white via-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent">
-                    Overview
+                    Overview of Healthcare Awards 2026
                   </span>
                 </h2>
-                <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#c5b471] rounded-full"/>
+                <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#c5b471] rounded-full" />
               </div>
 
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#d4af37]/20 via-[#392818]/10 to-[#ffd966]/20 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-1000 rounded-3xl"/>
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#d4af37]/20 via-[#392818]/10 to-[#ffd966]/20 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-1000 rounded-3xl" />
                 <div className="relative bg-[#2a1b12]/80 backdrop-blur-2xl rounded-3xl border border-[#d4af37]/20 shadow-xl overflow-hidden hover:bg-[#392818]/40 hover:border-[#ffeec3]/30 transition-all duration-700 p-8 lg:p-10">
+                  {/* SEO Paragraph - Hidden */}
+                  <p className="sr-only">
+                    Healthcare Awards by Prime Time Research Media, also known as Global Healthcare
+                    Awards, recognize excellence, innovation, hospitals, doctors, and healthcare
+                    leaders worldwide.
+                  </p>
                   {/* Gold Bar */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffd966] via-[#d4af37] to-transparent" />
                   {/* Decorative Orb */}
-                  <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#d4af37]/10 to-[#ffd966]/5 blur-2xl rounded-full transform translate-x-1/2 -translate-y-1/2 opacity-10 group-hover:opacity-20 transition-opacity duration-700"/>
+                  <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#d4af37]/10 to-[#ffd966]/5 blur-2xl rounded-full transform translate-x-1/2 -translate-y-1/2 opacity-10 group-hover:opacity-20 transition-opacity duration-700" />
                   <div className="relative space-y-6">
                     {/* Award Name + Icon */}
                     <div className="flex items-start gap-4">
                       <div className="relative flex-shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37] to-[#ffeec3] opacity-30 blur-lg rounded-xl"/>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37] to-[#ffeec3] opacity-30 blur-lg rounded-xl" />
                         <div className="relative p-3.5 rounded-xl bg-gradient-to-br from-[#d4af37] via-[#ffeec3] to-[#b2994c] shadow-xl">
                           <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
-                            <path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z"/>
+                            <path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" />
                           </svg>
                         </div>
                       </div>
@@ -438,8 +449,8 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-[#e6dfcc] leading-relaxed text-lg font-medium">
-                      The <span className="font-bold text-[#ffd966]">Global Healthcare Awards, 2026</span> recognize significant contributions in the healthcare sector.<br/><br/>
-                      The Awards showcase the highest academic goals and outstanding achievements through <span className="font-semibold text-[#f1d46b]">innovation, leadership, dedication,</span> and commitment towards learning.<br/><br/>
+                      The <span className="font-bold text-[#ffd966]">Global Healthcare Awards, 2026</span> recognize significant contributions in the healthcare sector.<br /><br />
+                      The Awards showcase the highest academic goals and outstanding achievements through <span className="font-semibold text-[#f1d46b]">innovation, leadership, dedication,</span> and commitment towards learning.<br /><br />
                       <span className="font-semibold text-[#f1d46b]">Global Healthcare Excellence Awards, 2026</span> will be a converging point of the industry's elite – a celebration and recognition of excellence, reputation, and exemplary service.
                     </p>
                     {/* Feature Pills */}
@@ -464,7 +475,7 @@ export default function Home() {
                     Key Dates
                   </span>
                 </h2>
-                <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] to-[#d4af37] rounded-full"/>
+                <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] to-[#d4af37] rounded-full" />
               </div>
               {/* Timeline Style Cards */}
               <div className="space-y-6">
@@ -474,7 +485,7 @@ export default function Home() {
                     date: '15 April 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" /></svg>
                       </span>
                     ),
                     border: 'from-[#ffd966] to-[#d4af37]',
@@ -484,7 +495,7 @@ export default function Home() {
                     date: 'April 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M3 7h18M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M6 7V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M9 12h6"/></svg>
+                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M3 7h18M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M6 7V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M9 12h6" /></svg>
                       </span>
                     ),
                     border: 'from-[#f1d46b] to-[#d4af37]',
@@ -494,11 +505,11 @@ export default function Home() {
                     date: 'Early May 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffeb98] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z"/></svg>
+                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z" /></svg>
                       </span>
                     ),
                     border: 'from-[#ffeb98] to-[#ffeec3]',
-                  },               
+                  },
                   {
                     title: 'Award Ceremony – Dubai',
                     date: '26 May 2026',
@@ -532,14 +543,14 @@ export default function Home() {
                         <div className="flex-1 pt-1">
                           <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-[#ffeec3] mb-1 leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#ffeec3] group-hover:to-white group-hover:bg-clip-text transition-all duration-500">{item.title}</h3>
                           <div className="flex items-center gap-2 text-[#ffd966] text-sm sm:text-base">
-                            <svg className="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+                            <svg className="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" /></svg>
                             <span className="font-bold">{item.date}</span>
                           </div>
                         </div>
                         {/* Checkmark */}
                         <div className="flex-shrink-0">
                           <div className="p-2 rounded-lg bg-[#ffeec3]/10 group-hover:bg-[#ffeec3]/20 transition-colors duration-300">
-                            <svg className="w-5 h-5 text-[#d4af37] opacity-50 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11"/></svg>
+                            <svg className="w-5 h-5 text-[#d4af37] opacity-50 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11" /></svg>
                           </div>
                         </div>
                       </div>
@@ -562,7 +573,7 @@ export default function Home() {
                   </p>
                   <button onClick={handleNominateClick} className="relative w-full py-4 px-6 rounded-xl font-black text-[#392818] overflow-hidden group/btn transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#a28533] shadow hover:shadow-lg ">
                     <span className="relative z-10 text-lg tracking-wide">Nominate Now</span>
-                    <svg className="w-5 h-5 relative z-10 group-hover/btn:rotate-12 transition-transform duration-500 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z"/></svg>
+                    <svg className="w-5 h-5 relative z-10 group-hover/btn:rotate-12 transition-transform duration-500 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
                   </button>
                 </div>
               </div>
@@ -572,9 +583,9 @@ export default function Home() {
           <div className="mt-20 text-center">
             <div className="inline-flex items-center gap-2 text-[#ffeec3]/70 text-sm">
               <div className="w-12 h-px bg-gradient-to-r from-transparent to-[#ffeec3]/50" />
-              <svg className="w-4 h-4 animate-pulse text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z"/></svg>
+              <svg className="w-4 h-4 animate-pulse text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
               <span className="font-medium">Celebrating Excellence in Healthcare</span>
-              <svg className="w-4 h-4 animate-pulse animation-delay-1000 text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z"/></svg>
+              <svg className="w-4 h-4 animate-pulse animation-delay-1000 text-[#ffd966]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" /></svg>
               <div className="w-12 h-px bg-gradient-to-l from-transparent to-[#ffeec3]/50" />
             </div>
           </div>
@@ -596,7 +607,7 @@ export default function Home() {
             className="opacity-0 transform translate-y-8 transition-all duration-700 text-center mb-14 sm:mb-20"
           >
             <h2 className="text-2xl xs:text-4xl md:text-5xl font-extrabold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              Why Enter Global Healthcare Awards 2026
+              Why Enter Healthcare Awards – Global Healthcare Awards 2026
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>
@@ -604,214 +615,214 @@ export default function Home() {
           <div
             className={`w-full grid ${getGridCols(2)} md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10`}
           >
-          {/* ...cards unchanged... */}
-          {[
-            {
-              title: "National & Global Recognition",
-              desc: "Gain prestigious recognition across the healthcare industry and position your organisation among the most trusted and respected leaders.",
-              icon: "🌟",
-            },
-            {
-              title: "Independent Jury Validation",
-              desc: "All nominations are evaluated by an eminent and independent jury panel, ensuring credibility, transparency, and unbiased assessment.",
-              icon: "⚖️",
-            },
-            {
-              title: "Showcase Innovation & Impact",
-              desc: "Highlight your innovations, achievements, and measurable impact before policymakers, industry leaders, and stakeholders.",
-              icon: "💡",
-            },
-            {
-              title: "Strengthen Brand Authority",
-              desc: "Enhance brand reputation and reinforce trust among partners, clients, investors, and the broader healthcare ecosystem.",
-              icon: "🏆",
-            },
-            {
-              title: "Benchmark Against Industry Leaders",
-              desc: "Measure your performance against industry best practices, global standards, and emerging healthcare trends.",
-              icon: "📊",
-            },
-            {
-              title: "Future-Ready Positioning",
-              desc: "Demonstrate your organisation's readiness for future challenges through leadership, scalability, and sustainable growth.",
-              icon: "🚀",
-            },
-          ].map((item, index) => (
-            <div
-              key={index}
-              ref={(el) => (sectionRefs.current[5 + index] = el)}
-              className="group relative opacity-0 transform translate-y-8 transition-all duration-700 min-h-[250px] flex"
-            >
-              <div className="relative bg-gradient-to-br from-black/40 via-black/30 to-black/40 backdrop-blur-xl rounded-3xl flex flex-col flex-grow p-6 sm:p-8 md:p-10 border border-[#eed47c]/30 hover:border-[#ffeb98] hover:shadow-[#d4af37]/40 transition-all duration-500 hover:shadow-[0_8px_48px_-10px_#d4af37cc] hover:-translate-y-2 hover:scale-[1.03]">
-                {/* Decorative Corners */}
-                <div className="absolute top-0 left-0 w-9 sm:w-11 h-9 sm:h-11 border-t-2 border-l-2 border-[#eee9bd]/30 rounded-tl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                <div className="absolute top-0 right-0 w-9 sm:w-11 h-9 sm:h-11 border-t-2 border-r-2 border-[#eee9bd]/30 rounded-tr-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                <div className="absolute bottom-0 left-0 w-9 sm:w-11 h-9 sm:h-11 border-b-2 border-l-2 border-[#eee9bd]/30 rounded-bl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                <div className="absolute bottom-0 right-0 w-9 sm:w-11 h-9 sm:h-11 border-b-2 border-r-2 border-[#eee9bd]/30 rounded-br-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
-                {/* Icon */}
-                <div className="text-3xl sm:text-4xl mb-1 sm:mb-3 flex-shrink-0 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  {item.icon}
+            {/* ...cards unchanged... */}
+            {[
+              {
+                title: "National & Global Recognition",
+                desc: "Gain prestigious recognition across the healthcare industry and position your organisation among the most trusted and respected leaders.",
+                icon: "🌟",
+              },
+              {
+                title: "Independent Jury Validation",
+                desc: "All nominations are evaluated by an eminent and independent jury panel, ensuring credibility, transparency, and unbiased assessment.",
+                icon: "⚖️",
+              },
+              {
+                title: "Showcase Innovation & Impact",
+                desc: "Highlight your innovations, achievements, and measurable impact before policymakers, industry leaders, and stakeholders.",
+                icon: "💡",
+              },
+              {
+                title: "Strengthen Brand Authority",
+                desc: "Enhance brand reputation and reinforce trust among partners, clients, investors, and the broader healthcare ecosystem.",
+                icon: "🏆",
+              },
+              {
+                title: "Benchmark Against Industry Leaders",
+                desc: "Measure your performance against industry best practices, global standards, and emerging healthcare trends.",
+                icon: "📊",
+              },
+              {
+                title: "Future-Ready Positioning",
+                desc: "Demonstrate your organisation's readiness for future challenges through leadership, scalability, and sustainable growth.",
+                icon: "🚀",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                ref={(el) => (sectionRefs.current[5 + index] = el)}
+                className="group relative opacity-0 transform translate-y-8 transition-all duration-700 min-h-[250px] flex"
+              >
+                <div className="relative bg-gradient-to-br from-black/40 via-black/30 to-black/40 backdrop-blur-xl rounded-3xl flex flex-col flex-grow p-6 sm:p-8 md:p-10 border border-[#eed47c]/30 hover:border-[#ffeb98] hover:shadow-[#d4af37]/40 transition-all duration-500 hover:shadow-[0_8px_48px_-10px_#d4af37cc] hover:-translate-y-2 hover:scale-[1.03]">
+                  {/* Decorative Corners */}
+                  <div className="absolute top-0 left-0 w-9 sm:w-11 h-9 sm:h-11 border-t-2 border-l-2 border-[#eee9bd]/30 rounded-tl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                  <div className="absolute top-0 right-0 w-9 sm:w-11 h-9 sm:h-11 border-t-2 border-r-2 border-[#eee9bd]/30 rounded-tr-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                  <div className="absolute bottom-0 left-0 w-9 sm:w-11 h-9 sm:h-11 border-b-2 border-l-2 border-[#eee9bd]/30 rounded-bl-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                  <div className="absolute bottom-0 right-0 w-9 sm:w-11 h-9 sm:h-11 border-b-2 border-r-2 border-[#eee9bd]/30 rounded-br-3xl group-hover:border-[#d4af37] transition-all duration-300"></div>
+                  {/* Icon */}
+                  <div className="text-3xl sm:text-4xl mb-1 sm:mb-3 flex-shrink-0 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-[#eed47c] group-hover:text-[#fffbe5] transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#e6d7c8] leading-relaxed group-hover:text-[#fffce6] transition-colors duration-300 flex-grow">
+                    {item.desc}
+                  </p>
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/0 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/20 transition-all duration-700 -z-10"></div>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-[#eed47c] group-hover:text-[#fffbe5] transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p className="text-sm sm:text-base text-[#e6d7c8] leading-relaxed group-hover:text-[#fffce6] transition-colors duration-300 flex-grow">
-                  {item.desc}
-                </p>
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/0 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/20 transition-all duration-700 -z-10"></div>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
       </section>
       {/* ================= RESEARCH METHODOLOGY ================= */}
       <section className={`relative overflow-hidden pt-6 md:pt-10 pb-6 ${SECTION_BG}`}>
-  {/* Glow Background */}
-  <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-    <div className="absolute top-1/3 right-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#d4af37]/8 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute bottom-1/3 left-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#c62828]/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
-  </div>
-
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-    {/* Heading */}
-    <div className="text-center mb-16">
-      <h2 className="text-2xl xs:text-4xl md:text-5xl font-semibold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent">
-        Research Methodology
-      </h2>
-      <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
-    </div>
-
-    {/* DATA */}
-    {(() => {
-      const items = [
-        {
-          title: "Data Collection & Screening",
-          desc: "All nominations are collected through a structured submission process. Each entry undergoes an initial screening to ensure eligibility, completeness, and alignment with the award category.",
-          number: "01",
-        },
-        {
-          title: "Qualitative & Quantitative Analysis",
-          desc: "Submissions are evaluated using a balanced research framework combining qualitative insights and quantitative metrics to assess performance, innovation, and impact.",
-          number: "02",
-        },
-        {
-          title: "Expert Jury Evaluation",
-          desc: "An independent panel of industry experts, academicians, and subject-matter specialists reviews shortlisted entries to ensure unbiased and credible assessment.",
-          number: "03",
-        },
-        {
-          title: "Benchmarking & Industry Standards",
-          desc: "Each nomination is benchmarked against industry best practices, regulatory standards, and emerging global trends to measure relevance and excellence.",
-          number: "04",
-        },
-        {
-          title: "Score Normalisation & Validation",
-          desc: "Scores from multiple evaluators are normalised to eliminate bias and ensure consistency, fairness, and transparency across all categories.",
-          number: "05",
-        },
-        {
-          title: "Final Review & Approval",
-          desc: "The final results undergo an internal audit and validation process before approval, ensuring accuracy, integrity, and credibility of the award outcomes.",
-          number: "06",
-        },
-      ];
-
-      return (
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-          {items.map((item, index) => (
-            <div key={index} className="relative group flex flex-col items-center">
-              
-              {/* CARD */}
-              <div className="relative w-full flex flex-col min-h-[250px] bg-gradient-to-br from-black/80 via-black/40 to-black/70 backdrop-blur-lg rounded-3xl p-6 sm:p-8 md:p-10 border border-[#efd779]/10 hover:border-[#ffe98c]/60 hover:scale-105 hover:shadow-[0_8px_32px_-10px_#eed47ccc] transition-all duration-500">
-                
-                {/* Number */}
-                <div className="absolute -top-4 -left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#f7e7a1] via-[#eed47c] to-[#c9a530] flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg border-2 border-[#d4af37] ring-2 ring-white/10">
-                  {item.number}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-[#f1d46b] to-[#d4af37] bg-clip-text text-transparent">
-                  {item.title}
-                </h3>
-
-                {/* Desc */}
-                <p className="text-sm sm:text-base text-[#e6ddcc] leading-relaxed flex-grow">
-                  {item.desc}
-                </p>
-
-                <div className="mt-5 sm:mt-6 h-1 w-12 sm:w-14 bg-gradient-to-r from-[#d4af37] to-transparent opacity-40 rounded-full"></div>
-              </div>
-
-              {/* ARROWS */}
-              {index !== items.length - 1 && (
-                <>
-                  {/* Desktop Right Arrow */}
-                  <div className="hidden md:flex absolute right-[-40px] top-1/2 -translate-y-1/2 z-20">
-                    <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
-                      <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
-                        <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
-                          <defs>
-                            <radialGradient id={`arrowGradient${index}`} cx="50%" cy="50%" r="70%">
-                              <stop offset="0%" stopColor="#ffd657"/>
-                              <stop offset="80%" stopColor="#d4af37"/>
-                              <stop offset="100%" stopColor="#c62828"/>
-                            </radialGradient>
-                          </defs>
-                          <circle cx="17" cy="17" r="16" fill="url(#arrowGradient0)" opacity="0.21"/>
-                          <path
-                            d="M10 17h14m0 0l-5-5m5 5l-5 5"
-                            stroke="#d4af37"
-                            strokeWidth="2.7"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            filter="url(#dropshadow)"
-                          />
-                          <filter id="dropshadow" x="0" y="0" width="200%" height="200%">
-                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
-                          </filter>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mobile Down Arrow */}
-                  <div className="md:hidden flex flex-col items-center mt-4 z-20">
-                    <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
-                      <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
-                        <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
-                          <defs>
-                            <radialGradient id={`arrowGradientMobile${index}`} cx="50%" cy="50%" r="70%">
-                              <stop offset="0%" stopColor="#ffd657"/>
-                              <stop offset="80%" stopColor="#d4af37"/>
-                              <stop offset="100%" stopColor="#c62828"/>
-                            </radialGradient>
-                          </defs>
-                          <circle cx="17" cy="17" r="16" fill="url(#arrowGradientMobile0)" opacity="0.21"/>
-                          <path
-                            d="M17 10v14m0 0l5-5m-5 5l-5-5"
-                            stroke="#d4af37"
-                            strokeWidth="2.7"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            filter="url(#dropshadowMobile)"
-                          />
-                          <filter id="dropshadowMobile" x="0" y="0" width="200%" height="200%">
-                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
-                          </filter>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
+        {/* Glow Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute top-1/3 right-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#d4af37]/8 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/3 left-0 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 bg-[#c62828]/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
-      );
-    })()}
-  </div>
-</section>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-2xl xs:text-4xl md:text-5xl font-semibold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent">
+              Research Methodology
+            </h2>
+            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
+          </div>
+
+          {/* DATA */}
+          {(() => {
+            const items = [
+              {
+                title: "Data Collection & Screening",
+                desc: "All nominations are collected through a structured submission process. Each entry undergoes an initial screening to ensure eligibility, completeness, and alignment with the award category.",
+                number: "01",
+              },
+              {
+                title: "Qualitative & Quantitative Analysis",
+                desc: "Submissions are evaluated using a balanced research framework combining qualitative insights and quantitative metrics to assess performance, innovation, and impact.",
+                number: "02",
+              },
+              {
+                title: "Expert Jury Evaluation",
+                desc: "An independent panel of industry experts, academicians, and subject-matter specialists reviews shortlisted entries to ensure unbiased and credible assessment.",
+                number: "03",
+              },
+              {
+                title: "Benchmarking & Industry Standards",
+                desc: "Each nomination is benchmarked against industry best practices, regulatory standards, and emerging global trends to measure relevance and excellence.",
+                number: "04",
+              },
+              {
+                title: "Score Normalisation & Validation",
+                desc: "Scores from multiple evaluators are normalised to eliminate bias and ensure consistency, fairness, and transparency across all categories.",
+                number: "05",
+              },
+              {
+                title: "Final Review & Approval",
+                desc: "The final results undergo an internal audit and validation process before approval, ensuring accuracy, integrity, and credibility of the award outcomes.",
+                number: "06",
+              },
+            ];
+
+            return (
+              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+                {items.map((item, index) => (
+                  <div key={index} className="relative group flex flex-col items-center">
+
+                    {/* CARD */}
+                    <div className="relative w-full flex flex-col min-h-[250px] bg-gradient-to-br from-black/80 via-black/40 to-black/70 backdrop-blur-lg rounded-3xl p-6 sm:p-8 md:p-10 border border-[#efd779]/10 hover:border-[#ffe98c]/60 hover:scale-105 hover:shadow-[0_8px_32px_-10px_#eed47ccc] transition-all duration-500">
+
+                      {/* Number */}
+                      <div className="absolute -top-4 -left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#f7e7a1] via-[#eed47c] to-[#c9a530] flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg border-2 border-[#d4af37] ring-2 ring-white/10">
+                        {item.number}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-[#f1d46b] to-[#d4af37] bg-clip-text text-transparent">
+                        {item.title}
+                      </h3>
+
+                      {/* Desc */}
+                      <p className="text-sm sm:text-base text-[#e6ddcc] leading-relaxed flex-grow">
+                        {item.desc}
+                      </p>
+
+                      <div className="mt-5 sm:mt-6 h-1 w-12 sm:w-14 bg-gradient-to-r from-[#d4af37] to-transparent opacity-40 rounded-full"></div>
+                    </div>
+
+                    {/* ARROWS */}
+                    {index !== items.length - 1 && (
+                      <>
+                        {/* Desktop Right Arrow */}
+                        <div className="hidden md:flex absolute right-[-40px] top-1/2 -translate-y-1/2 z-20">
+                          <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
+                            <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
+                              <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
+                                <defs>
+                                  <radialGradient id={`arrowGradient${index}`} cx="50%" cy="50%" r="70%">
+                                    <stop offset="0%" stopColor="#ffd657" />
+                                    <stop offset="80%" stopColor="#d4af37" />
+                                    <stop offset="100%" stopColor="#c62828" />
+                                  </radialGradient>
+                                </defs>
+                                <circle cx="17" cy="17" r="16" fill="url(#arrowGradient0)" opacity="0.21" />
+                                <path
+                                  d="M10 17h14m0 0l-5-5m5 5l-5 5"
+                                  stroke="#d4af37"
+                                  strokeWidth="2.7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  filter="url(#dropshadow)"
+                                />
+                                <filter id="dropshadow" x="0" y="0" width="200%" height="200%">
+                                  <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
+                                </filter>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Mobile Down Arrow */}
+                        <div className="md:hidden flex flex-col items-center mt-4 z-20">
+                          <div className="bg-gradient-to-br from-[#fffbe9] via-[#d4af37] to-[#c62828]/70 rounded-full shadow-lg p-[2.5px] border-2 border-[#eed47c]/50 animate-pulse-slow transition-all group-hover:scale-110 group-hover:shadow-[0_0_24px_2px_#d4af3766]">
+                            <div className="bg-black/30 rounded-full p-0.5 flex items-center justify-center">
+                              <svg width="34" height="34" viewBox="0 0 34 34" className="drop-shadow-lg" fill="none">
+                                <defs>
+                                  <radialGradient id={`arrowGradientMobile${index}`} cx="50%" cy="50%" r="70%">
+                                    <stop offset="0%" stopColor="#ffd657" />
+                                    <stop offset="80%" stopColor="#d4af37" />
+                                    <stop offset="100%" stopColor="#c62828" />
+                                  </radialGradient>
+                                </defs>
+                                <circle cx="17" cy="17" r="16" fill="url(#arrowGradientMobile0)" opacity="0.21" />
+                                <path
+                                  d="M17 10v14m0 0l5-5m-5 5l-5-5"
+                                  stroke="#d4af37"
+                                  strokeWidth="2.7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  filter="url(#dropshadowMobile)"
+                                />
+                                <filter id="dropshadowMobile" x="0" y="0" width="200%" height="200%">
+                                  <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ffe68488" />
+                                </filter>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+        </div>
+      </section>
 
       {/* ================= GUESTS & SPEAKERS ================= */}
       <section className={`relative pt-6 md:pt-12 pb-8 overflow-hidden ${HIGHLIGHT_BG}`}>
@@ -918,80 +929,53 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Responsive grid: 1 on xs, 2 on sm, 3 on md, 4 on lg+ */}
-          <div
-            className={`
-              grid
-              gap-5 xs:gap-7 sm:gap-8 md:gap-10 lg:gap-12
-              grid-cols-1
-              xs:grid-cols-2
-              md:grid-cols-3
-              lg:grid-cols-4
-            `}
-          >
-            {mediaPartners.map((partner, idx) => (
-              <div
-                key={partner.name + idx}
-                className="group flex h-full"
-              >
+          {/* Automatic Infinite Slider */}
+          <div className="overflow-hidden py-6 sm:py-10 lg:py-14 w-full">
+            <div className="animate-marquee flex gap-8 sm:gap-12 md:gap-16 lg:gap-20 items-center">
+              {/* Combine original list twice for seamless loop */}
+              {[...mediaPartners, ...mediaPartners].map((partner, idx) => (
                 <div
-                  className="
-                    relative flex flex-col
-                    items-center justify-between flex-grow
-                    rounded-2xl
-                    bg-gradient-to-br from-black/80 via-[#251c10]/90 to-[#b0872b14]
-                    border border-[#eed47c]/15
-                    hover:border-[#ffd966]/80
-                    hover:shadow-[0_12px_40px_-12px_#efd77c88,0_0_0_4px_#ffd96633]
-                    shadow-[0_4px_18px_#1d140e55]
-                    transition-all duration-500
-                    px-4 py-5 xs:px-5 xs:py-7 sm:px-7 sm:py-9 md:px-9 md:py-10
-                    min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] md:min-h-[360px]
-                    overflow-hidden
-                  "
-                  style={{ backdropFilter: "blur(2px)" }}
+                  key={`${partner.name}-${idx}`}
+                  className="flex-shrink-0 group"
                 >
-                  {/* Square image with soft shadow & border, responsive sizing */}
-                  <div className="relative mb-5 sm:mb-6 md:mb-8 w-[60px] xs:w-[80px] sm:w-[96px] md:w-[110px] aspect-square rounded-xl overflow-hidden flex items-center justify-center transition-all duration-500 shadow-[0_2px_14px_#d4af3744,0_6px_32px_#0003] group-hover:scale-105 group-hover:shadow-[0_8px_32px_-10px_#ffd96677] border-2 border-[#eed47c]/15 group-hover:border-[#ffd966]/70 bg-[#251c10]">
-                    {/* Animated square border and soft overlay on hover */}
-                    <div className="pointer-events-none absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#d4af37]/30 group-hover:bg-gradient-to-br group-hover:from-[#ffd966]/20 group-hover:via-[#d4af37]/10 group-hover:to-[#fff6d0]/0 transition-all duration-500 z-10"></div>
+                  <div
+                    className="
+                      relative h-28 xs:h-36 sm:h-48 md:h-60 lg:h-72 xl:h-80
+                      aspect-square rounded-2xl sm:rounded-3xl md:rounded-[2.5rem]
+                      bg-gradient-to-br from-[#1d140e]/95 via-[#251c10]/98 to-[#b0872b1a]
+                      border border-[#eed47c]/25
+                      hover:border-[#ffd966]
+                      hover:shadow-[0_20px_60px_-15px_#efd77c66,0_0_0_3px_#ffd96622]
+                      transition-all duration-500
+                      flex items-center justify-center
+                      overflow-hidden p-4 xs:p-7 sm:p-10 md:p-12 lg:p-14
+                    "
+                    style={{ backdropFilter: "blur(4px)" }}
+                  >
+                    {/* Glow Background */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#d4af37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
                     {partner.logo ? (
                       <img
                         src={partner.logo}
                         alt={partner.name}
-                        className="w-full h-full object-contain object-center select-none transition-all duration-400 group-hover:scale-110 group-hover:brightness-110 bg-[#21170d]"
+                        className="w-full h-full object-contain group-hover:scale-110 group-hover:brightness-105 transition-all duration-500"
                         loading="lazy"
                         draggable="false"
-                        style={{
-                          aspectRatio: '1/1',
-                          backgroundColor: '#1d140e',
-                          borderRadius: '0.75rem'
-                        }}
-                        onError={(e) => { e.target.style.display = "none"; }}
                       />
                     ) : (
-                      <span className="text-[#ffd966] text-xl sm:text-2xl md:text-3xl font-extrabold">{partner.name[0]}</span>
-                    )}
-                    {/* Glow overlay */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-transparent via-white/10 to-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"></div>
-                  </div>
-                  {/* Name */}
-                  <h3 className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold tracking-wide text-[#ffeec3] mb-1.5 sm:mb-2 md:mb-2.5 drop-shadow-sm group-hover:text-[#ffd966] transition-colors line-clamp-1 font-heading uppercase tracking-wider">
-                    {partner.name}
-                  </h3>
-                  {/* Tagline */}
-                  <p className="text-xs xs:text-sm sm:text-base text-[#f0e4c4] font-medium text-center max-w-[140px] xs:max-w-xs sm:max-w-sm mx-auto px-1 group-hover:text-[#fffbe9] transition-colors duration-300 italic leading-snug tracking-tight line-clamp-2">
-                    <span className="inline-block px-0.5">
-                      <span className="relative after:block after:absolute after:inset-x-0 after:-bottom-0.5 after:h-1.5 after:bg-[#d4af3755] after:rounded-lg after:blur-sm">
-                        {partner.tagline}
+                      <span className="text-[#ffd966] text-xl sm:text-3xl md:text-4xl font-black drop-shadow-lg">
+                        {partner.name[0]}
                       </span>
-                    </span>
-                  </p>
-                  {/* Bottom decorative accent */}
-                  <div className="w-10 xs:w-14 sm:w-20 h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#e9c969] to-transparent mx-auto mt-3 sm:mt-4 md:mt-5 opacity-70 group-hover:w-16 sm:group-hover:w-24 transition-all duration-500"></div>
+                    )}
+
+                    {/* Corner Ornaments */}
+                    <div className="absolute top-2 left-2 w-3 sm:w-4 h-3 sm:h-4 border-t border-l border-[#d4af37]/30 rounded-tl-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    <div className="absolute bottom-2 right-2 w-3 sm:w-4 h-3 sm:h-4 border-b border-r border-[#d4af37]/30 rounded-br-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

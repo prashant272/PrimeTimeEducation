@@ -1,37 +1,12 @@
 export const EDITIONS = [
   {
-    year: 2026,
-    path: "/editions/2026",
-    title: "Global Healthcare Excellence Awards",
-    editionLabel: "3rd Edition",
-    locations: ["Dubai", "London"],
-    hero: "Celebrating Excellence in Healthcare",
-    chiefGuest: {
-      name: "Dr. Virender Sehwag",
-      photo: "/images/jury1.jpeg",
-      designation: "Chief Guest",
-    },
-    winners: [
-      {
-        name: "Dr. Rajesh Kumar",
-        hospital: "Apollo Hospitals",
-        photo: "/images/jury2.jpeg",
-        award: "Best Multispeciality Hospital",
-      },
-      {
-        name: "Dr. Priya Sharma",
-        hospital: "Fortis Healthcare",
-        photo: "/images/jury3.jpeg",
-        award: "Best Doctor of the Year",
-      },
-    ],
-  },
-  {
     year: 2025,
     path: "/editions/2025",
     title: "Global Healthcare Excellence Awards",
-    editionLabel: "2nd Edition",
+    editionLabel: "13th Edition",
     locations: ["Dubai"],
+    fullDate: "May 2025",
+    coverImage: "/images/jury4.jpeg",
     hero: "Innovation. Impact. Integrity.",
     chiefGuest: {
       name: "Dr. Sunil Gavaskar",
@@ -51,8 +26,10 @@ export const EDITIONS = [
     year: 2024,
     path: "/editions/2024",
     title: "Global Healthcare Excellence Awards",
-    editionLabel: "1st Edition",
+    editionLabel: "12th Edition",
     locations: ["New Delhi"],
+    fullDate: "Year 2024",
+    coverImage: "/2024/2.jpg",
     hero: "Recognising Leaders & Institutions",
     chiefGuest: {
       name: "Shri Ashwini Kumar Choubey",
@@ -72,8 +49,10 @@ export const EDITIONS = [
     year: 2023,
     path: "/editions/2023",
     title: "Global Healthcare Awards",
-    editionLabel: "Special Edition",
+    editionLabel: "11th Edition",
     locations: ["Mumbai"],
+    fullDate: "Year 2023",
+    coverImage: "/images/jury8.jpeg",
     hero: "Healthcare Champions of the Year",
     chiefGuest: {
       name: "Dr. Yoganand Shashtri",
@@ -93,8 +72,10 @@ export const EDITIONS = [
     year: 2022,
     path: "/editions/2022",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "10th Edition",
     locations: ["Bengaluru"],
+    fullDate: "Year 2022",
+    coverImage: "/images/jury2.jpeg",
     hero: "Driving Better Outcomes",
     chiefGuest: {
       name: "Shri G. V. L. Narsimha Rao",
@@ -114,8 +95,10 @@ export const EDITIONS = [
     year: 2021,
     path: "/editions/2021",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "9th Edition",
     locations: ["Hyderabad"],
+    fullDate: "Year 2021",
+    coverImage: "/images/jury4.jpeg",
     hero: "Resilience & Transformation",
     chiefGuest: {
       name: "Mr. Brad Hogg",
@@ -135,8 +118,10 @@ export const EDITIONS = [
     year: 2020,
     path: "/editions/2020",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "8th Edition",
     locations: ["Virtual"],
+    fullDate: "Year 2020",
+    coverImage: "/images/jury6.jpeg",
     hero: "Honouring Frontline Excellence",
     chiefGuest: {
       name: "Dr. Najma A. Heptulla",
@@ -156,8 +141,10 @@ export const EDITIONS = [
     year: 2019,
     path: "/editions/2019",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "7th Edition",
     locations: ["Chennai"],
+    fullDate: "Year 2019",
+    coverImage: "/images/jury8.jpeg",
     hero: "Leadership & Patient Care",
     chiefGuest: {
       name: "Shri Anand Kumar",
@@ -177,8 +164,10 @@ export const EDITIONS = [
     year: 2018,
     path: "/editions/2018",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "6th Edition",
     locations: ["New Delhi"],
+    fullDate: "Year 2018",
+    coverImage: "/images/jury1.jpeg",
     hero: "Excellence in Healthcare",
     chiefGuest: {
       name: "Dignitary Name",
@@ -191,8 +180,10 @@ export const EDITIONS = [
     year: 2017,
     path: "/editions/2017",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "5th Edition",
     locations: ["Mumbai"],
+    fullDate: "Year 2017",
+    coverImage: "/images/jury2.jpeg",
     hero: "Healthcare Innovation",
     chiefGuest: {
       name: "Dignitary Name",
@@ -205,8 +196,10 @@ export const EDITIONS = [
     year: 2016,
     path: "/editions/2016",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "4th Edition",
     locations: ["Bengaluru"],
+    fullDate: "Year 2016",
+    coverImage: "/images/jury3.jpeg",
     hero: "Patient Centric Care",
     chiefGuest: {
       name: "Dignitary Name",
@@ -219,8 +212,10 @@ export const EDITIONS = [
     year: 2015,
     path: "/editions/2015",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "3rd Edition",
     locations: ["Hyderabad"],
+    fullDate: "Year 2015",
+    coverImage: "/images/jury4.jpeg",
     hero: "Medical Excellence",
     chiefGuest: {
       name: "Dignitary Name",
@@ -233,8 +228,10 @@ export const EDITIONS = [
     year: 2014,
     path: "/editions/2014",
     title: "Global Healthcare Awards",
-    editionLabel: "Annual Edition",
+    editionLabel: "2nd Edition",
     locations: ["New Delhi"],
+    fullDate: "Year 2014",
+    coverImage: "/images/jury5.jpeg",
     hero: "Service to Humanity",
     chiefGuest: {
       name: "Dignitary Name",
@@ -247,8 +244,10 @@ export const EDITIONS = [
     year: 2013,
     path: "/editions/2013",
     title: "Global Healthcare Awards",
-    editionLabel: "Inaugural Edition",
+    editionLabel: "1st Edition",
     locations: ["New Delhi"],
+    fullDate: "Year 2013",
+    coverImage: "/images/jury6.jpeg",
     hero: "The Beginning of Excellence",
     chiefGuest: {
       name: "Dignitary Name",
@@ -263,5 +262,3 @@ export function getEditionByYear(year) {
   const y = Number(year);
   return EDITIONS.find((e) => e.year === y) || null;
 }
-
-
