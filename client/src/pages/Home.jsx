@@ -56,14 +56,9 @@ export default function Home() {
     {
       title: "Global Education Awards 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "26 May 2026",
-      place: "Dubai",
-    },
-    {
-      title: "Global Education Awards 2026",
-      desc: "Recognising excellence and innovation in educational leadership.",
-      date: "9 June 2026",
-      place: "London",
+      date: "14 March 2026",
+      time: "12 pm to 9 pm",
+      place: "New Delhi",
     },
   ];
 
@@ -151,6 +146,51 @@ export default function Home() {
     },
     {
       logo: "../remont.jpg"
+    },
+  ];
+
+  const otherServices = [
+    {
+      title: "Digital Marketing",
+      desc: "Harness the power of data-driven multi-channel strategies to elevate your brand presence.",
+      icon: "🚀",
+      link: "#",
+      color: "from-[#ffeec3] to-[#d4af37]"
+    },
+    {
+      title: "Web Development",
+      desc: "Creating high-performance, immersive digital experiences with cutting-edge technologies.",
+      icon: "💻",
+      link: "#",
+      color: "from-[#ffd966] to-[#b6932f]"
+    },
+    {
+      title: "Market Research",
+      desc: "In-depth consumer insights and competitive analysis to lead your industry forward.",
+      icon: "📊",
+      link: "#",
+      color: "from-[#fff5d2] to-[#a28533]"
+    },
+    {
+      title: "Public Relations",
+      desc: "Strategic reputation management and storytelling across global media platforms.",
+      icon: "📢",
+      link: "#",
+      color: "from-[#ffeec3] to-[#d4af37]"
+    },
+    {
+      title: "Brand Identity",
+      desc: "Crafting iconic visual languages that resonate with your audience and stand the test of time.",
+      icon: "🎨",
+      link: "#",
+      color: "from-[#ffd966] to-[#b6932f]"
+    },
+    {
+      title: "SEO Optimization",
+      desc: "Dominate search results with intelligent keyword strategies and technical excellence.",
+      icon: "🔍",
+      link: "#",
+      color: "from-[#fff5d2] to-[#a28533]"
     },
   ];
 
@@ -357,6 +397,15 @@ export default function Home() {
                             <rect x="9.2" y="6" width="1.6" height="5" rx="0.7" fill="#ffd966" />
                           </svg>
                         </span>
+                        <span className="font-bold text-md">{event.time}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
+                        <span className="text-lg sm:text-xl">
+                          <svg className="w-6 h-6 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                        </span>
                         <span className="font-bold text-md">{event.place}</span>
                       </div>
                     </div>
@@ -502,7 +551,7 @@ export default function Home() {
                   // },
                   {
                     title: 'Final Shortlisting',
-                    date: 'Early May 2026',
+                    date: 'Early March 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffeb98] flex items-center justify-center shadow-lg">
                         <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z" /></svg>
@@ -511,24 +560,14 @@ export default function Home() {
                     border: 'from-[#ffeb98] to-[#ffeec3]',
                   },
                   {
-                    title: 'Award Ceremony – Dubai',
-                    date: '26 May 2026',
+                    title: 'Award Ceremony – New Delhi',
+                    date: '14 March 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
-                        <span className="text-xl">🇦🇪</span>
+                        <span className="text-xl">🇮🇳</span>
                       </span>
                     ),
                     border: 'from-[#d4af37] to-[#ead481]',
-                  },
-                  {
-                    title: 'Award Ceremony – London',
-                    date: '9 June 2026',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#386bb7] to-[#81b0ea] flex items-center justify-center shadow-lg">
-                        <span className="text-xl">🇬🇧</span>
-                      </span>
-                    ),
-                    border: 'from-[#386bb7] to-[#81b0ea]',
                   },
                 ].map((item, idx) => (
                   <div key={idx} className="relative group"
@@ -1023,6 +1062,60 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ================= OTHER SERVICES SECTION ================= */}
+      <section className={`relative pt-16 md:pt-24 pb-16 md:pb-24 overflow-hidden ${HIGHLIGHT_BG}`}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute top-1/4 left-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#d4af37]/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#c62828]/5 rounded-full blur-3xl animate-pulse delay-700"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-xl">
+              Our Other Services
+            </h2>
+            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
+            <p className="mt-6 text-[#ebdcc8] text-base sm:text-lg max-w-2xl mx-auto">
+              Beyond awards, we provide a full suite of research and media services to help brands excel.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {otherServices.map((service, index) => (
+              <a
+                key={index}
+                href={service.link}
+                className="group relative flex flex-col items-center text-center p-8 rounded-3xl bg-gradient-to-br from-[#2a1b12] to-[#1a110a] border border-[#d4af37]/20 hover:border-[#d4af37]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-12px_#d4af3733]"
+              >
+                {/* Card Background Glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/5 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/15 transition-all duration-700 -z-10"></div>
+
+                {/* Icon */}
+                <div className="text-5xl md:text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-500">
+                  {service.icon}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#ffeec3] group-hover:text-white transition-colors">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[#dbc6ad] text-sm md:text-base leading-relaxed group-hover:text-white transition-colors">
+                  {service.desc}
+                </p>
+
+                {/* Button Decor */}
+                <div className="mt-8 px-6 py-2 rounded-full border border-[#d4af37]/40 text-[#d4af37] text-sm font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  Read More
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA section - keep visually distinct but aligned */}
       <section className={`relative pt-10 sm:pt-14 md:pt-20 pb-12 sm:pb-20 md:pb-28 text-center overflow-hidden ${PRIMARY_BG}`}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
@@ -1038,7 +1131,7 @@ export default function Home() {
           </h2>
           <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-5 sm:mb-8"></div>
           <p className="mb-8 sm:mb-12 text-[#ebdcc8] text-base sm:text-lg md:text-xl">
-            Nomination Extended Deadline – <span className="font-semibold bg-gradient-to-r from-[#d4af37] to-[#f1d46b] bg-clip-text text-transparent">15 April 2026</span>
+            Nomination Extended Deadline – <span className="font-semibold bg-gradient-to-r from-[#d4af37] to-[#f1d46b] bg-clip-text text-transparent">10 March 2026</span>
           </p>
           <button
             type="button"
@@ -1085,6 +1178,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 }
