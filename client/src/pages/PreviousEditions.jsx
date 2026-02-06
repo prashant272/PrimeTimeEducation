@@ -93,25 +93,33 @@ export default function PreviousEditions() {
               {/* Edition Photo Section */}
               <div className="mt-1 mb-5 w-full flex flex-col items-center z-20">
                 <div className="w-full h-[220px] rounded-xl border-[3px] border-[#ffe391d5] bg-[#fff8e3cc] shadow-lg overflow-hidden flex items-center justify-center relative group-hover:border-[#ffd700] transition-colors duration-300">
-                  {e.coverImage ? (
-                    <img
-                      src={e.coverImage}
-                      alt={`${e.year} Edition`}
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      onError={event => {
-                        if (event.target.src !== "/images/edition_placeholder.jpg") {
-                          event.target.src = "/images/edition_placeholder.jpg";
-                        }
-                      }}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-[#ffe391bb] flex items-center justify-center">
-                      <span className="text-[#a88725] font-bold">No Photo</span>
+                  <img
+                    src={`/${e.year}/1.jpg`}
+                    alt={`${e.year} Edition`}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                    onError={(event) => {
+                      // If 1.jpg fails, try the coverImage from editions.js
+                      if (event.target.src.includes(`/${e.year}/1.jpg`)) {
+                        event.target.src = e.coverImage || "/images/edition_placeholder.jpg";
+                      } else if (!event.target.src.includes("/images/edition_placeholder.jpg")) {
+                        // Final fallback
+                        event.target.src = "/images/edition_placeholder.jpg";
+                      }
+                    }}
+                  />
+                  {/* Overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Award not organized badge for COVID years */}
+                  {(e.year === 2020 || e.year === 2021) && (
+                    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px]">
+                      <span className="text-4xl mb-2">😷</span>
+                      <span className="text-[#ffd966] text-xs font-black uppercase tracking-tighter bg-black/40 px-3 py-1 rounded-full border border-[#ffd966]/30">
+                        Not Organised (COVID)
+                      </span>
                     </div>
                   )}
-                  {/* Overlay for better text readability if needed, or just style */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
 

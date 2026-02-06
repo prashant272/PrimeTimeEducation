@@ -213,7 +213,10 @@ export default function Navbar() {
       <div className="block md:hidden">
         {/* Phone header with logo, title, my nominations (if user), hamburger, login/logout */}
         <header
-          className="fixed top-0 left-0 w-full z-50 bg-[#210a0e] border-b border-white/10 flex items-center h-14 px-3 justify-between"
+          className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center h-16 sm:h-20 px-4 justify-between ${showPill
+            ? "bg-[#210a0e]/95 backdrop-blur-lg border-b border-white/10 shadow-xl"
+            : "bg-transparent"
+            }`}
           ref={headerRef}
         >
           {/* LOGO + app title (left side) */}
