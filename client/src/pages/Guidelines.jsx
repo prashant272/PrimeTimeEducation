@@ -50,39 +50,39 @@ const GUIDELINES = [
   }
 ];
 
-// Card: decrease height, increase width, less vertical padding, 2 per row always
+// Card: responsive height and width, optimized padding
 function GuidelineCard({ icon, title, items, color, bg }) {
   return (
     <div
       className={`
         shadow-xl rounded-xl border ${bg}
-        w-full max-w-2xl min-w-[270px]
-        py-4 px-6
+        w-full
+        py-4 px-4 sm:px-6
         mx-auto
         backdrop-blur-[2px]
         transition-all duration-300
-        hover:scale-[1.02] hover:shadow-2xl
+        hover:scale-[1.01] hover:shadow-2xl
         flex flex-col
-        justify-between
-        min-h-[170px]
+        justify-start
+        min-h-[140px]
       `}
       style={{
         boxShadow: "0 4px 24px 0 rgba(200,180,100,0.11)",
       }}
     >
       <h2 className={`
-        text-lg sm:text-xl font-bold mb-1
+        text-base sm:text-xl font-bold mb-2
         text-transparent bg-gradient-to-r ${color} bg-clip-text tracking-wide
         flex gap-2 items-center
       `}>
-        <span className="inline-block text-xl sm:text-2xl">{icon}</span>
+        <span className="inline-block text-xl sm:text-2xl flex-shrink-0">{icon}</span>
         {title}
       </h2>
-      <ul className="space-y-0.5 text-[#ffeec3]/90 leading-normal text-[0.99rem] font-medium ml-0 pl-3">
+      <ul className="space-y-1 text-[#ffeec3]/90 leading-tight xs:leading-normal text-xs xs:text-sm sm:text-[0.99rem] font-medium ml-0 pl-1 sm:pl-3">
         {items.map((item, i) => (
           <li key={i} className="flex items-start gap-1.5">
-            <span className="text-[#ffd966] font-bold mt-[2px]">•</span>
-            {item}
+            <span className="text-[#ffd966] font-bold mt-[2px] flex-shrink-0">•</span>
+            <span className="break-words">{item}</span>
           </li>
         ))}
       </ul>
@@ -92,7 +92,7 @@ function GuidelineCard({ icon, title, items, color, bg }) {
 
 export default function Guidelines() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#371f16] via-[#311412] to-[#200804] py-10 md:py-14 selection:bg-[#ffeec350] isolate flex flex-col justify-start">
+    <section className="relative min-h-screen bg-gradient-to-br from-[#371f16] via-[#311412] to-[#200804] py-10 md:py-14 selection:bg-[#ffeec350] isolate flex flex-col justify-start overflow-hidden">
       {/* Decorative Blurs */}
       <div className="absolute -top-32 -left-28 w-[410px] h-[410px] rounded-full bg-gradient-to-tr from-[#ffeec370] to-transparent blur-[110px] -z-10 pointer-events-none" />
       <div className="absolute top-10 right-0 w-[170px] h-[280px] rounded-full bg-gradient-to-tl from-[#d4af371a] via-[#6c3924cc] to-transparent blur-[80px] -z-10 pointer-events-none" />
@@ -105,17 +105,16 @@ export default function Guidelines() {
         }}
       />
 
-      {/* Header */}
       <div className="relative z-20 max-w-3xl mx-auto w-full px-4 sm:px-8 pt-14 mb-1 flex flex-col items-center">
-        <div className="flex gap-2 items-center justify-center mb-2">
-          <span className="h-5 w-1 rounded-lg bg-gradient-to-b from-[#f5d968] via-[#d4af37] to-[#c62828]" />
+        <div className="flex gap-2 items-center justify-center mb-2 w-full">
+          <span className="h-5 w-1 flex-shrink-0 rounded-lg bg-gradient-to-b from-[#f5d968] via-[#d4af37] to-[#c62828]" />
           <h1
-            className="text-[2.1rem] sm:text-4xl md:text-[2.4rem] font-extrabold tracking-wider bg-gradient-to-r from-[#f5d968] via-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent drop-shadow-lg"
-            style={{ letterSpacing: "1.5px" }}
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-[2.4rem] font-extrabold tracking-tight sm:tracking-wider bg-gradient-to-r from-[#f5d968] via-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent drop-shadow-lg text-center"
+            style={{ letterSpacing: "1px" }}
           >
             Entry Guidelines
           </h1>
-          <span className="h-5 w-1 rounded-lg bg-gradient-to-b from-[#d4af37] to-[#c62828]" />
+          <span className="h-5 w-1 flex-shrink-0 rounded-lg bg-gradient-to-b from-[#d4af37] to-[#c62828]" />
         </div>
         <div className="mx-auto w-32 h-1 rounded-full bg-gradient-to-r from-[#ffd966]/0 via-[#d4af37] to-[#ffd966]/0 opacity-80 my-2" />
         <p className="text-[#ffeec3] text-sm md:text-base max-w-lg mx-auto leading-relaxed font-medium">
@@ -127,12 +126,12 @@ export default function Guidelines() {
       </div>
 
       {/* Cards grid */}
-      <div className="relative z-30 w-full max-w-6xl mx-auto px-1 sm:px-5">
+      <div className="relative z-30 w-full max-w-6xl mx-auto px-3 sm:px-6">
         <div className="
           grid grid-cols-1
-          sm:grid-cols-2
-          gap-6 md:gap-8 xl:gap-12
-          pt-8 pb-12
+          md:grid-cols-2
+          gap-4 sm:gap-6 md:gap-8 lg:gap-10
+          pt-6 sm:pt-8 pb-10
         ">
           {GUIDELINES.map((g, idx) => (
             <GuidelineCard

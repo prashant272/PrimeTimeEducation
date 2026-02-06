@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
@@ -480,26 +480,26 @@ export default function Home() {
               {/* Timeline Style Cards */}
               <div className="space-y-6">
                 {[
-                  {
-                    title: 'Nomination Deadline',
-                    date: '15 April 2026',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" /></svg>
-                      </span>
-                    ),
-                    border: 'from-[#ffd966] to-[#d4af37]',
-                  },
-                  {
-                    title: 'Jury Evaluation',
-                    date: 'April 2026',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M3 7h18M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M6 7V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M9 12h6" /></svg>
-                      </span>
-                    ),
-                    border: 'from-[#f1d46b] to-[#d4af37]',
-                  },
+                  // {
+                  //   title: 'Nomination Deadline',
+                  //   date: '15 April 2026',
+                  //   icon: (
+                  //     <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
+                  //       <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" /></svg>
+                  //     </span>
+                  //   ),
+                  //   border: 'from-[#ffd966] to-[#d4af37]',
+                  // },
+                  // {
+                  //   title: 'Jury Evaluation',
+                  //   date: 'April 2026',
+                  //   icon: (
+                  //     <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#ffeec3] to-[#d4af37] flex items-center justify-center shadow-lg">
+                  //       <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M3 7h18M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M6 7V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M9 12h6" /></svg>
+                  //     </span>
+                  //   ),
+                  //   border: 'from-[#f1d46b] to-[#d4af37]',
+                  // },
                   {
                     title: 'Final Shortlisting',
                     date: 'Early May 2026',
@@ -824,81 +824,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= GUESTS & SPEAKERS ================= */}
-      <section className={`relative pt-6 md:pt-12 pb-8 overflow-hidden ${HIGHLIGHT_BG}`}>
+      {/* ================= GUEST PANEL ================= */}
+      <section className={`relative pt-12 md:pt-20 pb-16 overflow-hidden ${HIGHLIGHT_BG}`}>
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] xs:w-[480px] md:w-[800px] h-[360px] xs:h-[480px] md:h-[800px] bg-[#d4af37]/10 rounded-full blur-3xl animate-pulse"></div>
         </div>
-        {/* Rest of the section content unchanged */}
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          {/* ...headings and cards as is... */}
           <div
             ref={(el) => (sectionRefs.current[11] = el)}
-            className="opacity-0 transform translate-y-8 transition-all duration-700 text-center mb-14 md:mb-20"
+            className="opacity-100 transform translate-y-0 transition-all duration-700 text-center mb-12 md:mb-16"
           >
-            <h2 className="text-2xl xs:text-4xl md:text-5xl font-heading font-bold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              Our Esteemed Guests & Speakers
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-xl">
+              Our Esteemed Guest Panel
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>
-          {/* Guest grid improved styling */}
-          <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 gap-y-9 gap-x-5 xs:gap-x-8">
-            {guests.map((member, index) => (
-              <div
-                key={index}
-                ref={(el) => (sectionRefs.current[12 + index] = el)}
-                className="text-center group opacity-0 transform translate-y-8 transition-all duration-700 flex flex-col items-center"
-              >
-                {/* Profile Circle Improved */}
+
+          <div className="overflow-hidden py-10 w-full relative">
+            <div className="animate-marquee-slow flex gap-6 md:gap-10 items-stretch">
+              {/* Combine guest list twice for seamless loop */}
+              {[...guests, ...guests].map((member, index) => (
                 <div
-                  className="relative mx-auto mb-5 sm:mb-6 h-32 w-32 xs:h-44 xs:w-44 md:h-56 md:w-56 rounded-full overflow-visible bg-gradient-to-br from-[#d4af37]/30 via-[#fffbe9]/20 to-[#c62828]/25 p-[4px] group-hover:p-[7px] transition-all duration-400 shadow-xl group-hover:shadow-2xl"
-                  style={{
-                    boxShadow: '0 6px 28px 0 rgba(212,175,55,0.12), 0 1.5px 6px 0 #fffbe950'
-                  }}
+                  key={`${member.name}-${index}`}
+                  className="flex-shrink-0 w-[240px] xs:w-[280px] md:w-[320px] group"
                 >
-                  {/* Animated Border Ring */}
-                  <div
-                    className="absolute inset-0 rounded-full border-2 xs:border-4 border-transparent bg-gradient-to-r from-[#ffe684] via-[#c62828] to-[#d4af37] opacity-0 group-hover:opacity-90 group-hover:animate-spin"
-                    style={{ animationDuration: '7s', zIndex: 1 }}
-                  ></div>
-                  {/* Inner Glow Ring - thoda visible aur soft kiya */}
-                  <div className="absolute inset-[7px] xs:inset-2 rounded-full border-2 border-[#d4af37]/50 group-hover:border-[#ffd966]/90 transition-all duration-500" style={{
-                    boxShadow: '0 0 8px 2px #ffeec390,0 2px 8px #d4af3740'
-                  }}></div>
-                  {/* Image with fallback bg */}
-                  <div className="relative z-10 h-full w-full rounded-full overflow-hidden bg-[#2a1b12]">
-                    <img
-                      src={`/images/jury${index + 1}.jpeg`}
-                      alt={member.name}
-                      className="h-full w-full rounded-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105 bg-[#221710]"
-                      loading="lazy"
-                      style={{
-                        backgroundColor: '#211609',
-                        objectFit: 'cover'
-                      }}
-                      onError={e => {
-                        // hide img if not found & show empty avatar bg
-                        e.target.onerror = null;
-                        e.target.style.display = 'none';
-                      }}
-                    />
+                  <div className="h-full flex flex-col items-center">
+                    {/* Square Card Design */}
+                    <div className="relative w-full aspect-square overflow-hidden rounded-2xl border border-[#d4af37]/30 bg-[#2a1b12] shadow-2xl transition-all duration-500 group-hover:border-[#ffd966] group-hover:scale-[1.02]">
+                      {/* Image */}
+                      <img
+                        src={`/images/jury${(index % guests.length) + 1}.jpeg`}
+                        alt={member.name}
+                        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                        onError={e => {
+                          e.target.onerror = null;
+                          e.target.style.display = 'none';
+                        }}
+                      />
+
+                      {/* Overlay Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+
+                      {/* Corner Accents */}
+                      <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#d4af37]/50 rounded-tl-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
+                      <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#d4af37]/50 rounded-br-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
+                    </div>
+
+                    {/* Content below card */}
+                    <div className="mt-6 text-center w-full px-2">
+                      <h3 className="font-bold text-lg md:text-xl text-white group-hover:text-[#d4af37] transition-colors duration-300 drop-shadow-md">
+                        {member.name}
+                      </h3>
+                      <div className="w-12 h-0.5 bg-[#d4af37]/40 mx-auto my-3 group-hover:w-20 group-hover:bg-[#d4af37] transition-all duration-500"></div>
+                      <p className="text-sm md:text-base text-[#dbc6ad] leading-relaxed group-hover:text-white transition-colors duration-300 line-clamp-2 italic">
+                        {member.designation}
+                      </p>
+                    </div>
                   </div>
-                  {/* Shine/Highlight Overlay */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                  {/* Soft shadow at bottom for floating feel */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-4 w-20 md:w-28 bg-black/10 rounded-full blur-md"></div>
                 </div>
-                {/* Name and details */}
-                <p className="font-bold text-base xs:text-lg md:text-xl text-white mb-1 md:mb-2 group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-1 drop-shadow">
-                  {member.name}
-                </p>
-                <div className="w-9 xs:w-12 h-0.5 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-1 xs:mb-3 opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-500"></div>
-                <p className="text-xs xs:text-sm md:text-base text-[#dbc6ad] leading-relaxed group-hover:text-[#fffbe9] transition-colors duration-300 line-clamp-2">
-                  {member.designation}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -60,44 +60,41 @@ export default function UserDashboard() {
   }, [token]);
 
   return (
-    <section className="relative min-h-screen py-16 px-2 sm:py-20 sm:px-4 md:px-8 bg-gradient-to-br from-[#140a08] via-[#2f1a12] to-[#5d3e13] text-white flex items-start justify-center">
+    <section className="relative min-h-screen py-16 px-2 sm:py-20 sm:px-4 md:px-8 bg-gradient-to-br from-[#140a08] via-[#2f1a12] to-[#5d3e13] text-white flex items-start justify-center overflow-x-hidden">
       {/* Decorations for premium look */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 z-0 w-[90vw] max-w-[700px] h-[80vw] max-h-[220px] rounded-[14vw] blur-[14vw] opacity-80 bg-gradient-to-br from-[#ffeec3]/40 via-[#d4af37]/50 to-[#c62828]/30" />
       <div className="pointer-events-none absolute right-[-8vw] lg:right-[-20vw] bottom-4 sm:bottom-9 z-0 w-[60vw] max-w-[430px] h-[40vw] max-h-[300px] rounded-[15vw] blur-[15vw] opacity-70 bg-gradient-to-br from-[#ffd966]/30 via-[#d4af37]/20 to-transparent" />
 
-      <div className="relative z-10 w-full max-w-3xl mx-auto px-1 sm:px-2 md:px-0">
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-1 sm:px-2 md:px-0 overflow-hidden">
         {/* Dashboard Card */}
         <div className="rounded-2xl sm:rounded-3xl border border-[#ffeec3]/25 bg-black/40 shadow-[0_6px_22px_#c4a44038] md:shadow-[0_18px_48px_#c4a44048] backdrop-blur-3xl overflow-hidden">
           {/* Header Premium */}
           <header className="relative px-3 xs:px-5 sm:px-7 md:px-14 pt-7 sm:pt-10 pb-5 sm:pb-7 bg-gradient-to-br from-[#211207]/80 via-[#2b1911]/90 to-[#291e16]/75 shadow-gold flex flex-col items-center gap-2 sm:gap-3 border-b border-[#ffd966]/15">
-            <div className="flex flex-col xs:flex-row items-center justify-center gap-1.5 xs:gap-3 sm:gap-4 text-center w-full">
-              <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-[#ffedc3] drop-shadow-gold animate-gold-glow" />
-              <h1 className="font-heading text-xl xs:text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-wider bg-gradient-to-r from-[#ffeec3] via-[#ffd966] to-[#d4af37] bg-clip-text text-transparent [text-shadow:0_1px_6px_#d4af3740] drop-shadow-2xl">
+            <div className="flex items-center justify-center gap-2 sm:gap-4 text-center w-full">
+              <Crown className="flex-shrink-0 w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-[#ffedc3] drop-shadow-gold animate-gold-glow" />
+              <h1 className="font-heading text-lg xs:text-xl sm:text-2xl md:text-4xl font-extrabold tracking-tight sm:tracking-wider bg-gradient-to-r from-[#ffeec3] via-[#ffd966] to-[#d4af37] bg-clip-text text-transparent [text-shadow:0_1px_6px_#d4af3740] drop-shadow-2xl leading-tight">
                 My Nominations Dashboard
               </h1>
-              <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-[#ffedc3] drop-shadow-gold animate-gold-glow-slow" />
+              <Crown className="flex-shrink-0 w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-[#ffedc3] drop-shadow-gold animate-gold-glow-slow" />
             </div>
-            <div className="h-[2.5px] sm:h-[3px] w-36 sm:w-44 rounded-full my-2 bg-gradient-to-r from-[#d4af37] via-[#ffeec3] to-[#c62828] opacity-90" />
+            <div className="h-[2px] sm:h-[3px] w-24 sm:w-44 rounded-full my-1 sm:my-2 bg-gradient-to-r from-[#d4af37] via-[#ffeec3] to-[#c62828] opacity-90" />
             {user && (
-              <div className="flex flex-col xs:flex-row items-center gap-2 xs:gap-3 mt-1 mb-1.5 text-center xs:text-left">
+              <div className="flex flex-col items-center gap-1 xs:gap-3 mt-1 mb-1.5 text-center">
                 <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#ffd966] bg-black/40 rounded-full shadow-md ring-1 ring-[#d4af37]/25" />
-                <div className="text-sm sm:text-base md:text-lg font-semibold text-[#ffeec3]">
+                <div className="text-sm sm:text-base md:text-lg font-semibold text-[#ffeec3] break-all px-2">
                   {user.name}
-                  <span className="text-xs sm:text-sm text-[#ffeec3]/70 ml-1 sm:ml-2 font-medium inline-block align-middle">
+                  <span className="block sm:inline text-[10px] xs:text-xs sm:text-sm text-[#ffeec3]/70 sm:ml-2 font-medium">
                     ({user.email})
                   </span>
                 </div>
               </div>
             )}
             {nominations[0] && (
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 justify-center mt-2 sm:mt-3 text-xs sm:text-sm md:text-base">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 justify-center mt-2 sm:mt-3 text-[10px] xs:text-xs sm:text-sm md:text-base">
                 <span className="text-[#ffeec3]/80 font-medium">
-                  Latest Nomination Status:
+                  Latest Status:
                 </span>
                 <StatusBadge status={nominations[0].status} />
-                <span className="text-[#ffeec3]/35 font-medium">
-                  (Latest nomination only)
-                </span>
               </div>
             )}
           </header>
@@ -225,10 +222,10 @@ function StatusBadge({ status }) {
     normalized === "selected"
       ? "bg-emerald-300"
       : normalized === "evaluation"
-      ? "bg-yellow-300"
-      : normalized === "rejected"
-      ? "bg-red-400"
-      : "bg-blue-400";
+        ? "bg-yellow-300"
+        : normalized === "rejected"
+          ? "bg-red-400"
+          : "bg-blue-400";
 
   return (
     <span

@@ -18,6 +18,13 @@
     animation: marquee 60s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-slow {
+    display: flex;
+    width: max-content;
+    animation: marquee 120s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-slow:hover {
     animation-play-state: paused;
 }
