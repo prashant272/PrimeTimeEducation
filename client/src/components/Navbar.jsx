@@ -138,7 +138,7 @@ export default function Navbar() {
                     />
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
-                    <span>Primetime Research Media</span>
+                    <span>Prime Time Research Media Pvt. Ltd. </span>
                     <span className="opacity-70">Global Education Awards</span>
                     <span className="opacity-60">
                       {location.pathname === "/editions/2026" ? "14th Edition" :
@@ -227,7 +227,7 @@ export default function Navbar() {
               className="h-9 w-auto object-contain"
               style={{ maxWidth: 40 }}
             />
-            <span className="text-[13px] font-semibold whitespace-nowrap text-white">Primetime Research Media</span>
+            <span className="text-[13px] font-semibold whitespace-nowrap text-white">Prime Time Research Media Pvt. Ltd.</span>
           </div>
           {/* Welcome & logout/login */}
           <div className="flex items-center gap-1">
@@ -385,7 +385,7 @@ function MobileMenuDrawer({
               alt="PrimeTime Logo"
               className="h-8 w-auto object-contain"
             />
-            <span className="font-semibold text-sm text-white">Primetime Research Media</span>
+            <span className="font-semibold text-sm text-white">Prime Time Research Media Pvt. Ltd.</span>
           </div>
           <button
             aria-label="Close Menu"

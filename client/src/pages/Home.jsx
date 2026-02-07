@@ -63,15 +63,13 @@ export default function Home() {
       title: "Global Education Awards 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
       date: "14 March 2026",
-      time: "12 pm to 9 pm",
       place: "New Delhi",
     },
     {
       title: "Global Education Awards 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
       date: "26 April 2026",
-      time: "12 pm to 9 pm",
-      place: "New Delhi",
+      place: "Dubai",
     },
   ];
 
@@ -169,7 +167,7 @@ export default function Home() {
       date: "26 April 2026",
       location: "Dubai",
       banner: "/healthcaredubai.png",
-      link: "https://www.primetimemedia.in/global-healthcare-awards",
+      link: "https://www.globalhealthcareawards.com",
       color: "from-[#ffecd2] to-[#fcb69f]"
     },
     {
@@ -178,7 +176,7 @@ export default function Home() {
       date: "14 March 2026",
       location: "New Delhi, India",
       banner: "/educationdelhi.png",
-      link: "https://www.primetimemedia.in/education-excellence-awards",
+      link: "https://www.//https://globaleducationawards.in",
       color: "from-[#e0c3fc] to-[#8ec5fc]"
     },
     {
@@ -209,6 +207,32 @@ export default function Home() {
       color: "from-[#fdfbfb] to-[#ebedee]"
     }
   ];
+  const nomineeCategories = [
+    {
+      title: "Schools & K-12 Institutions",
+      desc: "Recognising excellence in primary and secondary education, pedagogy, and student development.",
+      icon: "🏫",
+      color: "from-[#ffeec3] to-[#d4af37]"
+    },
+    {
+      title: "Higher Education & Universities",
+      desc: "Honouring colleges and universities for academic research, innovation, and global standards.",
+      icon: "🎓",
+      color: "from-[#ffd966] to-[#b6932f]"
+    },
+    {
+      title: "EdTech & Digital Learning",
+      desc: "Celebrating startups and platforms revolutionising education through technology and LMS.",
+      icon: "💻",
+      color: "from-[#fff5d2] to-[#a28533]"
+    },
+    {
+      title: "Educators & Leaders",
+      desc: "Awaiting principals, teachers, and academic leaders who have shown exemplary vision.",
+      icon: "🏆",
+      color: "from-[#ffeec3] to-[#d4af37]"
+    },
+  ];
 
 
 
@@ -231,7 +255,7 @@ export default function Home() {
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
       {/* SEO H1 - Hidden */}
       <h1 className="sr-only">
-        Education Awards – Global Education Awards by Prime Time Research Media
+        Education Awards – Global Education Awards by Prime Time Research Media Pvt. Ltd.
       </h1>
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
@@ -323,7 +347,7 @@ export default function Home() {
               {/* mt-1 lagaya taki text bhi ekdum divider ke upar aaye */}
               Organised by{" "}
               <span className="font-semibold bg-gradient-to-r from-[#c62828] to-[#d4af37] bg-clip-text text-transparent hover:brightness-125 transition duration-200">
-                Prime Time Research Media
+                Prime Time Research Media Pvt. Ltd.
               </span>{" "}
               – Global Award Events
             </p>
@@ -566,16 +590,16 @@ export default function Home() {
                   //   ),
                   //   border: 'from-[#f1d46b] to-[#d4af37]',
                   // },
-                  {
-                    title: 'Final Shortlisting',
-                    date: 'Early March for New Delhi and early April for Delhi',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffeb98] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z" /></svg>
-                      </span>
-                    ),
-                    border: 'from-[#ffeb98] to-[#ffeec3]',
-                  },
+                  // {
+                  //   title: 'Final Shortlisting',
+                  //   date: 'Early March for New Delhi and early April for Delhi',
+                  //   icon: (
+                  //     <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffeb98] flex items-center justify-center shadow-lg">
+                  //       <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z" /></svg>
+                  //     </span>
+                  //   ),
+                  //   border: 'from-[#ffeb98] to-[#ffeec3]',
+                  // },
                   {
                     title: 'Award Ceremony – New Delhi',
                     date: '14 March 2026',
@@ -1225,36 +1249,68 @@ export default function Home() {
           </button>
         </div>
       </section>
-      {/* WHO SHOULD NOMINATE section */}
-      <section className={`relative pt-10 sm:pt-14 md:pt-20 pb-12 sm:pb-20 md:pb-28 overflow-hidden ${HIGHLIGHT_BG}`}>
+      {/* WHO SHOULD NOMINATE section - Premium Upgrade */}
+      <section className={`relative pt-16 sm:pt-24 pb-20 sm:pb-32 overflow-hidden ${HIGHLIGHT_BG}`}>
+        {/* Animated Background Glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-          <div className="absolute top-0 right-1/3 w-44 sm:w-72 h-44 sm:h-72 bg-[#d4af37]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-1/3 w-44 sm:w-72 h-44 sm:h-72 bg-[#c62828]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/4 right-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#d4af37]/10 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#c62828]/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
         </div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-xl xs:text-3xl md:text-5xl font-heading font-bold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent">
+          <div className="text-center mb-12 md:mb-20">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 mb-6 group hover:bg-[#d4af37]/20 transition-all duration-300">
+              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+              <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] text-[#d4af37] uppercase">Nomination Categories</span>
+            </div>
+
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-2xl">
               Who Should Nominate
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
+            <p className="mt-8 text-[#dbc6ad] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              We invite visionaries and institutions that are shaping the future of global education to join our prestigious circle of excellence.
+            </p>
           </div>
-          {/* Cards as before... */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 xs:gap-6 md:gap-8">
-            {[
-              "Schools & K-12 Educational Institutions",
-              "Higher Education Colleges, Universities & Foundations",
-              "EdTech Startups, Digital Learning & LMS Platforms",
-              "Educators, Principals & Academic Industry Leaders",
-            ].map((item, index) => (
-              <div key={index} className="group">
-                {/* CARD */}
-                <div className="relative h-full flex flex-col justify-center items-center bg-gradient-to-br from-black/70 via-black/30 to-black/80 backdrop-blur-md rounded-2xl py-9 px-4 xs:px-6 text-center border border-[#eed47c]/20 hover:border-[#d4af37]/80 transition-all duration-500 hover:shadow-[0_6px_32px_-8px_#d4af37cc] hover:-translate-y-2">
-                  <p className="text-xs xs:text-sm md:text-base font-semibold bg-gradient-to-r from-[#f1d46b] to-[#d4af37] bg-clip-text text-transparent leading-relaxed mb-1">
-                    {item}
-                  </p>
-                  {/* Hover Glow */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/0 group-hover:via-[#d4af37]/20 group-hover:to-[#d4af37]/20 transition-all duration-700 -z-10"></div>
+
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {nomineeCategories.map((item, index) => (
+              <div
+                key={index}
+                ref={(el) => (sectionRefs.current[25 + index] = el)}
+                className="group relative h-full opacity-0 translate-y-8 transition-all duration-700"
+              >
+                {/* Main Card */}
+                <div className="relative h-full flex flex-col p-8 sm:p-10 bg-gradient-to-br from-[#2a1b12]/90 via-[#1a110a]/95 to-[#2a1b12]/90 backdrop-blur-xl rounded-[2rem] border border-[#d4af37]/20 hover:border-[#d4af37]/80 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_#d4af3744] hover:-translate-y-3">
+
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#d4af37]/10 to-transparent rounded-tr-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Icon with Glow */}
+                  <div className="relative mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                    <div className="absolute inset-0 bg-[#d4af37]/20 blur-2xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative text-5xl md:text-6xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="relative z-10 flex flex-col flex-grow">
+                    <h3 className="text-xl sm:text-2xl font-black mb-4 bg-gradient-to-r from-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent group-hover:from-white group-hover:to-[#ffeec3] transition-all duration-300 leading-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-[#dbc6ad] leading-relaxed group-hover:text-white/90 transition-colors flex-grow">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Bottom Accent Loader */}
+                  <div className="mt-8 h-1 w-12 bg-gradient-to-r from-[#d4af37] to-transparent rounded-full group-hover:w-full transition-all duration-700 opacity-40 group-hover:opacity-100"></div>
                 </div>
+
+                {/* Outer Card Glow Overlay - Appears on Hover */}
+                <div className="absolute -inset-[1px] bg-gradient-to-br from-[#d4af37]/40 via-transparent to-[#d4af37]/40 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-[2px] -z-10 transition-opacity duration-500"></div>
               </div>
             ))}
           </div>

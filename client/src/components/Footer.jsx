@@ -225,7 +225,7 @@ export default function Footer() {
         {" "} &bull; © {new Date().getFullYear()} All Rights Reserved
         {" "} | This page is owned by{" "}
         <span className="text-[#d4af37] font-bold">
-          Prime Time Research Media
+          Prime Time Research Media Pvt. Ltd.
         </span>
       </div>
 
