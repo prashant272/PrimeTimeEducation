@@ -1,6 +1,12 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 // Centralized brand background
 const PRIMARY_BG = "bg-[#23140f]"; // deep rich brown-gold
@@ -57,6 +63,13 @@ export default function Home() {
       title: "Global Education Awards 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
       date: "14 March 2026",
+      time: "12 pm to 9 pm",
+      place: "New Delhi",
+    },
+    {
+      title: "Global Education Awards 2026",
+      desc: "Recognising excellence and innovation in educational leadership.",
+      date: "26 April 2026",
       time: "12 pm to 9 pm",
       place: "New Delhi",
     },
@@ -149,50 +162,54 @@ export default function Home() {
     },
   ];
 
-  const otherServices = [
+  const upcomingAwards = [
     {
-      title: "Digital Marketing",
-      desc: "Harness the power of data-driven multi-channel strategies to elevate your brand presence.",
-      icon: "🚀",
-      link: "#",
-      color: "from-[#ffeec3] to-[#d4af37]"
+      title: "14th Global Healthcare Awards & Summit 2026",
+      desc: "Honouring excellence, innovation, and leadership in the global healthcare industry.",
+      date: "26 April 2026",
+      location: "Dubai",
+      banner: "/healthcaredubai.png",
+      link: "https://www.primetimemedia.in/global-healthcare-awards",
+      color: "from-[#ffecd2] to-[#fcb69f]"
     },
     {
-      title: "Web Development",
-      desc: "Creating high-performance, immersive digital experiences with cutting-edge technologies.",
-      icon: "💻",
-      link: "#",
-      color: "from-[#ffd966] to-[#b6932f]"
+      title: "14th Global Education Excellence Awards 2026",
+      desc: "Celebrating outstanding contributions and leadership in the education sector.",
+      date: "14 March 2026",
+      location: "New Delhi, India",
+      banner: "/educationdelhi.png",
+      link: "https://www.primetimemedia.in/education-excellence-awards",
+      color: "from-[#e0c3fc] to-[#8ec5fc]"
     },
     {
-      title: "Market Research",
-      desc: "In-depth consumer insights and competitive analysis to lead your industry forward.",
-      icon: "📊",
-      link: "#",
-      color: "from-[#fff5d2] to-[#a28533]"
+      title: "India Excellence Awards & Conference 2026",
+      desc: "Recognising excellence, innovation, and leadership across Indian industries.",
+      date: "14 March 2026",
+      location: "New Delhi, India",
+      banner: "/excellencedelhi.png",
+      link: "https://www.primetimemedia.in/india-excellence-awards",
+      color: "from-[#fddb92] to-[#d1fdff]"
     },
     {
-      title: "Public Relations",
-      desc: "Strategic reputation management and storytelling across global media platforms.",
-      icon: "📢",
-      link: "#",
-      color: "from-[#ffeec3] to-[#d4af37]"
+      title: "Global Achievers Awards 2026",
+      desc: "Honouring global leaders and achievers across multiple industries.",
+      date: "9 June 2026",
+      location: "House of Commons, London",
+      banner: "/archiverlondon.png",
+      link: "https://www.primetimemedia.in/global-achievers-awards",
+      color: "from-[#cfd9df] to-[#e2ebf0]"
     },
     {
-      title: "Brand Identity",
-      desc: "Crafting iconic visual languages that resonate with your audience and stand the test of time.",
-      icon: "🎨",
-      link: "#",
-      color: "from-[#ffd966] to-[#b6932f]"
-    },
-    {
-      title: "SEO Optimization",
-      desc: "Dominate search results with intelligent keyword strategies and technical excellence.",
-      icon: "🔍",
-      link: "#",
-      color: "from-[#fff5d2] to-[#a28533]"
-    },
+      title: "USA Business Leadership Summit 2026",
+      desc: "A premier summit recognising visionary business leaders and entrepreneurs.",
+      date: "31 March 2026",
+      location: "Washington, DC, USA",
+      banner: "/USA.png",
+      link: "https://www.primetimemedia.in/usa-business-summit",
+      color: "from-[#fdfbfb] to-[#ebedee]"
+    }
   ];
+
 
 
 
@@ -551,7 +568,7 @@ export default function Home() {
                   // },
                   {
                     title: 'Final Shortlisting',
-                    date: 'Early March 2026',
+                    date: 'Early March for New Delhi and early April for Delhi',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffeb98] flex items-center justify-center shadow-lg">
                         <svg className="w-6 h-6 text-[#392818]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M9 13l2.25 2L15 11m-3-8a9 9 0 1 1 0 18a9 9 0 0 1 0-18z" /></svg>
@@ -565,6 +582,16 @@ export default function Home() {
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
                         <span className="text-xl">🇮🇳</span>
+                      </span>
+                    ),
+                    border: 'from-[#d4af37] to-[#ead481]',
+                  },
+                  {
+                    title: 'Award Ceremony – Dubai',
+                    date: '26 April 2026',
+                    icon: (
+                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
+                        <span className="text-xl">🇦🇪</span>
                       </span>
                     ),
                     border: 'from-[#d4af37] to-[#ead481]',
@@ -864,67 +891,80 @@ export default function Home() {
       </section>
 
       {/* ================= GUEST PANEL ================= */}
-      <section className={`relative pt-12 md:pt-20 pb-16 overflow-hidden ${HIGHLIGHT_BG}`}>
+      <section className={`relative pt-6 md:pt-12 pb-8 overflow-hidden ${HIGHLIGHT_BG}`}>
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] xs:w-[480px] md:w-[800px] h-[360px] xs:h-[480px] md:h-[800px] bg-[#d4af37]/10 rounded-full blur-3xl animate-pulse"></div>
         </div>
-
+        {/* Rest of the section content unchanged */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+          {/* ...headings and cards as is... */}
           <div
             ref={(el) => (sectionRefs.current[11] = el)}
-            className="opacity-100 transform translate-y-0 transition-all duration-700 text-center mb-12 md:mb-16"
+            className="opacity-0 transform translate-y-8 transition-all duration-700 text-center mb-14 md:mb-20"
           >
-            <h2 className="text-3xl xs:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-xl">
-              Our Esteemed Guest Panel
+            <h2 className="text-2xl xs:text-4xl md:text-5xl font-heading font-bold mb-3 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
+              Our Esteemed Guests & Speakers
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>
-
-          <div className="overflow-hidden py-10 w-full relative">
-            <div className="animate-marquee-slow flex gap-6 md:gap-10 items-stretch">
-              {/* Combine guest list twice for seamless loop */}
-              {[...guests, ...guests].map((member, index) => (
+          {/* Guest grid improved styling */}
+          <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 gap-y-9 gap-x-5 xs:gap-x-8">
+            {guests.map((member, index) => (
+              <div
+                key={index}
+                ref={(el) => (sectionRefs.current[12 + index] = el)}
+                className="text-center group opacity-0 transform translate-y-8 transition-all duration-700 flex flex-col items-center"
+              >
+                {/* Profile Circle Improved */}
                 <div
-                  key={`${member.name}-${index}`}
-                  className="flex-shrink-0 w-[240px] xs:w-[280px] md:w-[320px] group"
+                  className="relative mx-auto mb-5 sm:mb-6 h-32 w-32 xs:h-44 xs:w-44 md:h-56 md:w-56 rounded-full overflow-visible bg-gradient-to-br from-[#d4af37]/30 via-[#fffbe9]/20 to-[#c62828]/25 p-[4px] group-hover:p-[7px] transition-all duration-400 shadow-xl group-hover:shadow-2xl"
+                  style={{
+                    boxShadow: '0 6px 28px 0 rgba(212,175,55,0.12), 0 1.5px 6px 0 #fffbe950'
+                  }}
                 >
-                  <div className="h-full flex flex-col items-center">
-                    {/* Square Card Design */}
-                    <div className="relative w-full aspect-square overflow-hidden rounded-2xl border border-[#d4af37]/30 bg-[#2a1b12] shadow-2xl transition-all duration-500 group-hover:border-[#ffd966] group-hover:scale-[1.02]">
-                      {/* Image */}
-                      <img
-                        src={`/images/jury${(index % guests.length) + 1}.jpeg`}
-                        alt={member.name}
-                        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                        onError={e => {
-                          e.target.onerror = null;
-                          e.target.style.display = 'none';
-                        }}
-                      />
-
-                      {/* Overlay Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
-
-                      {/* Corner Accents */}
-                      <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#d4af37]/50 rounded-tl-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
-                      <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#d4af37]/50 rounded-br-lg group-hover:border-[#d4af37] transition-all duration-300"></div>
-                    </div>
-
-                    {/* Content below card */}
-                    <div className="mt-6 text-center w-full px-2">
-                      <h3 className="font-bold text-lg md:text-xl text-white group-hover:text-[#d4af37] transition-colors duration-300 drop-shadow-md">
-                        {member.name}
-                      </h3>
-                      <div className="w-12 h-0.5 bg-[#d4af37]/40 mx-auto my-3 group-hover:w-20 group-hover:bg-[#d4af37] transition-all duration-500"></div>
-                      <p className="text-sm md:text-base text-[#dbc6ad] leading-relaxed group-hover:text-white transition-colors duration-300 line-clamp-2 italic">
-                        {member.designation}
-                      </p>
-                    </div>
+                  {/* Animated Border Ring */}
+                  <div
+                    className="absolute inset-0 rounded-full border-2 xs:border-4 border-transparent bg-gradient-to-r from-[#ffe684] via-[#c62828] to-[#d4af37] opacity-0 group-hover:opacity-90 group-hover:animate-spin"
+                    style={{ animationDuration: '7s', zIndex: 1 }}
+                  ></div>
+                  {/* Inner Glow Ring - thoda visible aur soft kiya */}
+                  <div className="absolute inset-[7px] xs:inset-2 rounded-full border-2 border-[#d4af37]/50 group-hover:border-[#ffd966]/90 transition-all duration-500" style={{
+                    boxShadow: '0 0 8px 2px #ffeec390,0 2px 8px #d4af3740'
+                  }}></div>
+                  {/* Image with fallback bg */}
+                  <div className="relative z-10 h-full w-full rounded-full overflow-hidden bg-[#2a1b12]">
+                    <img
+                      src={`/images/jury${index + 1}.jpeg`}
+                      alt={member.name}
+                      className="h-full w-full rounded-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105 bg-[#221710]"
+                      loading="lazy"
+                      style={{
+                        backgroundColor: '#211609',
+                        objectFit: 'cover'
+                      }}
+                      onError={e => {
+                        // hide img if not found & show empty avatar bg
+                        e.target.onerror = null;
+                        e.target.style.display = 'none';
+                      }}
+                    />
                   </div>
+                  {/* Shine/Highlight Overlay */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                  {/* Soft shadow at bottom for floating feel */}
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-4 w-20 md:w-28 bg-black/10 rounded-full blur-md"></div>
                 </div>
-              ))}
-            </div>
+                {/* Name and details */}
+                <p className="font-bold text-base xs:text-lg md:text-xl text-white mb-1 md:mb-2 group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-1 drop-shadow">
+                  {member.name}
+                </p>
+                <div className="w-9 xs:w-12 h-0.5 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mb-1 xs:mb-3 opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-500"></div>
+                <p className="text-xs xs:text-sm md:text-base text-[#dbc6ad] leading-relaxed group-hover:text-[#fffbe9] transition-colors duration-300 line-clamp-2">
+                  {member.designation}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1063,7 +1103,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= OTHER SERVICES SECTION ================= */}
+      {/* ================= UPCOMING AWARDS SECTION ================= */}
       <section className={`relative pt-16 md:pt-24 pb-16 md:pb-24 overflow-hidden ${HIGHLIGHT_BG}`}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
           <div className="absolute top-1/4 left-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[#d4af37]/5 rounded-full blur-3xl animate-pulse"></div>
@@ -1073,45 +1113,87 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl xs:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow-xl">
-              Our Other Services
+              Our Other Upcoming Awards
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
             <p className="mt-6 text-[#ebdcc8] text-base sm:text-lg max-w-2xl mx-auto">
-              Beyond awards, we provide a full suite of research and media services to help brands excel.
+              Join us in celebrating excellence across various industries globally.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {otherServices.map((service, index) => (
-              <a
-                key={index}
-                href={service.link}
-                className="group relative flex flex-col items-center text-center p-8 rounded-3xl bg-gradient-to-br from-[#2a1b12] to-[#1a110a] border border-[#d4af37]/20 hover:border-[#d4af37]/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-12px_#d4af3733]"
-              >
-                {/* Card Background Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/5 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/15 transition-all duration-700 -z-10"></div>
+          <div className="w-full">
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              loop={true}
+              speed={2000}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+              className="pb-16"
+            >
+              {upcomingAwards.map((award, index) => (
+                <SwiperSlide key={index}>
+                  <div className="group relative flex flex-col rounded-2xl bg-gradient-to-br from-[#2a1b12] to-[#1a110a] border border-[#d4af37]/20 hover:border-[#d4af37]/60 transition-all duration-500 hover:shadow-[0_20px_40px_-12px_#d4af3733] overflow-hidden max-w-sm mx-auto h-full">
+                    {/* Banner Image - Adjusted for better fitting */}
+                    <div className="relative h-52 overflow-hidden bg-black/50">
+                      <img
+                        src={award.banner}
+                        alt={award.title}
+                        className="w-full h-full object-fill transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a110a] via-transparent to-transparent"></div>
+                      <div className="absolute bottom-3 left-4">
+                        <span className="px-2 py-0.5 rounded-full bg-[#d4af37] text-black text-[10px] font-bold uppercase tracking-wider">
+                          {award.location}
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Icon */}
-                <div className="text-5xl md:text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-500">
-                  {service.icon}
-                </div>
+                    {/* Content - More compact */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <h3 className="text-lg md:text-xl font-bold mb-1.5 text-[#ffeec3] group-hover:text-white transition-colors line-clamp-2">
+                        {award.title}
+                      </h3>
+                      <p className="text-[#d4af37] font-semibold text-xs mb-3">
+                        {award.date}
+                      </p>
+                      <p className="text-[#dbc6ad] text-xs md:text-sm leading-relaxed group-hover:text-white transition-colors flex-grow line-clamp-3">
+                        {award.desc}
+                      </p>
 
-                {/* Title */}
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#ffeec3] group-hover:text-white transition-colors">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-[#dbc6ad] text-sm md:text-base leading-relaxed group-hover:text-white transition-colors">
-                  {service.desc}
-                </p>
-
-                {/* Button Decor */}
-                <div className="mt-8 px-6 py-2 rounded-full border border-[#d4af37]/40 text-[#d4af37] text-sm font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  Read More
-                </div>
-              </a>
-            ))}
+                      <a
+                        href={award.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 relative overflow-hidden group/btn rounded-lg bg-gradient-to-r from-[#d4af37] to-[#a28533] text-black font-bold px-4 py-2 text-sm text-center transition-all duration-300 hover:brightness-110"
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          Visit Website
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </section>
