@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const nominationSchema = new mongoose.Schema(
   {
-    registrationType: {
+    participationType: {
       type: String,
       required: true,
       trim: true,
@@ -17,30 +17,56 @@ const nominationSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    // New fields for non-award types
+    designation: {
+      type: String,
+      trim: true,
+    },
+    mobile: {
+      type: String,
+      trim: true,
+    },
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+    portfolio: {
+      type: String,
+      trim: true,
+    },
+    preferredLocation: {
+      type: String,
+      trim: true,
+    },
+    // Award specific fields
     category: {
       type: String,
-      required: true,
+      trim: true,
+    },
+    subCategory: {
+      type: String,
+      trim: true,
+    },
+    otherSubCategory: {
+      type: String,
       trim: true,
     },
     // Organization head
     orgHeadName: {
       type: String,
-      required: true,
       trim: true,
     },
     orgHeadDesignation: {
       type: String,
-      required: true,
       trim: true,
     },
     orgHeadMobile: {
       type: String,
-      required: true,
       trim: true,
     },
     orgHeadEmail: {
       type: String,
-      required: true,
       trim: true,
       lowercase: true,
     },
@@ -48,22 +74,18 @@ const nominationSchema = new mongoose.Schema(
     // Contact person
     contactName: {
       type: String,
-      required: true,
       trim: true,
     },
     contactDesignation: {
       type: String,
-      required: true,
       trim: true,
     },
     contactMobile: {
       type: String,
-      required: true,
       trim: true,
     },
     contactEmail: {
       type: String,
-      required: true,
       trim: true,
       lowercase: true,
     },
@@ -83,22 +105,18 @@ const nominationSchema = new mongoose.Schema(
     // Address
     street: {
       type: String,
-      required: true,
       trim: true,
     },
     city: {
       type: String,
-      required: true,
       trim: true,
     },
     state: {
       type: String,
-      required: true,
       trim: true,
     },
     zip: {
       type: String,
-      required: true,
       trim: true,
     },
 

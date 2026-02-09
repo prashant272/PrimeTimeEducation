@@ -28,7 +28,7 @@ mongoose
   });
 
 app.get("/", (_req, res) => {
-  res.json({ status: "ok", message: "PrimeTime Awards API" });
+  res.json({ status: "ok", message: "PrimeTime Awards API - V2" });
 });
 
 app.use("/api/auth", authRoutes);

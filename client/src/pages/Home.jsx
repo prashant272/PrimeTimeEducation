@@ -60,13 +60,13 @@ export default function Home() {
 
   const events = [
     {
-      title: "Global Education Awards 2026",
+      title: "Global Education Awards – New Delhi Edition 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
       date: "14 March 2026",
       place: "New Delhi",
     },
     {
-      title: "Global Education Awards 2026",
+      title: "Global Education Awards – Dubai Edition 2026",
       desc: "Recognising excellence and innovation in educational leadership.",
       date: "26 April 2026",
       place: "Dubai",
@@ -185,7 +185,7 @@ export default function Home() {
       date: "14 March 2026",
       location: "New Delhi, India",
       banner: "/excellencedelhi.png",
-      link: "https://www.primetimemedia.in/india-excellence-awards",
+      link: "https://primetimemedia.in/india-excellence-awards-2026-summit/",
       color: "from-[#fddb92] to-[#d1fdff]"
     },
     {
@@ -203,7 +203,7 @@ export default function Home() {
       date: "31 March 2026",
       location: "Washington, DC, USA",
       banner: "/USA.png",
-      link: "https://www.primetimemedia.in/usa-business-summit",
+      link: "https://primetimemedia.in/united-state-program-2026/",
       color: "from-[#fdfbfb] to-[#ebedee]"
     }
   ];
@@ -229,8 +229,34 @@ export default function Home() {
     {
       title: "Educators & Leaders",
       desc: "Awaiting principals, teachers, and academic leaders who have shown exemplary vision.",
-      icon: "🏆",
       color: "from-[#ffeec3] to-[#d4af37]"
+    },
+  ];
+
+  const homeFaqs = [
+    {
+      q: "What is Global Education Awards 2026?",
+      a: "Global Education Awards 2026 is an international recognition platform that honours schools, colleges, universities, educators, and education-tech companies for excellence, innovation, and quality education.",
+    },
+    {
+      q: "Who can apply for nomination?",
+      a: "Schools, colleges, universities, individual educators and academic professionals, educational startups, edtech companies, and coaching or vocational training centres can apply for nomination.",
+    },
+    {
+      q: "What is the nomination process and deadline?",
+      a: "The nomination process is completely online. Applicants need to fill out the nomination form and submit the required details and documents. The current extended deadline mentioned on this page is 15 April 2026; for any change, updated dates will always be shown on the website.",
+    },
+    {
+      q: "How are the winners selected?",
+      a: "Winners are selected through a structured evaluation process that includes research-based assessment, academic quality, innovation, student impact, and ethical practices, as explained in the Research Methodology and Selection Process sections.",
+    },
+    {
+      q: "What are the benefits of participating?",
+      a: "Participants receive global recognition and credibility, enhanced brand visibility and media exposure, greater trust among students and partners, networking with education leaders, and marketing assets such as certificates and winner logos.",
+    },
+    {
+      q: "Is self-nomination allowed?",
+      a: "Yes, eligible organisations and individuals can nominate themselves directly for relevant categories.",
     },
   ];
 
@@ -432,11 +458,11 @@ export default function Home() {
                       </div>
                       <div className="flex items-center gap-3 text-[#ffe7a1] group-hover:text-[#feca57] tracking-wide transition-all duration-200">
                         <span className="text-lg sm:text-xl">
-                          <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
+                          {/* <svg className="w-6 h-6 inline-block" viewBox="0 0 20 20" fill="none">
                             <circle cx="10" cy="10" r="8" stroke="#ffd966" strokeWidth="1.1" fill="none" />
                             <circle cx="10" cy="12.1" r="3" fill="#d4af37" />
                             <rect x="9.2" y="6" width="1.6" height="5" rx="0.7" fill="#ffd966" />
-                          </svg>
+                          </svg> */}
                         </span>
                         <span className="font-bold text-md">{event.time}</span>
                       </div>
@@ -1120,6 +1146,89 @@ export default function Home() {
                   <div className="mt-4 sm:mt-6 h-1 w-10 sm:w-14 mx-auto bg-gradient-to-r from-[#d4af37] to-transparent opacity-40 rounded-full"></div>
                   {/* Hover Glow */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#d4af37]/0 via-[#d4af37]/0 to-[#d4af37]/0 group-hover:via-[#d4af37]/10 group-hover:to-[#d4af37]/20 transition-all duration-700 -z-10"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`relative pt-12 md:pt-20 pb-16 md:pb-28 overflow-hidden ${HIGHLIGHT_BG}`}>
+        {/* Premium Glow Ornaments */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-br from-[#d4af37]/25 via-transparent to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-[-6rem] right-1/6 w-96 h-96 bg-gradient-to-tr from-[#c62828]/15 via-[#d4af37]/10 to-transparent rounded-full blur-3xl" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-2 xs:px-3 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl xs:text-5xl md:text-6xl font-heading font-extrabold bg-gradient-to-r from-[#fffbe7] via-[#ffe79b] via-50% to-[#d4af37] bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <div className="mt-4 w-28 sm:w-40 h-[5px] mx-auto rounded-full bg-gradient-to-r from-transparent via-[#ffd966] to-transparent shadow-[0_0_24px_2px_#ffeec3]" />
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-[#ffefb0] max-w-2xl mx-auto font-medium tracking-wide leading-relaxed">
+              <span className="bg-gradient-to-br from-[#fffbe7] via-[#ffe79b] to-[#d4af37] bg-clip-text text-transparent font-bold">Your most essential queries about nominations, eligibility, and benefits—</span>
+              for the complete FAQ, please visit our FAQ page.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+            {homeFaqs.map((item, index) => (
+              <div
+                key={index}
+                className="relative flex h-full"
+              >
+                <div
+                  className="
+                    group
+                    relative
+                    flex flex-col
+                    flex-grow
+                    overflow-visible
+                    bg-gradient-to-br from-[#2a1b12]/70 via-[#3c230f]/90 to-[#dac377]/10
+                    border border-[#eed47c]/20
+                    hover:border-[#ffd966]
+                    rounded-2xl sm:rounded-3xl
+                    p-5 xs:p-6 sm:p-7 md:p-8
+                    shadow-[0_8px_22px_-8px_#eed47c66]
+                    hover:shadow-[0_16px_28px_-8px_#ffd96677]
+                    transition-all duration-300
+                    cursor-pointer
+                    w-full
+                    min-h-[240px] xs:min-h-[200px] sm:min-h-[240px] md:min-h-[220px]
+                    max-w-full
+                    box-border
+                  "
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  {/* Q Number Circle - moved INSIDE card content */}
+                  <div className="flex items-center mb-3">
+                    <span className="inline-flex items-center justify-center bg-gradient-to-r from-[#fbf6df] via-[#ffe7a1] to-[#d4af37] rounded-full shadow-lg w-8 h-8 text-base sm:text-xl font-bold text-[#a28533] border-2 border-[#ffeec3]/70">
+                      Q{index + 1}
+                    </span>
+                  </div>
+                  {/* Decorative Glow */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#ffeec3]/10 via-transparent to-transparent opacity-70 -z-10 rounded-b-3xl pointer-events-none" />
+                  {/* Inner Content */}
+                  <div className="flex-1 flex flex-col overflow-hidden">
+                    {/* Question */}
+                    <h3 className="mb-2 sm:mb-3 text-base xs:text-lg md:text-xl font-bold tracking-wide bg-gradient-to-r from-[#ffeec3] via-[#ffe07d] to-[#d4af37] bg-clip-text text-transparent drop-shadow group-hover:scale-105 group-hover:drop-shadow-[0_2px_12px_#ffeec399] transition duration-300 break-words">
+                      {item.q}
+                    </h3>
+                    {/* Answer */}
+                    <p className="text-xs xs:text-sm sm:text-base md:text-lg text-[#ffeec3]/90 leading-relaxed font-medium bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#fff7cf] group-hover:via-[#ffefb0] group-hover:to-[#ffe07d] group-hover:text-transparent transition-colors duration-300 break-words line-clamp-6 sm:line-clamp-5">
+                      {item.a}
+                    </p>
+                  </div>
+
+                  {/* Bottom premium accent */}
+                  <div className="mt-6 h-1 w-14 sm:w-20 mx-auto rounded-full bg-gradient-to-r from-[#ffeec3] via-[#ffd966] to-transparent opacity-60" />
+
+                  {/* Subtle floating gold particles effect (decorative dots) */}
+                  <div className="absolute left-2 bottom-2 h-2 w-2 bg-[#ffeec3]/30 rounded-full blur-[2px] animate-pulse"></div>
+                  <div className="absolute right-3 top-3 h-2 w-2 bg-[#ffd966]/20 rounded-full blur-[1.5px] animate-pulse delay-500"></div>
                 </div>
               </div>
             ))}

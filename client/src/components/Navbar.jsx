@@ -13,6 +13,8 @@ import {
   FaTrophy,
   FaHistory,
   FaRegClone,
+  FaRegEdit,
+  FaQuestionCircle,
 } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext.jsx";
 
@@ -23,7 +25,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
-  const isNominateRoute = location.pathname === "/nominate";
+  const isNominateRoute = location.pathname.startsWith("/nominate");
   const isHomePage = location.pathname === "/";
   const isOtherPage = !isHomePage && !isAdminRoute && !isNominateRoute;
   const isUser = user?.role === "user";
@@ -78,9 +80,6 @@ export default function Navbar() {
     }
   };
 
-  if (isNominateRoute) {
-    return null;
-  }
 
   // ===== Header for admin routes
   if (isAdminRoute) {
@@ -134,29 +133,12 @@ export default function Navbar() {
                     <img
                       src="/images/primetimelogo.gif"
                       alt="PrimeTime Logo"
-                      className="absolute top-[-10px] left-0 h-[100px] w-auto max-w-none object-contain z-50 drop-shadow-md"
+                      className="absolute top-[-10px] left-[-30px] h-[100px] w-auto max-w-none object-contain z-50 drop-shadow-md"
                     />
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
                     <span>Prime Time Research Media Pvt. Ltd. </span>
                     <span className="opacity-70">Global Education Awards</span>
-                    <span className="opacity-60">
-                      {location.pathname === "/editions/2026" ? "14th Edition" :
-                        location.pathname === "/editions/2025" ? "13th Edition" :
-                          location.pathname === "/editions/2024" ? "12th Edition" :
-                            location.pathname === "/editions/2023" ? "11th Edition" :
-                              location.pathname === "/editions/2022" ? "10th Edition" :
-                                location.pathname === "/editions/2021" ? "9th Edition" :
-                                  location.pathname === "/editions/2020" ? "8th Edition" :
-                                    location.pathname === "/editions/2019" ? "7th Edition" :
-                                      location.pathname === "/editions/2018" ? "6th Edition" :
-                                        location.pathname === "/editions/2017" ? "5th Edition" :
-                                          location.pathname === "/editions/2016" ? "4th Edition" :
-                                            location.pathname === "/editions/2015" ? "3rd Edition" :
-                                              location.pathname === "/editions/2014" ? "2nd Edition" :
-                                                location.pathname === "/editions/2013" ? "1st Edition" :
-                                                  "14th Edition"}
-                    </span>
                   </div>
                 </div>
                 {/* RIGHT : LOGIN */}
@@ -298,6 +280,8 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
       <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} />
       {isUser && showDashboard && (
         <NavItem
           to="/dashboard"

@@ -32,6 +32,7 @@ export default function Footer() {
           grid-cols-1 
           sm:grid-cols-2 
           md:grid-cols-4 
+          lg:grid-cols-5
           gap-y-12 gap-x-8
         ">
 
@@ -47,14 +48,14 @@ export default function Footer() {
               <span
                 className="font-heading text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent"
                 style={{ backgroundImage: goldGrad }}>
-                Global Education Awards 2026
+                Global Healthcare Awards 2026
               </span>
             </div>
             <div
               className="mt-3 rounded-full h-1 w-24 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4"
             />
             <p className="text-sm lg:text-base font-medium leading-relaxed opacity-80">
-              Recognising outstanding leadership, innovation & excellence in global education – celebrating visionary organisations and individuals shaping tomorrow.
+              Recognising outstanding leadership, innovation & excellence in global healthcare – celebrating visionary organisations and individuals shaping tomorrow.
             </p>
           </div>
 
@@ -127,6 +128,88 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* ==== OTHER SERVICES (Prime Time Media) ==== */}
+          <div>
+            <h3
+              className="font-semibold mb-5 text-lg text-[#f5f3f0] tracking-wide
+                border-l-4 pl-3 border-[#ffeec3]/20"
+            >
+              Other Services
+            </h3>
+            <ul className="space-y-3 text-base">
+              <li>
+                <a
+                  href="https://primetimemedia.in/market-research/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Market Research
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/digital-marketing/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Digital Marketing
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/brand-reputation-management/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Brand Reputation Management
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/business-consultancy-services/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Business Consultancy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/public-relation-management/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Public Relation Management
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/social-media-management/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Social Media Management
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://primetimemedia.in/web-development/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200"
+                >
+                  Web Development
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* ==== POWERED BY PRIMETIME MEDIA, OFFICE ADDRESS & MAP ==== */}
           <div>
             <h3
@@ -139,7 +222,7 @@ export default function Footer() {
               <div className="flex items-start gap-2">
                 <span className="inline-block w-5 mt-0.5 text-[#d4af37]">🏢</span>
                 <span className="text-sm leading-snug">
-                  <strong>Office:</strong> Prime Time Research Media, C-31, Nawada Housing Complex, New Delhi-59
+                  <strong>Office:</strong> Prime Time Research Media Pvt. Ltd, C-31, Nawada Housing Complex, New Delhi-59
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-y-2">
@@ -219,13 +302,13 @@ export default function Footer() {
             color: "transparent",
           }}
         >
-          Global Education Awards
+          Global Healthcare Awards
         </span>
 
         {" "} &bull; © {new Date().getFullYear()} All Rights Reserved
         {" "} | This page is owned by{" "}
         <span className="text-[#d4af37] font-bold">
-          Prime Time Research Media Pvt. Ltd.
+          Prime Time Research Media Pvt. Ltd
         </span>
       </div>
 

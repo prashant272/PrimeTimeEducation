@@ -11,14 +11,17 @@ import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import PreviousEditions from "./pages/PreviousEditions";
 import Media from "./pages/Media.jsx";
+import FAQ from "./pages/FAQ.jsx";
 import EditionDetail from "./pages/EditionDetail.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import NominationForm from "./pages/NominationForm.jsx";
+import NominationDetails from "./pages/NominationDetails.jsx";
 import UserDashboard from "./pages/UserDashboard.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import AdminRegister from "./pages/AdminRegister.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import SuccessPage from "./pages/SuccessPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
@@ -47,12 +50,21 @@ export default function App() {
           <Route path="/previous" element={<PreviousEditions />} />
           <Route path="/previous-editions" element={<PreviousEditions />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/editions/:year" element={<EditionDetail />} />
           <Route
-            path="/nominate"
+            path="/nominate/:id?"
             element={
               <ProtectedRoute allowedRoles={["user"]}>
                 <NominationForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/nomination/:id"
+            element={
+              <ProtectedRoute allowedRoles={["user"]}>
+                <NominationDetails />
               </ProtectedRoute>
             }
           />
@@ -64,6 +76,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/success" element={<SuccessPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />
           <Route
