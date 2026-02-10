@@ -36,6 +36,10 @@ const nominationSchema = new mongoose.Schema(
       trim: true,
     },
     preferredLocation: {
+      type: [String],
+      default: [],
+    },
+    pdfUrl: {
       type: String,
       trim: true,
     },
@@ -92,6 +96,21 @@ const nominationSchema = new mongoose.Schema(
 
     // Business details
     website: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    facebook: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    instagram: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    youtube: {
       type: String,
       trim: true,
       default: "",

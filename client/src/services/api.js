@@ -16,13 +16,18 @@ function getBaseUrl() {
 
 async function request(path, { method = "GET", token, body } = {}) {
   const url = `${getBaseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
-  const headers = { "Content-Type": "application/json" };
+  const headers = {};
+
+  if (!(body instanceof FormData)) {
+    headers["Content-Type"] = "application/json";
+  }
+
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const res = await fetch(url, {
     method,
     headers,
-    body: body ? JSON.stringify(body) : undefined,
+    body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined),
   });
 
   const isJson = res.headers.get("content-type")?.includes("application/json");

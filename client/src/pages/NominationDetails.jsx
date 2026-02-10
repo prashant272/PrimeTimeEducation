@@ -194,6 +194,22 @@ export default function NominationDetails() {
                             </div>
                         </div>
 
+                        {/* Support Document Section */}
+                        {nomination.pdfUrl && (
+                            <div className="mt-12 pt-12 border-t border-white/5">
+                                <h3 className="text-xs font-black uppercase tracking-widest text-gray-500 mb-4">Support Document</h3>
+                                <a
+                                    href={nomination.pdfUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-[#d4af37] font-bold hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50 transition-all group"
+                                >
+                                    <span className="text-2xl group-hover:scale-110 transition-transform">📄</span>
+                                    <span>View Uploaded Profile / Document</span>
+                                </a>
+                            </div>
+                        )}
+
                         {/* Remarks Section */}
                         {nomination.remarks && (
                             <div className="mt-12 pt-12 border-t border-white/5">

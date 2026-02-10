@@ -6,7 +6,7 @@ import { createNomination, fetchNominationById, updateUserNomination } from "../
 import { useAuth } from "../context/AuthContext.jsx";
 
 const categoryMap = {
-  "Higher Education": {
+  "University": {
     "Overall Excellence": [
       "University of the Year",
       "Emerging University of the Year",
@@ -20,16 +20,6 @@ const categoryMap = {
       "Most Trusted University Brand (India)",
       "Outstanding Vice-Chancellor Leadership Award",
     ],
-    "Research & Innovation": [
-      "Excellence in Research & Development",
-      "Best Research University",
-      "Innovation & Technology Excellence Award",
-      "Best Patent & Intellectual Property Initiative",
-      "Best Incubation & Startup Support University",
-      "Excellence in Industry-Academia Collaboration",
-      "Research & Innovation Excellence Award",
-      "Best Doctoral & Research University",
-    ],
     "Internationalization": [
       "Excellence in Global Education",
       "Best International Collaboration",
@@ -41,94 +31,67 @@ const categoryMap = {
       "Study in India Excellence Award",
       "International Research Partnerships Award",
     ],
-    "Digital & Online Learning": [
+    "Research & Innovation": [
+      "Excellence in Research & Development",
+      "Best Research University",
+      "Innovation & Technology Excellence Award",
+      "Best Patent & Intellectual Property Initiative",
+      "Best Incubation & Startup Support University",
+      "Excellence in Industry-Academia Collaboration",
+      "Research & Innovation Excellence Award",
+      "Best Doctoral & Research University",
+      "Faculty Excellence Award",
+      "Interdisciplinary Education Excellence",
+    ],
+    "Digital & Online Education": [
       "Excellence in Digital Learning",
       "Best Online University / Program",
       "Excellence in EdTech Integration",
       "Best Learning Management System (LMS)",
       "Digital University of the Year",
+      "Best Online & Blended Learning University",
+      "Innovation in EdTech Integration",
+      "Innovation in Blended Learning",
+      "AI & Technology-Enabled Campus",
+      "Smart & Digital Campus Excellence",
     ],
-    "Campus & Student Experience": [
-      "Best University Infrastructure",
-      "Smart & Digital Campus Award",
-      "Excellence in Green & Sustainable Campus",
-      "Best Residential Campus",
-      "Excellence in Student Support Services",
-      "Best Campus Life & Student Engagement",
-      "Excellence in Alumni Engagement",
-    ],
-    "Discipline Excellence": [
-      "Best Engineering University (India)",
-      "Best Medical & Healthcare University",
-      "Best Management / Business School",
-      "Best Law University",
-      "Best Agriculture & Allied Sciences University",
-      "Best Science, Technology & Innovation University",
-      "Best Liberal Arts & Humanities University",
-      "Best Liberal Arts University",
-    ],
-  },
-  "School (K-12)": {
-    "Overall Excellence": [
-      "Best Private School (K-12)",
-      "Outstanding Primary School of the Year",
-      "Best School for Holistic Development",
-      "Excellence in Smart Classroom Infrastructure",
-      "School of the Year",
-    ],
-    "Innovation & Academic": [
-      "Best Curriculum Innovation",
-      "Excellence in Teaching & Learning",
-      "Best Online & Blended Learning Model",
-    ],
-    "Campus & Support": [
-      "Best School Infrastructure",
-      "Excellence in Student Wellness & Counseling",
-      "Best Inclusive Education Initiative",
-    ],
-  },
-  "Individual Educator": {
-    "Leadership Awards": [
-      "Visionary Leader in Education",
-      "Outstanding Principal of the Year",
-      "Academic Leader of the Year",
-      "Outstanding Vice-Chancellor Leadership Award",
-      "Lifetime Achievement in Education",
-      "Lifetime Contribution to Indian Education",
-      "Excellence in Educational Leadership",
-      "Education Icon of the Year",
-    ],
-    "Teaching & Research": [
-      "Teacher of the Year (Innovation in Pedagogy)",
-      "Outstanding Faculty Award",
-      "Young Educator of the Year",
-      "Lifetime Achievement in Academic Research",
-      "Faculty Excellence Award",
-    ],
-  },
-  "EdTech & Organization": {
-    "Solutions & Innovation": [
-      "Best EdTech Platform for K-12",
-      "Excellence in AI-Powered Learning Solutions",
-      "Most Innovative Digital Curriculum Provider",
-      "Best Learning Management System (LMS)",
-      "Startup & Innovation Ecosystem Award",
-      "University Incubation Center of the Year",
-      "Future Skills & Emerging Technologies Award",
-    ],
-    "Employability & Industry": [
+    "Skill Development & Employability": [
+      "Best Placement & Career Excellence University",
       "Skill India Excellence Award",
       "Industry–Academia Collaboration Award",
       "Internship & Apprenticeship Excellence",
       "Employability & Career Readiness Award",
-      "Best Placement & Career Excellence",
     ],
-  },
-  "Social Impact & Special": {
-    "Community & Inclusion": [
-      "Excellence in Community Education Outreach",
-      "Outstanding NGO for Adult Literacy",
-      "Best CSR Initiative in Education",
+    "Academic Excellence": [
+      "Excellence in Teaching & Learning",
+      "Best Curriculum Innovation",
+      "Best Outcome-Based Education Model",
+      "Excellence in Interdisciplinary Studies",
+      "Best Liberal Arts University",
+      "Best Research-Oriented University",
+    ],
+    "Employability & Career Development": [
+      "Best Placement & Career Services",
+      "Excellence in Skill Development & Employability",
+      "Best Industry-Linked Programs",
+      "Best Internship & Apprenticeship Initiative",
+      "Excellence in Corporate Partnerships",
+    ],
+    "Infrastructure & Campus Development": [
+      "Best University Infrastructure",
+      "Smart & Digital Campus Award",
+      "Excellence in Green & Sustainable Campus",
+      "Best Residential Campus",
+      "Excellence in Library & Learning Resources",
+    ],
+    "Student Experience & Support": [
+      "Excellence in Student Support Services",
+      "Best Campus Life & Student Engagement",
+      "Excellence in Counseling & Wellness Services",
+      "Best Inclusive Education Initiative",
+      "Excellence in Alumni Engagement",
+    ],
+    "Sustainability, Inclusion & Social Impact": [
       "Green & Sustainable University (India)",
       "Excellence in Social Impact & Community Development",
       "Inclusive Education & Accessibility Award",
@@ -136,13 +99,410 @@ const categoryMap = {
       "Rural & Regional Education Excellence",
       "Excellence in Social Responsibility",
       "Best Community Engagement Program",
+      "Excellence in Environmental Sustainability",
     ],
-    "Special Recognition": [
+    "Faculty & Leadership": [
+      "Vice-Chancellor / President of the Year",
+      "Academic Leader of the Year",
+      "Outstanding Faculty Award",
+      "Young Educator of the Year",
+      "Lifetime Achievement in Education",
+    ],
+    "Discipline-Specific Excellence": [
+      "Excellence in Engineering Education",
+      "Excellence in Medical Education",
+      "Excellence in Management Education",
+      "Excellence in Law Education",
+      "Excellence in Science Education",
+      "Excellence in Arts & Humanities",
+      "Excellence in Design, Media & Creative Education",
+    ],
+    "Discipline-Specific University Awards": [
+      "Best Engineering University (India)",
+      "Best Medical & Healthcare University",
+      "Best Management / Business School",
+      "Best Law University",
+      "Best Agriculture & Allied Sciences University",
+      "Best Science, Technology & Innovation University",
+      "Best Liberal Arts & Humanities University",
+    ],
+    "Future-Ready & Entrepreneurship": [
+      "Startup & Innovation Ecosystem Award",
+      "University Incubation Center of the Year",
+      "Entrepreneurship Education Excellence",
+      "Future Skills & Emerging Technologies Award",
+    ],
+    "Special Recognition Awards": [
+      "Lifetime Contribution to Indian Education",
+      "Excellence in Educational Leadership",
       "Iconic University of the Decade",
       "Transformational Education Award",
+      "Education Icon of the Year",
       "University with Best Governance Practices",
       "Excellence in Quality Assurance & Accreditation",
+      "Most Trusted University Brand",
       "Rising Star University Award",
+    ],
+  },
+  "College": {
+    "By Type of Institution": [
+      "Best Government College",
+      "Best Private College",
+      "Best Autonomous College",
+      "Best Deemed-to-be University College",
+      "Best International College",
+      "Best Emerging College",
+    ],
+    "Science & Technology": [
+      "Best Science College",
+      "Best Engineering College",
+      "Best Polytechnic College",
+      "Best Research-Oriented College",
+      "Best Innovation & R&D College",
+    ],
+    "Management & Commerce": [
+      "Best Management / MBA College",
+      "Best Commerce College",
+      "Best Business School",
+      "Best Entrepreneurship-Focused College",
+    ],
+    "Law & Public Policy": [
+      "Best Law College",
+      "Best Legal Education Institution",
+      "Best Moot Court & Legal Training College",
+    ],
+    "Medical & Healthcare": [
+      "Best Medical College",
+      "Best Dental College",
+      "Best Nursing College",
+      "Best Pharmacy College",
+      "Best Allied Health Sciences College",
+      "Best Paramedical College",
+    ],
+    "Arts, Humanities & Social Sciences": [
+      "Best Arts College",
+      "Best Humanities College",
+      "Best Social Sciences College",
+    ],
+    "Design, Media & Creative Arts": [
+      "Best Design College",
+      "Best Fashion & Textile College",
+      "Best Fine Arts College",
+      "Best Media, Journalism & Mass Communication College",
+      "Best Film & Performing Arts College",
+    ],
+    "Education & Teacher Training": [
+      "Best B.Ed College",
+      "Best Teacher Training College",
+      "Best Education Research Institute",
+    ],
+    "Specialized & Professional Colleges": [
+      "Best Agriculture College",
+      "Best Veterinary College",
+      "Best Architecture College",
+      "Best Hotel Management & Hospitality College",
+      "Best Aviation & Aeronautics College",
+      "Best Maritime Studies College",
+      "Best Sports & Physical Education College",
+    ],
+    "Excellence & Performance-Based Categories": [
+      "College of the Year",
+      "Excellence in Academic Achievement",
+      "Excellence in Skill Development",
+      "Excellence in Digital Learning & Smart Campus",
+      "Excellence in Research & Innovation",
+      "Excellence in Industry Interface & Placements",
+      "Excellence in Global Exposure & International Tie-Ups",
+    ],
+    "Social Impact & Quality": [
+      "Best Green & Sustainable College",
+      "Best Rural Education College",
+      "Best Women’s College",
+      "Best Inclusive Education College",
+      "Best Community Impact College",
+    ],
+    "Leadership & Faculty": [
+      "Best College Principal / Director",
+      "Best Faculty Team",
+      "Best Young Educator College Award",
+      "Lifetime Contribution to Education Award",
+    ],
+    "Student-Centric Awards": [
+      "Best Campus Infrastructure",
+      "Best Student Support & Career Guidance",
+      "Best Alumni Network",
+      "Best Placement & Internship Support",
+    ],
+    "By Level of Education": [
+      "Junior College / Higher Secondary College",
+      "Undergraduate Degree College",
+      "Postgraduate College",
+      "Integrated Degree College",
+      "Autonomous College",
+      "Deemed-to-be University College",
+      "Affiliated College",
+      "Constituent College",
+    ],
+  },
+  "Vocational Institute": {
+    "Healthcare & Paramedical": [
+      "Paramedical Training Institutes",
+      "Nursing Assistant & GNM Training Centers",
+      "Medical Lab Technician (MLT) Institutes",
+      "Radiology & Imaging Technician Institutes",
+      "Emergency & Trauma Care Training Institutes",
+      "Physiotherapy Assistant Training Centers",
+      "Hospital Administration Vocational Institutes",
+      "Pharmacy Technician Training Institutes",
+      "Healthcare Skill Development Institutes",
+    ],
+    "Construction, Infrastructure & Trades": [
+      "Civil Construction Skill Training Institutes",
+      "Plumbing & Sanitation Training Institutes",
+      "Masonry & Tiling Training Centers",
+      "Interior Design & Drafting Institutes",
+      "Surveying & Land Measurement Institutes",
+      "Heavy Equipment & Crane Operator Institutes",
+      "Road & Infrastructure Skill Training Centers",
+    ],
+    "Automobile, Aviation & Logistics": [
+      "Automobile Repair & Maintenance Institutes",
+      "EV (Electric Vehicle) Training Institutes",
+      "Two-Wheeler & Four-Wheeler Technician Institutes",
+      "Aviation Ground Staff & Cabin Crew Institutes",
+      "Aircraft Maintenance Technician (AMT) Institutes",
+      "Logistics, Supply Chain & Warehouse Training Institutes",
+      "Driving & Transport Skill Institutes",
+    ],
+    "Hospitality, Tourism & Services": [
+      "Hotel Management Vocational Institutes",
+      "Culinary Arts & Bakery Institutes",
+      "Food & Beverage Service Training Institutes",
+      "Housekeeping & Facility Management Institutes",
+      "Travel, Tourism & Ticketing Institutes",
+      "Cruise & Aviation Hospitality Institutes",
+      "Event Management Training Institutes",
+    ],
+    "Beauty, Wellness & Lifestyle": [
+      "Beauty & Cosmetology Institutes",
+      "Hair Styling & Makeup Academies",
+      "Spa & Wellness Training Institutes",
+      "Yoga & Fitness Trainer Institutes",
+      "Ayurveda & Alternative Therapy Institutes",
+      "Nutrition & Dietetics Vocational Institutes",
+    ],
+    "Fashion, Design & Creative Arts": [
+      "Fashion Designing Institutes",
+      "Tailoring & Apparel Making Centers",
+      "Textile & Garment Technology Institutes",
+      "Jewellery Designing Institutes",
+      "Graphic Designing & Visual Arts Institutes",
+      "Photography & Film Making Academies",
+      "Fine Arts & Handicraft Training Institutes",
+    ],
+    "Agriculture, Rural & Green Skills": [
+      "Agriculture & Horticulture Training Institutes",
+      "Organic Farming Training Centers",
+      "Dairy & Poultry Training Institutes",
+      "Fisheries & Aquaculture Training Centers",
+      "Agri-Entrepreneurship Institutes",
+      "Food Processing & Cold Storage Training Institutes",
+      "Sustainable & Green Skill Institutes",
+    ],
+    "Education, Training & Soft Skills": [
+      "Teacher Training & Skill Trainer Institutes",
+      "Spoken English & Communication Skill Institutes",
+      "Personality Development Training Centers",
+      "Leadership & Corporate Skill Institutes",
+      "Entrepreneurship & Startup Training Institutes",
+      "NSDC / Skill India Affiliated Training Centers",
+    ],
+    "Home Services & Community Skills": [
+      "Electrician & Wireman Training Institutes",
+      "Home Appliance Repair Training Centers",
+      "Water Purifier & RO Technician Institutes",
+      "Mobile Phone Repair Training Institutes",
+      "Security Guard & Facility Staff Training Institutes",
+      "Fire & Safety Training Institutes",
+    ],
+    "Special & Inclusive": [
+      "Skill Development Institutes for Women",
+      "Skill Training Centers for Persons with Disabilities",
+      "Rural Skill Development Institutes",
+      "Minority Skill Development Institutes",
+      "Government & PPP Vocational Training Institutes",
+      "International Vocational Training Centers",
+    ],
+    "Suggested Award Titles": [
+      "Best Vocational Training Institute of the Year",
+      "Excellence in Skill Development Award",
+      "Best Industry-Oriented Training Institute",
+      "Emerging Vocational Institute Award",
+      "Outstanding Placement & Employability Award",
+      "Innovation in Vocational Education Award",
+    ],
+  },
+  "School Categories": {
+    "Early Years & Foundation": [
+      "Best Preschool / Kindergarten",
+      "Excellence in Early Childhood Education",
+      "Best Montessori School",
+      "Best Play-Based Learning School",
+    ],
+    "Primary Education": [
+      "Best Primary School",
+      "Excellence in Foundational Literacy & Numeracy",
+      "Best Value-Based Primary School",
+      "Innovation in Primary Education",
+    ],
+    "Secondary & Senior Secondary": [
+      "Best Secondary School",
+      "Best Senior Secondary School",
+      "Academic Excellence Award",
+      "Best CBSE / ICSE / IB / IGCSE / State Board School",
+      "Excellence in Board Results",
+    ],
+    "International & Global": [
+      "Best International School",
+      "Excellence in Global Curriculum Delivery",
+      "Best IB World School",
+      "Best Cambridge (IGCSE) School",
+      "Global Citizenship Education Award",
+    ],
+    "Teaching, Learning & Innovation": [
+      "Innovation in Teaching & Learning",
+      "Best Digital / Smart School",
+      "Excellence in Online & Blended Learning",
+      "STEM Education Excellence Award",
+      "AI & Robotics Education Award",
+    ],
+    "Student Development & Well-Being": [
+      "Holistic Education Excellence Award",
+      "Best School for Sports Education",
+      "Best School for Arts, Music & Culture",
+      "Student Well-Being & Mental Health Champion",
+      "Inclusive Education Excellence Award",
+    ],
+    "Leadership & Management": [
+      "Best School Leadership Award",
+      "Excellence in School Management",
+      "Most Trusted School Brand",
+      "Fastest Growing School",
+    ],
+    "Sustainability & Social Impact": [
+      "Green School / Sustainable School Award",
+      "Community Impact & Social Responsibility Award",
+      "Education for Sustainable Development Award",
+      "Diversity, Equity & Inclusion Award",
+    ],
+    "Special Recognition": [
+      "School of the Year – Global",
+      "School of the Year – Country / Region",
+      "Rising Star School Award",
+      "Lifetime Achievement in School Education",
+    ],
+  },
+  "EdTech": {
+    "Overall Excellence": [
+      "Best EdTech Company of the Year – Global",
+      "Most Innovative EdTech Brand",
+      "Fastest Growing EdTech Company",
+      "Excellence in Digital Learning Solutions",
+      "Outstanding Contribution to Global Education",
+    ],
+    "Learning Segments": [
+      "Best K–12 EdTech Solution",
+      "Best Higher Education Technology Provider",
+      "Best Online Learning Platform",
+      "Best Skill Development & Vocational EdTech",
+      "Best Test Preparation & Competitive Exam Platform",
+    ],
+    "Technology & Innovation": [
+      "Best AI-Powered Learning Platform",
+      "Best Adaptive / Personalized Learning Solution",
+      "Best LMS (Learning Management System)",
+      "Best AR/VR Learning Technology",
+      "Best Gamified Learning Platform",
+    ],
+    "Global & Social Impact": [
+      "Best EdTech for Inclusive & Accessible Education",
+      "EdTech Innovation for Rural & Remote Learning",
+      "Best Global EdTech Brand",
+      "EdTech Excellence in Emerging Markets",
+      "Social Impact EdTech of the Year",
+    ],
+    "Educator & Institution Support": [
+      "Best Teacher Empowerment Platform",
+      "Best School Management Software",
+      "Best Corporate Learning & Development Platform",
+      "Best EdTech Solution for Universities & Institutions",
+    ],
+    "Product & User Experience": [
+      "Best Mobile Learning App",
+      "Best User Experience in EdTech",
+      "Best Hybrid Learning Solution",
+      "Best Assessment & Evaluation Platform",
+    ],
+    "Special Recognition": [
+      "EdTech Startup of the Year",
+      "Women-Led EdTech Company of the Year",
+      "Green & Sustainable EdTech Initiative",
+      "Lifetime Achievement in EdTech Innovation",
+    ],
+  },
+  "Individual": {
+    "Academic Leadership": [
+      "Global Education Leader of the Year",
+      "Visionary Academic Director of the Year",
+      "International School Principal of the Year",
+      "University Chancellor / Vice Chancellor of the Year",
+      "Education Administrator of the Year",
+    ],
+    "Teaching Excellence": [
+      "Global Teacher of the Year",
+      "Innovative Educator of the Year",
+      "Outstanding Professor / Lecturer of the Year",
+      "Early Childhood Educator of the Year",
+      "STEM Educator of the Year",
+    ],
+    "Global & International Education": [
+      "Global Education Ambassador of the Year",
+      "International Educator of the Year",
+      "Cross-Border Education Excellence Award",
+      "Study Abroad Program Leader of the Year",
+    ],
+    "Innovation & Digital Education": [
+      "EdTech Innovator of the Year",
+      "Digital Learning Pioneer Award",
+      "AI in Education Excellence Award",
+      "Online Educator of the Year",
+    ],
+    "Specialized Education Excellence": [
+      "Special Education Professional of the Year",
+      "Inclusive Education Champion Award",
+      "Skill Development Trainer of the Year",
+      "Vocational Education Leader of the Year",
+    ],
+    "Research & Academic Contribution": [
+      "Outstanding Education Researcher of the Year",
+      "Curriculum Development Excellence Award",
+      "Educational Author of the Year",
+    ],
+    "Impact & Social Contribution": [
+      "Education Changemaker Award",
+      "Community Education Leader of the Year",
+      "Education for Social Impact Award",
+      "Rural / Underserved Education Champion",
+    ],
+    "Emerging & Lifetime Honors": [
+      "Young Educator of the Year",
+      "Rising Star in Education Award",
+      "Lifetime Achievement in Education Award",
+    ],
+    "Special Recognition": [
+      "Country Excellence in Education Award",
+      "Woman Leader in Education Award",
+      "Global Educator Icon Award",
     ],
   },
 };
@@ -169,14 +529,17 @@ const initialForm = {
   contactEmail: "",
 
   website: "",
-  turnover: "",
+  facebook: "",
+  instagram: "",
+  youtube: "",
 
   street: "",
   city: "",
   state: "",
   zip: "",
 
-  preferredLocation: "",
+  preferredLocation: [],
+  pdf: null,
   remarks: "",
   acceptTerms: false,
 };
@@ -275,6 +638,18 @@ export default function NominationForm() {
       }
     }
 
+    // Handle multi-select fields (e.g., preferredLocation)
+    if (name === "preferredLocation") {
+      setForm((prev) => {
+        const currentLocations = Array.isArray(prev.preferredLocation) ? prev.preferredLocation : [];
+        const newLocations = currentLocations.includes(value)
+          ? currentLocations.filter((loc) => loc !== value)
+          : [...currentLocations, value];
+        return { ...prev, preferredLocation: newLocations };
+      });
+      return;
+    }
+
     setForm((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -352,11 +727,27 @@ export default function NominationForm() {
 
     try {
       setSubmitting(true);
+
+      // Prepare FormData for file upload
+      const formData = new FormData();
+      Object.keys(form).forEach(key => {
+        if (key === "preferredLocation") {
+          // Send array as multiple entries or JSON string as per server expectation
+          // Multer or JSON parsing? Since we use JSON.stringify in request usually, but FormData is different.
+          // Let's send it as multiple entries which is standard for FormData
+          form[key].forEach(loc => formData.append("preferredLocation", loc));
+        } else if (key === "pdf" && form[key]) {
+          formData.append("pdf", form[key]);
+        } else {
+          formData.append(key, form[key]);
+        }
+      });
+
       if (isEditMode) {
-        await updateUserNomination(id, form, token);
+        await updateUserNomination(id, formData, token);
         navigate(`/dashboard`);
       } else {
-        await createNomination(form, token);
+        await createNomination(formData, token);
         navigate("/success");
       }
     } catch (err) {
@@ -411,13 +802,19 @@ export default function NominationForm() {
           )}
         </div>
 
-        <div className="mb-8 md:mb-12 text-center relative">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <Crown className="w-8 h-8 sm:w-10 sm:h-10 text-[#d4af37] animate-pulse" />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#f2d06b] to-[#c62828] uppercase tracking-tighter leading-none px-2">
-              {isEditMode ? "Update Nomination" : "Education Excellence Awards"}
+        <div className="mb-8 md:mb-10 text-center relative">
+          <div className="flex flex-col items-center justify-center mb-4">
+            <h1 className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 tracking-tighter uppercase font-black px-4">
+              <span className="text-2xl sm:text-3xl md:text-5xl text-[#ffb400] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                Global Education
+              </span>
+              <span className="text-lg sm:text-xl md:text-3xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                Excellence Awards
+              </span>
+              <span className="text-2xl sm:text-3xl md:text-5xl text-[#ffb400] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                & Summit 2026
+              </span>
             </h1>
-            <Crown className="w-8 h-8 sm:w-10 sm:h-10 text-[#d4af37] animate-pulse" />
           </div>
 
           <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto rounded-full mb-8"></div>
@@ -442,23 +839,25 @@ export default function NominationForm() {
           <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8">
 
             {/* Participation Choice */}
-            <div className="md:col-span-2 space-y-4">
+            <div className="md:col-span-2 space-y-6">
               <label className="text-sm font-bold text-[#d4af37] uppercase tracking-widest pl-1">
                 Choose Your Presence Role
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                 {[
-                  { id: "nominated as award", label: "Nominated as Award", icon: "🏆" },
-                  { id: "attend as speaker", label: "Attend as Speaker", icon: "🎤" },
-                  { id: "attend as exhibitor", label: "Attend as Exhibitor", icon: "🎪" },
-                  { id: "attend as sponsor", label: "Attend as Sponsor", icon: "💎" },
+                  { id: "nominated as award", prefix: "Nominated as", highlight: "Awarded", primary: true },
+                  { id: "attend as speaker", prefix: "Attend as", highlight: "Speaker", primary: false },
+                  { id: "attend as exhibitor", prefix: "Attend as", highlight: "Exhibitor", primary: false },
+                  { id: "attend as sponsor", prefix: "Attend as", highlight: "Sponsor", primary: false },
                 ].map((type) => (
                   <label
                     key={type.id}
-                    className={`group relative flex flex-col items-center justify-center p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300
+                    className={`group relative flex flex-col items-center justify-center p-4 sm:p-8 rounded-xl sm:rounded-3xl border-2 cursor-pointer transition-all duration-500 overflow-hidden
                       ${form.participationType === type.id
-                        ? "bg-gradient-to-br from-[#d4af37] to-[#b8860b] border-transparent text-black scale-105 shadow-[0_15px_30px_rgba(212,175,55,0.2)]"
-                        : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/20"
+                        ? type.primary
+                          ? "bg-gradient-to-br from-[#d4af37] via-[#f2d06b] to-[#b8860b] border-transparent text-black scale-[1.05] shadow-[0_20px_40px_rgba(212,175,55,0.4)] ring-4 ring-[#d4af37]/20"
+                          : "bg-gradient-to-br from-[#c62828] via-[#e53935] to-[#b71c1c] border-transparent text-white scale-[1.05] shadow-[0_20px_40px_rgba(198,40,40,0.4)] ring-4 ring-red-500/20"
+                        : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-[#d4af37]/40 hover:scale-[1.02] shadow-xl"
                       }`}
                   >
                     <input
@@ -469,16 +868,28 @@ export default function NominationForm() {
                       onChange={handleChange}
                       className="hidden"
                     />
-                    <span className={`text-2xl mb-2 transition-transform group-hover:scale-125 ${form.participationType === type.id ? "scale-110" : ""}`}>
-                      {type.icon}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-center">
-                      {type.label}
-                    </span>
+
+                    {/* Glossy Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div className="relative z-10 flex flex-col items-center text-center">
+                      <span className={`text-[8px] sm:text-xs font-bold uppercase tracking-widest mb-1 transition-colors duration-300 ${form.participationType === type.id ? "opacity-90" : "text-gray-500"}`}>
+                        {type.prefix}
+                      </span>
+                      <span className={`text-sm sm:text-2xl font-black uppercase tracking-tighter leading-none transition-all duration-300 ${form.participationType === type.id ? "scale-110" : "text-[#d4af37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"}`}>
+                        {type.highlight}
+                      </span>
+                    </div>
+
+                    {/* Active Indicator Dot */}
+                    {form.participationType === type.id && (
+                      <div className={`absolute top-2 right-2 sm:top-3 sm:right-3 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-ping ${type.primary ? "bg-black" : "bg-white"}`}></div>
+                    )}
                   </label>
                 ))}
               </div>
             </div>
+
 
             {form.participationType === "nominated as award" ? (
               <>
@@ -490,7 +901,7 @@ export default function NominationForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Primary Sector *</label>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Category *</label>
                     <select
                       name="category"
                       ref={el => inputRef.current.category = el}
@@ -498,7 +909,7 @@ export default function NominationForm() {
                       onChange={handleChange}
                       className={getSelectClass("category")}
                     >
-                      <option value="" className="bg-[#3a1418]">-- Select Sector --</option>
+                      <option value="" className="bg-[#3a1418]">Select Category</option>
                       {Object.keys(categoryMap).map((t) => (
                         <option key={t} value={t} className="bg-[#3a1418]">{t}</option>
                       ))}
@@ -506,7 +917,7 @@ export default function NominationForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Award Category *</label>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Sub Category *</label>
                     <select
                       name="subCategory"
                       ref={el => inputRef.current.subCategory = el}
@@ -515,7 +926,7 @@ export default function NominationForm() {
                       disabled={!form.category}
                       className={getSelectClass("subCategory")}
                     >
-                      <option value="" className="bg-[#3a1418]">-- Pick an Award --</option>
+                      <option value="" className="bg-[#3a1418]">Select Subcategory</option>
                       {Object.entries(groupedSubCategories).map(([group, list]) => (
                         <optgroup key={group} label={group} className="bg-black text-[#d4af37] font-bold">
                           {list.map((item) => (
@@ -624,14 +1035,27 @@ export default function NominationForm() {
                   </div>
                 </div>
 
-                <div className="md:col-span-2 pt-6 border-t border-white/5 grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Website</label>
-                    <input name="website" value={form.website} onChange={handleChange} className={getInputClass("website")} />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Annual Turnover</label>
-                    <input name="turnover" value={form.turnover} onChange={handleChange} className={getInputClass("turnover")} />
+                <div className="md:col-span-2 pt-6 border-t border-white/5">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-[#d4af37]"></span> Social Media Presence
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Website</label>
+                      <input name="website" placeholder="https://yourwebsite.com" value={form.website} onChange={handleChange} className={getInputClass("website")} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Facebook</label>
+                      <input name="facebook" placeholder="Facebook Profile/Page Link" value={form.facebook} onChange={handleChange} className={getInputClass("facebook")} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Instagram</label>
+                      <input name="instagram" placeholder="Instagram Profile Link" value={form.instagram} onChange={handleChange} className={getInputClass("instagram")} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">YouTube</label>
+                      <input name="youtube" placeholder="YouTube Channel Link" value={form.youtube} onChange={handleChange} className={getInputClass("youtube")} />
+                    </div>
                   </div>
                 </div>
 
@@ -700,26 +1124,102 @@ export default function NominationForm() {
               </>
             )}
 
+            {/* Preferred Event Location */}
             <div className="md:col-span-2 pt-8 border-t border-white/5 space-y-6">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#d4af37]"></span> Preferred Event Location
-              </h3>
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold ml-1">(Optional - Please select your preference)</p>
+              <div className="flex flex-col">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#d4af37]"></span> Preferred Event Location
+                </h3>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold ml-1 mt-1">
+                  (Optional - Please select your preference)
+                </p>
+              </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                {["New Delhi", "Dubai", ].map((loc) => (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                {["New Delhi", "Dubai"].map((loc) => (
                   <label
                     key={loc}
                     className={`flex items-center justify-center p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer text-center
-                      ${form.preferredLocation === loc
-                        ? "bg-[#d4af37] border-transparent text-black font-bold shadow-[0_5px_15px_rgba(212,175,55,0.3)]"
+                      ${form.preferredLocation?.includes(loc)
+                        ? "bg-[#d4af37]/20 border-[#d4af37] text-[#d4af37] shadow-[0_5px_15px_rgba(212,175,55,0.2)]"
                         : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-white/20"
                       }`}
                   >
-                    <input type="radio" name="preferredLocation" value={loc} checked={form.preferredLocation === loc} onChange={handleChange} className="hidden" />
-                    <span className="text-xs uppercase tracking-tighter">{loc}</span>
+                    <input
+                      type="checkbox"
+                      name="preferredLocation"
+                      value={loc}
+                      checked={form.preferredLocation?.includes(loc)}
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    <span className="text-xs font-bold uppercase tracking-wider">{loc}</span>
                   </label>
                 ))}
+              </div>
+            </div>
+
+            {/* PDF Support Document Upload */}
+            <div className="md:col-span-2 pt-8 border-t border-white/5 space-y-6">
+              <div className="flex flex-col">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#d4af37]"></span> Support Document (Optional)
+                </h3>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold ml-1 mt-1">
+                  Upload any supporting document or profile (PDF only, max 5MB)
+                </p>
+              </div>
+
+              <div className="relative group">
+                <input
+                  type="file"
+                  name="pdf"
+                  accept=".pdf"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file && file.type === "application/pdf") {
+                      if (file.size > 5 * 1024 * 1024) {
+                        alert("File size exceeds 5MB limit.");
+                        e.target.value = "";
+                        return;
+                      }
+                      setForm(prev => ({ ...prev, pdf: file }));
+                    } else if (file) {
+                      alert("Please upload a valid PDF file.");
+                      e.target.value = "";
+                    }
+                  }}
+                  className="hidden"
+                  id="pdf-upload"
+                />
+                <label
+                  htmlFor="pdf-upload"
+                  className={`flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer
+                    ${form.pdf
+                      ? "bg-[#d4af37]/10 border-[#d4af37] text-[#d4af37]"
+                      : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-[#d4af37]/40"
+                    }`}
+                >
+                  <div className="text-3xl mb-3">
+                    {form.pdf ? "📄" : "📤"}
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-widest">
+                    {form.pdf ? form.pdf.name : "Click to select PDF"}
+                  </span>
+                  {form.pdf && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setForm(prev => ({ ...prev, pdf: null }));
+                        document.getElementById('pdf-upload').value = "";
+                      }}
+                      className="mt-4 text-[10px] font-black underline uppercase tracking-tighter hover:text-white"
+                    >
+                      Remove File
+                    </button>
+                  )}
+                </label>
               </div>
             </div>
 

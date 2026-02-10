@@ -1,11 +1,32 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import s3Client from "../config/s3.js";
 
 import User from "../models/User.js";
 import Nomination from "../models/Nomination.js";
 import { authenticate, requireAdmin, signToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+// Helper to get signed URL
+const getSignedPdfUrl = async (key) => {
+  if (!key) return null;
+  if (key.startsWith("http")) {
+    try {
+      const url = new URL(key);
+      key = url.pathname.substring(1);
+    } catch {
+      return key;
+    }
+  }
+  const command = new GetObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET,
+    Key: key,
+  });
+  return await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+};
 
 // Admin login
 router.post("/login", async (req, res) => {
@@ -44,7 +65,16 @@ router.get("/nominations", authenticate, requireAdmin, async (_req, res) => {
   try {
     const docs = await Nomination.find({})
       .populate("user", "email name role")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
+
+    // Generate signed URLs
+    for (let doc of docs) {
+      if (doc.pdfUrl) {
+        doc.pdfUrl = await getSignedPdfUrl(doc.pdfUrl);
+      }
+    }
+
     return res.json(docs);
   } catch (err) {
     console.error("Fetch admin nominations error:", err);
