@@ -1,21 +1,21 @@
+import "./config/env.js";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 
 import authRoutes from "./routes/authRoutes.js";
 import nominationRoutes from "./routes/nominationRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import passport from "./config/passport.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(passport.initialize());
 
 /**
  * =========================
@@ -26,14 +26,15 @@ app.use(cors({
   origin: [
     "https://www.globaleducationawards.in",
     "https://globaleducationawards.in",
-    "https://api.globaleducationawards.in"
+    "https://api.globaleducationawards.in",
+    "http://localhost:5173"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
-app.options("*", cors());
+
 
 /**
  * =========================

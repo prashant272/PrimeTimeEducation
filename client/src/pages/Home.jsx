@@ -50,7 +50,7 @@ export default function Home() {
 
   const handleNominateClick = () => {
     if (!isAuthenticated || user?.role !== "user") {
-      navigate("/login", { state: { from: { pathname: "/nominate" } } });
+      navigate("/register", { state: { from: { pathname: "/nominate" } } });
     } else {
       navigate("/nominate");
     }

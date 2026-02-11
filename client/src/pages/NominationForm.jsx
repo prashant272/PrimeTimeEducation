@@ -532,6 +532,7 @@ const initialForm = {
   facebook: "",
   instagram: "",
   youtube: "",
+  turnover: "",
 
   street: "",
   city: "",
@@ -659,7 +660,7 @@ export default function NominationForm() {
   const validateForm = () => {
     const errors = {};
     const requiredAward = [
-      "category", "subCategory", "nomineeName", "organization",
+      "category", "subCategory", "nomineeName", "organization", "turnover",
       "orgHeadName", "orgHeadDesignation", "orgHeadMobile", "orgHeadEmail",
       "contactName", "contactDesignation", "contactMobile", "contactEmail",
       "street", "city", "state", "zip"
@@ -703,7 +704,7 @@ export default function NominationForm() {
       alert("Please fill all mandatory fields marked in red.");
 
       const currentErrors = {};
-      const requiredAward = ["category", "subCategory", "nomineeName", "organization", "orgHeadName", "orgHeadDesignation", "orgHeadMobile", "orgHeadEmail", "contactName", "contactDesignation", "contactMobile", "contactEmail", "street", "city", "state", "zip"];
+      const requiredAward = ["category", "subCategory", "nomineeName", "organization", "turnover", "orgHeadName", "orgHeadDesignation", "orgHeadMobile", "orgHeadEmail", "contactName", "contactDesignation", "contactMobile", "contactEmail", "street", "city", "state", "zip"];
       const requiredOther = ["nomineeName", "organization", "designation", "mobile", "email"];
       const list = form.participationType === "nominated as award" ? requiredAward : requiredOther;
 
@@ -802,17 +803,20 @@ export default function NominationForm() {
           )}
         </div>
 
-        <div className="mb-8 md:mb-10 text-center relative">
+        <div className="mb-8 md:mb-12 text-center relative group">
           <div className="flex flex-col items-center justify-center mb-4">
-            <h1 className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 tracking-tighter uppercase font-black px-4">
+            <h1 className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 tracking-tighter uppercase font-black px-4 text-center">
               <span className="text-2xl sm:text-3xl md:text-5xl text-[#ffb400] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                Global Education
+                Global
               </span>
-              <span className="text-lg sm:text-xl md:text-3xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <span className="text-2xl sm:text-3xl md:text-5xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                Education
+              </span>
+              <span className="text-2xl sm:text-3xl md:text-5xl text-[#ffb400] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 Excellence Awards
               </span>
               <span className="text-2xl sm:text-3xl md:text-5xl text-[#ffb400] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                & Summit 2026
+                & summit 2026
               </span>
             </h1>
           </div>
@@ -982,6 +986,17 @@ export default function NominationForm() {
                         value={form.organization}
                         onChange={handleChange}
                         className={getInputClass("organization")}
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Turnover *</label>
+                      <input
+                        name="turnover"
+                        ref={el => inputRef.current.turnover = el}
+                        placeholder="Ex: 50 Cr. / 100 Million"
+                        value={form.turnover}
+                        onChange={handleChange}
+                        className={getInputClass("turnover")}
                       />
                     </div>
                   </div>

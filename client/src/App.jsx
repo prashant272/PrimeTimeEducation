@@ -25,6 +25,7 @@ import SuccessPage from "./pages/SuccessPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#3a1418]">
       <ScrollToTop />
+      <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
 
       {/* MAIN CONTENT */}

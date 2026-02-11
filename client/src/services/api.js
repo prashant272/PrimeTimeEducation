@@ -46,8 +46,26 @@ export function registerUser(payload) {
   return request("/api/auth/register", { method: "POST", body: payload });
 }
 
+export function verifyOTP(payload) {
+  return request("/api/auth/verify-otp", { method: "POST", body: payload });
+}
+
+export function resendOTP(payload) {
+  return request("/api/auth/resend-otp", { method: "POST", body: payload });
+}
+
+export const googleLoginUrl = `${getBaseUrl()}/api/auth/google`;
+
 export function loginUser(payload) {
   return request("/api/auth/login", { method: "POST", body: payload });
+}
+
+export function forgotPassword(payload) {
+  return request("/api/auth/forgot-password", { method: "POST", body: payload });
+}
+
+export function resetPassword(payload) {
+  return request("/api/auth/reset-password", { method: "POST", body: payload });
 }
 
 export function adminLogin(payload) {

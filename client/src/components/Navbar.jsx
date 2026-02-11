@@ -75,7 +75,7 @@ export default function Navbar() {
       if (isUser) {
         logout();
       } else {
-        navigate("/login");
+        navigate("/register");
       }
     }
   };
@@ -162,7 +162,7 @@ export default function Navbar() {
                     onClick={handleLoginClick}
                     className="border border-white px-4 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
                   >
-                    {isUser ? "Logout" : "Login"}
+                    {isUser ? "Logout" : "Register / Login"}
                   </button>
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function Navbar() {
                 onClick={handleLoginClick}
                 className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
               >
-                Login
+                Register / Login
               </button>
             )}
             <button
@@ -281,7 +281,7 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
       <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
-      <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} />
+      <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} isSpecial={true} />
       {isUser && showDashboard && (
         <NavItem
           to="/dashboard"
@@ -295,13 +295,13 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
   );
 };
 
-function NavItem({ to, icon, label, color, onClick }) {
+function NavItem({ to, icon, label, color, onClick, isSpecial }) {
   return (
     <NavLink
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `flex items-center gap-1 ${isActive
+        `flex items-center gap-1 transition-all duration-300 ${isSpecial ? "animate-nominate" : ""} ${isActive
           ? `font-semibold border-b-2 ${color === "white" ? "border-white" : "border-black"
           }`
           : color === "white"
@@ -398,7 +398,7 @@ function MobileMenuDrawer({
               }}
               className="border border-white px-4 py-1 rounded-full text-xs w-full hover:bg-white hover:text-black transition"
             >
-              {isAuthenticated ? "Logout" : "Login"}
+              {isAuthenticated ? "Logout" : "Register / Login"}
             </button>
           </div>
         </div>
