@@ -159,7 +159,6 @@ export default function Register() {
                       className="w-full bg-white/10 border-2 border-white/20 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-white/50 outline-none transition-all focus:bg-white/15 focus:ring-4 focus:ring-[#d4af37]/20 focus:border-[#d4af37] text-lg font-medium"
                       value={name}
                       onChange={(e) => {
-                        console.log("Name changed:", e.target.value);
                         setName(e.target.value);
                       }}
                       required
@@ -181,7 +180,6 @@ export default function Register() {
                       className="w-full bg-white/10 border-2 border-white/20 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-white/50 outline-none transition-all focus:bg-white/15 focus:ring-4 focus:ring-[#d4af37]/20 focus:border-[#d4af37] text-lg font-medium"
                       value={email}
                       onChange={(e) => {
-                        console.log("Email changed:", e.target.value);
                         setEmail(e.target.value);
                       }}
                       required
@@ -242,7 +240,7 @@ export default function Register() {
           )}
 
           <p className="mt-8 text-center text-gray-400 font-medium tracking-wide">
-           If you are already registered, please login {" "}
+            If you are already registered, please login {" "}
             <Link
               to="/login"
               className="text-[#d4af37] font-bold hover:text-[#f2d06b] transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-[#d4af37] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
