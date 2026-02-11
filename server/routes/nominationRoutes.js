@@ -7,6 +7,7 @@ import s3Client from "../config/s3.js";
 
 import Nomination from "../models/Nomination.js";
 import { authenticate } from "../middleware/authMiddleware.js";
+import { sendNominationConfirmation } from "../services/emailService.js";
 
 const router = express.Router();
 
@@ -80,6 +81,11 @@ router.post("/", authenticate, upload.single("pdf"), async (req, res) => {
     if (doc.pdfUrl) {
       doc.pdfUrl = await getSignedPdfUrl(doc.pdfUrl);
     }
+
+    // Send confirmation email asynchronously
+    sendNominationConfirmation(req.user.email, req.user.name).catch(err =>
+      console.error("Async confirmation email error:", err)
+    );
 
     return res.status(201).json(doc);
   } catch (err) {

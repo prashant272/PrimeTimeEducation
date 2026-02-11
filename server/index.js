@@ -84,8 +84,11 @@ app.get("/", (_req, res) => {
  * =========================
  */
 app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes); // Fallback for production proxy stripping /api
 app.use("/api/nominations", nominationRoutes);
+app.use("/nominations", nominationRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 
 /**
  * =========================
