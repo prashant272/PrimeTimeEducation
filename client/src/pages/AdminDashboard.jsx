@@ -6,7 +6,7 @@ import {
   deleteNomination,
 } from "../services/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { ShieldCheck, Edit2, Trash2 } from "lucide-react";
+import { ShieldCheck, Edit2, Trash2, Eye } from "lucide-react";
 
 /* ------------------ Constants ------------------ */
 const goldGrad =
@@ -97,6 +97,7 @@ export default function AdminDashboard() {
   const [editForm, setEditForm] = useState({});
 
   const [activeTab, setActiveTab] = useState("nominations");
+  const [viewingNomination, setViewingNomination] = useState(null);
 
   /* ------------------ Load Data ------------------ */
   useEffect(() => {
@@ -363,6 +364,13 @@ export default function AdminDashboard() {
                       <span className="text-sm font-bold">PDF</span>
                     </a>
                   )}
+                  <button
+                    onClick={() => setViewingNomination(n)}
+                    className="w-8 h-8 flex items-center justify-center border border-emerald-400/50 bg-[#10231b]/60 text-emerald-400 rounded-full shadow transition hover:bg-gradient-to-tr hover:from-[#99fbc8] hover:to-[#3ace86] hover:text-[#10231b]"
+                    title="View Full Details"
+                  >
+                    <Eye size={16} />
+                  </button>
                   <button
                     onClick={() => handleEdit(n)}
                     className="w-8 h-8 flex items-center justify-center border border-[#d4af37]/70 bg-[#2b2512]/70 text-[#d4af37] rounded-full shadow transition hover:bg-gradient-to-tr hover:from-[#fbe399] hover:to-[#ceb655] hover:text-[#221d10]"
@@ -670,10 +678,21 @@ export default function AdminDashboard() {
 
       {/* ================== EDIT MODAL ================== */}
       {editingNomination && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] backdrop-blur-sm">
-          <div className="bg-gradient-to-tr from-[#2e2b18] via-[#18130e] to-[#18130e] border-2 border-[#eaca5faa] shadow-2xl shadow-[#d4af3780] p-8 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] backdrop-blur-sm p-4">
+          <div className="bg-gradient-to-tr from-[#2e2b18] via-[#18130e] to-[#18130e] border-2 border-[#eaca5faa] shadow-2xl shadow-[#d4af3780] p-8 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setEditingNomination(null)}
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all z-10"
+            >
+              <span className="text-2xl">&times;</span>
+            </button>
             <h2 className="text-2xl font-bold mb-4 text-[#ffe6a3]">Edit Nomination Details</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 pb-6">
+              {/* Category 1: Core Identity */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest">
+                Core Identity
+              </div>
               <div>
                 <label className="text-xs text-[#f6e589] font-semibold">Nominee Name</label>
                 <input
@@ -697,6 +716,17 @@ export default function AdminDashboard() {
                 />
               </div>
               <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Designation</label>
+                <input
+                  className={inputClass}
+                  value={editForm.designation || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, designation: e.target.value })
+                  }
+                  placeholder="Designation"
+                />
+              </div>
+              <div>
                 <label className="text-xs text-[#f6e589] font-semibold">Participation Type</label>
                 <input
                   className={inputClass}
@@ -707,13 +737,27 @@ export default function AdminDashboard() {
                       participationType: e.target.value,
                     })
                   }
-                  placeholder="Type"
+                  placeholder="Type (e.g. nominated as award)"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Category (User Selected)
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Portfolio / Profile Link</label>
+                <input
+                  className={inputClass}
+                  value={editForm.portfolio || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, portfolio: e.target.value })
+                  }
+                  placeholder="Link to portfolio/work"
+                />
+              </div>
+
+              {/* Category 2: Nomination Specs */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest mt-4">
+                Nomination Specs
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Category (User Selected)</label>
                 <input
                   className={inputClass}
                   value={editForm.category || ""}
@@ -724,9 +768,29 @@ export default function AdminDashboard() {
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Assigned Category (Admin)
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Sub-Category</label>
+                <input
+                  className={inputClass}
+                  value={editForm.subCategory || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, subCategory: e.target.value })
+                  }
+                  placeholder="Sub-Category"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Other Sub-Category</label>
+                <input
+                  className={inputClass}
+                  value={editForm.otherSubCategory || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, otherSubCategory: e.target.value })
+                  }
+                  placeholder="Other Sub-Category (if any)"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Assigned Category (Admin)</label>
                 <input
                   className={inputClass}
                   value={editForm.assignedCategory || ""}
@@ -736,24 +800,52 @@ export default function AdminDashboard() {
                       assignedCategory: e.target.value,
                     })
                   }
-                  placeholder="Assigned Category"
+                  placeholder="Final category decided by admin"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">Amount</label>
+                <label className="text-xs text-[#f6e589] font-semibold">Preferred Location (Comma separated)</label>
                 <input
                   className={inputClass}
-                  placeholder="e.g. ₹25,000"
-                  value={editForm.amount || ""}
+                  value={Array.isArray(editForm.preferredLocation) ? editForm.preferredLocation.join(", ") : editForm.preferredLocation || ""}
                   onChange={(e) =>
-                    setEditForm({ ...editForm, amount: e.target.value })
+                    setEditForm({
+                      ...editForm,
+                      preferredLocation: e.target.value.split(",").map(i => i.trim()),
+                    })
                   }
+                  placeholder="New Delhi, Dubai, etc."
+                />
+              </div>
+
+              {/* Category 3: Contact Details */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest mt-4">
+                Contact Connectivity
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Primary Mobile</label>
+                <input
+                  className={inputClass}
+                  value={editForm.mobile || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, mobile: e.target.value })
+                  }
+                  placeholder="Mobile"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Organization Head Name
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Primary Email</label>
+                <input
+                  className={inputClass}
+                  value={editForm.email || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, email: e.target.value })
+                  }
+                  placeholder="Email"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Org Head Name</label>
                 <input
                   className={inputClass}
                   value={editForm.orgHeadName || ""}
@@ -764,52 +856,216 @@ export default function AdminDashboard() {
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Organization Head Email
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Org Head Designation</label>
+                <input
+                  className={inputClass}
+                  value={editForm.orgHeadDesignation || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, orgHeadDesignation: e.target.value })
+                  }
+                  placeholder="Org Head Designation"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Org Head Mobile</label>
+                <input
+                  className={inputClass}
+                  value={editForm.orgHeadMobile || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, orgHeadMobile: e.target.value })
+                  }
+                  placeholder="Org Head Mobile"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Org Head Email</label>
                 <input
                   className={inputClass}
                   value={editForm.orgHeadEmail || ""}
                   onChange={(e) =>
                     setEditForm({ ...editForm, orgHeadEmail: e.target.value })
                   }
-                  placeholder="Email"
+                  placeholder="Org Head Email"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Contact Name
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Contact Person Name</label>
                 <input
                   className={inputClass}
                   value={editForm.contactName || ""}
                   onChange={(e) =>
                     setEditForm({ ...editForm, contactName: e.target.value })
                   }
-                  placeholder="Contact Person"
+                  placeholder="Contact Name"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#f6e589] font-semibold">
-                  Contact Mobile
-                </label>
+                <label className="text-xs text-[#f6e589] font-semibold">Contact Mobile</label>
                 <input
                   className={inputClass}
                   value={editForm.contactMobile || ""}
                   onChange={(e) =>
                     setEditForm({ ...editForm, contactMobile: e.target.value })
                   }
-                  placeholder="Mobile"
+                  placeholder="Contact Mobile"
                 />
               </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-[#f6e589] font-semibold">Address</label>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Contact Designation</label>
                 <input
                   className={inputClass}
-                  value={`${editForm.street || ""}, ${editForm.city || ""}, ${editForm.state || ""
-                    } ${editForm.zip || ""}`}
-                  readOnly
-                  placeholder="Full address shown here"
+                  value={editForm.contactDesignation || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, contactDesignation: e.target.value })
+                  }
+                  placeholder="Contact Designation"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Contact Email</label>
+                <input
+                  className={inputClass}
+                  value={editForm.contactEmail || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, contactEmail: e.target.value })
+                  }
+                  placeholder="Contact Email"
+                />
+              </div>
+
+              {/* Category 4: Business Insights */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest mt-4">
+                Business Insights
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Website</label>
+                <input
+                  className={inputClass}
+                  value={editForm.website || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, website: e.target.value })
+                  }
+                  placeholder="https://..."
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Facebook</label>
+                <input
+                  className={inputClass}
+                  value={editForm.facebook || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, facebook: e.target.value })
+                  }
+                  placeholder="Facebook Link"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Instagram</label>
+                <input
+                  className={inputClass}
+                  value={editForm.instagram || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, instagram: e.target.value })
+                  }
+                  placeholder="Instagram Link"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">YouTube</label>
+                <input
+                  className={inputClass}
+                  value={editForm.youtube || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, youtube: e.target.value })
+                  }
+                  placeholder="YouTube Link"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Turnover</label>
+                <input
+                  className={inputClass}
+                  value={editForm.turnover || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, turnover: e.target.value })
+                  }
+                  placeholder="e.g. 50 Cr"
+                />
+              </div>
+
+              {/* Category 5: Address */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest mt-4">
+                Address Details
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Street</label>
+                <input
+                  className={inputClass}
+                  value={editForm.street || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, street: e.target.value })
+                  }
+                  placeholder="Street"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">City</label>
+                <input
+                  className={inputClass}
+                  value={editForm.city || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, city: e.target.value })
+                  }
+                  placeholder="City"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">State</label>
+                <input
+                  className={inputClass}
+                  value={editForm.state || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, state: e.target.value })
+                  }
+                  placeholder="State"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Zip Code</label>
+                <input
+                  className={inputClass}
+                  value={editForm.zip || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, zip: e.target.value })
+                  }
+                  placeholder="Zip Code"
+                />
+              </div>
+
+              {/* Category 6: Administrative */}
+              <div className="md:col-span-2 border-b border-[#d4af3730] pb-2 text-[#d4af37] text-xs font-black uppercase tracking-widest mt-4">
+                Administrative Information
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">Amount Agreed</label>
+                <input
+                  className={inputClass}
+                  placeholder="e.g. ₹25,000"
+                  value={editForm.amount || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, amount: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label className="text-xs text-[#f6e589] font-semibold">PDF Profile URL</label>
+                <input
+                  className={inputClass}
+                  value={editForm.pdfUrl || ""}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, pdfUrl: e.target.value })
+                  }
+                  placeholder="https://bucket.s3.../file.pdf"
                 />
               </div>
               <div className="md:col-span-2">
@@ -886,6 +1142,126 @@ export default function AdminDashboard() {
         </div>
       )}
 
+      {/* ================== VIEW DETAILS MODAL ================== */}
+      {viewingNomination && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] backdrop-blur-md p-4">
+          <div className="bg-gradient-to-br from-[#1e1a10] to-[#0f0c08] border-2 border-[#d4af3780] shadow-[0_0_50px_-12px_rgba(212,175,55,0.4)] rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setViewingNomination(null)}
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all z-10"
+            >
+              <span className="text-2xl">&times;</span>
+            </button>
+
+            <div className="p-8 md:p-12">
+              <div className="mb-10 text-center md:text-left">
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#d4af37] mb-2 block">Comprehensive Application Data</span>
+                <h2 className="text-4xl font-extrabold text-white mb-2">{viewingNomination.nomineeName}</h2>
+                <p className="text-[#d4af37] text-lg font-medium">{viewingNomination.organization}</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Personal & Basic Details */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Core Identity</h3>
+                  <DetailItem label="Full Name" value={viewingNomination.nomineeName} />
+                  <DetailItem label="Organization" value={viewingNomination.organization} />
+                  <DetailItem label="Designation" value={viewingNomination.designation || viewingNomination.orgHeadDesignation} />
+                  <DetailItem label="Type" value={viewingNomination.participationType} />
+                  <DetailItem label="Submission Date" value={new Date(viewingNomination.createdAt).toLocaleString()} />
+                </div>
+
+                {/* Award Details (if applicable) */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Nomination Specs</h3>
+                  <DetailItem label="Category" value={viewingNomination.category} />
+                  <DetailItem label="Sub-Category" value={viewingNomination.subCategory || viewingNomination.otherSubCategory} />
+                  <DetailItem label="Assigned Cat" value={viewingNomination.assignedCategory} className="text-yellow-400 font-bold" />
+                  <DetailItem label="Location Preference" value={viewingNomination.preferredLocation?.join(", ") || viewingNomination.preferredLocation} />
+                  <DetailItem label="Status" value={viewingNomination.status} />
+                </div>
+
+                {/* Contact Information */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Connectivity</h3>
+                  <DetailItem label="Primary Email" value={viewingNomination.email || viewingNomination.contactEmail} />
+                  <DetailItem label="Primary Mobile" value={viewingNomination.mobile || viewingNomination.contactMobile} />
+                  <DetailItem label="Org Head Email" value={viewingNomination.orgHeadEmail} />
+                  <DetailItem label="Org Head Mobile" value={viewingNomination.orgHeadMobile} />
+                  <DetailItem label="Contact Name" value={viewingNomination.contactName} />
+                </div>
+
+                {/* Business Details */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Business Insights</h3>
+                  <DetailItem label="Website" value={viewingNomination.website} isLink />
+                  <DetailItem label="Facebook" value={viewingNomination.facebook} isLink />
+                  <DetailItem label="Instagram" value={viewingNomination.instagram} isLink />
+                  <DetailItem label="YouTube" value={viewingNomination.youtube} isLink />
+                  <DetailItem label="Turnover" value={viewingNomination.turnover} />
+                </div>
+
+                {/* Location/Address */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Address / Base</h3>
+                  <DetailItem label="Street" value={viewingNomination.street} />
+                  <DetailItem label="City" value={viewingNomination.city} />
+                  <DetailItem label="State" value={viewingNomination.state} />
+                  <DetailItem label="Zip Code" value={viewingNomination.zip} />
+                </div>
+
+                {/* Financial/Admin Detail */}
+                <div className="space-y-6">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-[#d4af37] border-b border-[#d4af3730] pb-2">Administrative</h3>
+                  <DetailItem label="Amount Agreed" value={viewingNomination.amount} />
+                  <DetailItem label="Payment status" value={viewingNomination.paymentStatus} />
+                  <DetailItem label="PDF Profile" value={viewingNomination.pdfUrl ? "Uploaded" : "No PDF"} isLink={!!viewingNomination.pdfUrl} linkUrl={viewingNomination.pdfUrl} />
+                </div>
+              </div>
+
+              {/* Remarks Section */}
+              <div className="mt-12 space-y-8">
+                <div className="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                  <h4 className="text-xs font-black uppercase tracking-widest text-gray-500 mb-2">User Remarks</h4>
+                  <p className="text-gray-300 italic">{viewingNomination.remarks || "No remarks provided"}</p>
+                </div>
+                {viewingNomination.adminRemark && (
+                  <div className="bg-[#d4af3710] border border-[#d4af3730] p-6 rounded-2xl">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-[#d4af37] mb-2">Internal Admin Note</h4>
+                    <p className="text-[#d4af37]">{viewingNomination.adminRemark}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </section>
+  );
+}
+
+/* ------------------ Detail Item Helper ------------------ */
+function DetailItem({ label, value, isLink, linkUrl, className = "" }) {
+  if (!value && !isLink) return null;
+  return (
+    <div className={`space-y-1 ${className}`}>
+      <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{label}</div>
+      <div className="text-white font-medium text-sm break-words">
+        {isLink ? (
+          <a
+            href={linkUrl || (value?.startsWith('http') ? value : `https://${value}`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#5ea3ff] hover:underline"
+          >
+            {value || "View Link"}
+          </a>
+        ) : (
+          value || "—"
+        )}
+      </div>
+    </div>
   );
 }
