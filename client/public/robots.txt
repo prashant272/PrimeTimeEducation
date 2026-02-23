@@ -20,4 +20,4 @@ Disallow: /nomination
 Disallow: /dashboard
 Disallow: /success
 
-Sitemap: https://globaleducationawards.com/sitemap.xml
+Sitemap: https://globaleducationawards.in/sitemap.xml
