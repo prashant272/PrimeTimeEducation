@@ -13,9 +13,9 @@
 
   <!-- Primary SEO -->
   <meta name="description"
-    content="Global Education Excellence Awards by Prime Time Research Media recognizes outstanding schools, universities, educators, and academic leaders worldwide." />
+    content="Global Education Excellence Awards by Prime Time Research Media recognizes outstanding schools, universities, educators, and academic leaders. Join the most prestigious education awards ceremony." />
   <meta name="keywords"
-    content="Education Awards, Global Education Awards, Academic Excellence Awards, School Awards, Teacher Awards, Prime Time Research Media" />
+    content="Prime Time Education Awards, Global Education Awards, Prime Time Research Media, Education Excellence Awards 2026, School Awards India, Global Academic Awards, Teacher Recognition Awards, Prime Time Awards, Education Leadership Awards" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph (Facebook / LinkedIn) -->
@@ -23,7 +23,7 @@
   <meta property="og:description"
     content="Celebrating excellence, leadership, and pedagogical innovation in the global education sector." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://globaleducationawards.com" />
+  <meta property="og:url" id="og-url" content="https://globaleducationawards.com" />
   <meta property="og:image" content="/og-image.jpg" />
 
   <!-- Twitter Card -->
@@ -37,7 +37,16 @@
   <link rel="icon" type="image/png" href="/logo.png" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://globaleducationawards.com" />
+  <link rel="canonical" id="canonical-link" href="https://globaleducationawards.com" />
+
+  <script>
+    // Dynamic SEO update for Main Domain and Subdomain
+    (function () {
+      const currentUrl = window.location.protocol + "//" + window.location.hostname + window.location.pathname;
+      document.getElementById('canonical-link').setAttribute('href', currentUrl);
+      document.getElementById('og-url').setAttribute('content', currentUrl);
+    })();
+  </script>
 </head>
 
 <body>

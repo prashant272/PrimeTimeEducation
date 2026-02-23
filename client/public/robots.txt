@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Allow: /categories
+Allow: /jury
+Allow: /guidelines
+Allow: /judging
+Allow: /terms
+Allow: /contact
+Allow: /previous-editions
+Allow: /media
+Allow: /faq
+
+Disallow: /admin
+Disallow: /admin/login
+Disallow: /admin/register
+Disallow: /login
+Disallow: /register
+Disallow: /nominate
+Disallow: /nomination
+Disallow: /dashboard
+Disallow: /success
+
+Sitemap: https://globaleducationawards.com/sitemap.xml
