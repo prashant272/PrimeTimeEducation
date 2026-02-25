@@ -748,8 +748,10 @@ export default function NominationForm() {
         await updateUserNomination(id, formData, token);
         navigate(`/dashboard`);
       } else {
-        await createNomination(formData, token);
-        navigate("/success");
+        const response = await createNomination(formData, token);
+        // If the server returns a message (like credentials info), we could show it.
+        // For now, navigate to success and we'll handle the message there or via a toast if available.
+        navigate("/success", { state: { message: response.message } });
       }
     } catch (err) {
       setError(err?.response?.data?.message || err.message || "Submission failed");

@@ -73,7 +73,7 @@ export function adminLogin(payload) {
 }
 
 /* ---------------- Nominations (user) ---------------- */
-export function createNomination(payload, token) {
+export function createNomination(payload, token = null) {
   return request("/api/nominations", { method: "POST", body: payload, token });
 }
 

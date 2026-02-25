@@ -1,7 +1,10 @@
 import { FiCheckCircle, FiPhoneCall } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SuccessPage() {
+    const location = useLocation();
+    const customMessage = location.state?.message;
+
     return (
         <div className="min-h-screen bg-[#3a1418] flex items-center justify-center p-4 pt-24 sm:pt-32 overflow-hidden relative">
             {/* Background Orbs */}
@@ -20,8 +23,7 @@ export default function SuccessPage() {
                 </h1>
 
                 <p className="text-gray-200 text-lg mb-8 leading-relaxed">
-                    Your nomination has been successfully received. Our team will connect with you
-                    after reviewing the profile.
+                    {customMessage || "Your nomination has been successfully received. Our team will connect with you after reviewing the profile."}
                 </p>
 
                 <div className="bg-white/5 rounded-xl p-6 mb-8 border border-white/10">
