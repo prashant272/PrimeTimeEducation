@@ -1,4 +1,4 @@
-
+const DEFAULT_BASE_URL = "https://api.globaleducationawards.in/api";
 
 function getBaseUrl() {
   // Prefer explicit API base URL if provided
@@ -72,6 +72,10 @@ export function adminLogin(payload) {
   return request("/api/admin/login", { method: "POST", body: payload });
 }
 
+export function developerLogin(payload) {
+  return request("/api/developer/login", { method: "POST", body: payload });
+}
+
 /* ---------------- Nominations (user) ---------------- */
 export function createNomination(payload, token = null) {
   return request("/api/nominations", { method: "POST", body: payload, token });
@@ -112,5 +116,26 @@ export function updateNomination(id, payload, token) {
 
 export function deleteNomination(id, token) {
   return request(`/api/admin/nominations/${id}`, { method: "DELETE", token });
+}
+
+/* ---------------- Previous Editions ---------------- */
+export function fetchPreviousEditions() {
+  return request("/api/previous-editions", { method: "GET" });
+}
+
+export function fetchPreviousEditionById(identifier) {
+  return request(`/api/previous-editions/${identifier}`, { method: "GET" });
+}
+
+export function createPreviousEdition(payload, token) {
+  return request("/api/previous-editions", { method: "POST", body: payload, token });
+}
+
+export function updatePreviousEdition(id, payload, token) {
+  return request(`/api/previous-editions/${id}`, { method: "PUT", body: payload, token });
+}
+
+export function deletePreviousEdition(id, token) {
+  return request(`/api/previous-editions/${id}`, { method: "DELETE", token });
 }
 

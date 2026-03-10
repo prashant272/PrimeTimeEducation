@@ -21,6 +21,7 @@ import UserDashboard from "./pages/UserDashboard.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import AdminRegister from "./pages/AdminRegister.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import DeveloperAuth from "./pages/DeveloperAuth.jsx";
 import SuccessPage from "./pages/SuccessPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
@@ -73,6 +74,7 @@ export default function App() {
             }
           />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/developer" element={<DeveloperAuth />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />
           <Route
@@ -83,6 +85,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/:slug" element={<EditionDetail />} />
         </Routes>
       </main>
 

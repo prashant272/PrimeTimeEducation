@@ -7,6 +7,7 @@ import {
 } from "../services/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { ShieldCheck, Edit2, Trash2, Eye } from "lucide-react";
+import AdminPreviousEditions from "./AdminPreviousEditions.jsx";
 
 /* ------------------ Constants ------------------ */
 const goldGrad =
@@ -577,6 +578,7 @@ export default function AdminDashboard() {
                 { id: "nominations", label: "Nominations", icon: "🏆" },
                 { id: "status", label: "Status & Payment", icon: "💸" },
                 { id: "users", label: "Registered Users", icon: "👤" },
+                { id: "editions", label: "Previous Editions", icon: "🏛️" },
                 { id: "admins", label: "Admin Settings", icon: "🛡️" },
               ].map((tab) => (
                 <button
@@ -671,6 +673,7 @@ export default function AdminDashboard() {
             {activeTab === "nominations" && renderNominationsTable()}
             {activeTab === "status" && renderStatusTab()}
             {activeTab === "users" && renderUsersTab()}
+            {activeTab === "editions" && <AdminPreviousEditions />}
             {activeTab === "admins" && renderAdminsTab()}
           </div>
         </div>

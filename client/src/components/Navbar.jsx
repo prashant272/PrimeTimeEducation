@@ -15,8 +15,10 @@ import {
   FaRegClone,
   FaRegEdit,
   FaQuestionCircle,
+  FaChevronDown
 } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext.jsx";
+import { fetchPreviousEditions } from "../services/api.js";
 
 export default function Navbar() {
   const [showPill, setShowPill] = useState(false);
@@ -279,7 +281,10 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
       <NavItem to="/terms" icon={<FaFileContract />} label="T&C" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
-      <NavItem to="/previous-editions" icon={<FaHistory />} label="Previous Editions" color={color} onClick={createNavHandler(onClick)} />
+
+      {/* Dynamic Dropdown for Previous Editions */}
+      <PreviousEditionsDropdown color={color} onClick={createNavHandler(onClick)} />
+
       <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} isSpecial={true} />
       {isUser && showDashboard && (
@@ -313,6 +318,61 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
       <span className="text-[11px]">{icon}</span>
       <span>{label}</span>
     </NavLink>
+  );
+}
+
+const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+
+function PreviousEditionsDropdown({ color, onClick }) {
+  const [editions, setEditions] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    fetchPreviousEditions()
+      .then(data => setEditions(data))
+      .catch(err => console.error("Failed to fetch editions for navbar:", err));
+  }, []);
+
+  const isActive = location.pathname.startsWith('/previous-editions') || editions.some(e => location.pathname === `/${slugify(e.title)}`);
+
+  return (
+    <div
+      className="relative flex items-center h-full"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <NavLink
+        to="/previous-editions"
+        onClick={onClick}
+        className={`flex items-center gap-1 transition-all duration-300 ${isActive ? "font-semibold border-b-2 " + (color === "white" ? "border-white" : "border-black") : color === "white" ? "opacity-80 hover:opacity-100 text-white" : "text-gray-700 hover:text-black"}`}
+      >
+        <span className="text-[11px]"><FaHistory /></span>
+        <span>Previous Editions</span>
+        <span className="text-[10px] ml-0.5"><FaChevronDown /></span>
+      </NavLink>
+
+      {/* Hover Bridge and Dropdown Panel */}
+      {isOpen && editions.length > 0 && (
+        <div className="absolute top-full left-0 pt-4 z-[99]">
+          <div className="bg-[#16120b]/95 backdrop-blur-md border border-[#d4af37]/30 rounded-xl shadow-2xl overflow-hidden min-w-[240px] flex flex-col py-2">
+            {editions.map(ed => (
+              <NavLink
+                key={ed._id}
+                to={`/${slugify(ed.title)}`}
+                onClick={() => {
+                  setIsOpen(false);
+                  if (onClick) onClick();
+                }}
+                className={({ isActive }) => `px-5 py-2.5 text-sm transition-colors block ${isActive ? "bg-[#d4af37] text-black font-bold" : "text-[#fbe376] hover:bg-[#d4af37]/20 hover:text-[#fff]"}`}
+              >
+                {ed.title}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
