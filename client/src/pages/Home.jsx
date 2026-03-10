@@ -56,16 +56,16 @@ export default function Home() {
 
   const events = [
     {
-      title: "Global Education Awards – New Delhi Edition 2026",
+      title: "Global Education Awards 2026 – New Delhi Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "14 March 2026",
+      date: "26 April 2026",
       place: "New Delhi",
     },
     {
-      title: "Global Education Awards – Dubai Edition 2026",
-      desc: "Recognising excellence and innovation in educational leadership.",
-      date: "26 April 2026",
-      place: "Dubai",
+      title: "Global Education Awards 2026 – Dubai Edition",
+     desc: "Recognising excellence and innovation in educational leadership.",
+     date: "Announcement coming soon (rescheduled due to ongoing international situation)",
+     place: "Dubai",
     },
   ];
 
@@ -624,7 +624,7 @@ export default function Home() {
                   // },
                   {
                     title: 'Award Ceremony – New Delhi',
-                    date: '14 March 2026',
+                    date: '26 April 2026',
                     icon: (
                       <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
                         <span className="text-xl">🇮🇳</span>
@@ -632,16 +632,16 @@ export default function Home() {
                     ),
                     border: 'from-[#d4af37] to-[#ead481]',
                   },
-                  {
-                    title: 'Award Ceremony – Dubai',
-                    date: '26 April 2026',
-                    icon: (
-                      <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
-                        <span className="text-xl">🇦🇪</span>
-                      </span>
-                    ),
-                    border: 'from-[#d4af37] to-[#ead481]',
-                  },
+                {
+  title: 'Award Ceremony – Dubai',
+  date: 'To be announced soon (due to current international circumstances)',
+  icon: (
+    <span className="block w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#ead481] flex items-center justify-center shadow-lg">
+      <span className="text-xl">🇦🇪</span>
+    </span>
+  ),
+  border: 'from-[#d4af37] to-[#ead481]',
+}
                 ].map((item, idx) => (
                   <div key={idx} className="relative group"
                     style={{ animation: `fadeInUp 0.8s ease-out ${(idx + 1) * 120}ms both` }}>
