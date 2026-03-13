@@ -127,6 +127,10 @@ export function fetchPreviousEditionById(identifier) {
   return request(`/api/previous-editions/${identifier}`, { method: "GET" });
 }
 
+export function fetchPreviousEditionBySlug(year, slug) {
+  return request(`/api/previous-editions/lookup/${year}/${slug}`, { method: "GET" });
+}
+
 export function createPreviousEdition(payload, token) {
   return request("/api/previous-editions", { method: "POST", body: payload, token });
 }

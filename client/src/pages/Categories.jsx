@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 
 // =============================
 export default function Categories() {
+  useEffect(() => {
+    document.title = "Award Categories | Global Education Excellence Awards | Indian Education Awards";
+    return () => {
+      document.title = "Global Education Excellence Awards 2026 | Indian Education Awards";
+    };
+  }, []);
   const categories = [
     // Category array unchanged, just above for brevity
     {

@@ -55,7 +55,7 @@ export default function Footer() {
               className="mt-3 rounded-full h-1 w-24 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4"
             />
             <p className="text-sm lg:text-base font-medium leading-relaxed opacity-80">
-              Recognising outstanding leadership, innovation & excellence in global healthcare – celebrating visionary organisations and individuals shaping tomorrow.
+              The <span className="text-[#d4af37] font-bold">Global Education Excellence Awards</span> & Indian Education Awards recognise outstanding leadership, innovation & excellence in global healthcare and education – celebrating visionary organisations and individuals shaping tomorrow.
             </p>
           </div>
 

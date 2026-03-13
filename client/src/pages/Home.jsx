@@ -277,7 +277,7 @@ export default function Home() {
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
       {/* SEO H1 - Hidden */}
       <h1 className="sr-only">
-        Education Awards – Global Education Awards by Prime Time Research Media Pvt. Ltd.
+        Global Education Excellence Awards 2026 & Indian Education Awards - Best Schools & Universities Awards Organised by Prime Time Research Media Pvt. Ltd.
       </h1>
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen w-full overflow-hidden bg-[#210a0e]">
@@ -371,7 +371,7 @@ export default function Home() {
               <span className="font-semibold bg-gradient-to-r from-[#c62828] to-[#d4af37] bg-clip-text text-transparent hover:brightness-125 transition duration-200">
                 Prime Time Research Media Pvt. Ltd.
               </span>{" "}
-              – Global Award Events
+              – Global & Indian Award Events
             </p>
             {/* Yaha ka text & divider ab aur upar hai. pt/space-y aur margin-top kam karke, see comments above */}
           </div>
@@ -521,7 +521,7 @@ export default function Home() {
               <div>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
                   <span className="bg-gradient-to-r from-white via-[#ffeec3] to-[#d4af37] bg-clip-text text-transparent">
-                    Overview of Education Awards 2026
+                    Overview of Global & Indian Education Awards 2026
                   </span>
                 </h2>
                 <div className="w-20 h-1.5 bg-gradient-to-r from-[#ffeec3] via-[#d4af37] to-[#c5b471] rounded-full" />
@@ -719,7 +719,7 @@ export default function Home() {
             className="opacity-0 transform translate-y-8 transition-all duration-700 text-center mb-14 sm:mb-20"
           >
             <h2 className="text-2xl xs:text-4xl md:text-5xl font-extrabold font-heading mb-3 sm:mb-7 bg-gradient-to-r from-white via-[#d4af37] to-white bg-clip-text text-transparent drop-shadow">
-              Why Enter Education Awards – Global Education Awards 2026
+              Why Enter Global & Indian Education Awards 2026
             </h2>
             <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto"></div>
           </div>

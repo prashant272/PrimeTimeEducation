@@ -1,152 +1,110 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { fetchPreviousEditionById, fetchPreviousEditions } from "../services/api";
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { fetchPreviousEditionBySlug, fetchPreviousEditions } from "../services/api.js";
+import VideoGallery from "../components/VideoGallery.jsx";
 import EditionYearSwitcher from "../components/EditionYearSwitcher";
-import BannerSlider from "../components/BannerSlider";
-import VideoGallery from "../components/VideoGallery";
-import { Calendar, MapPin, Award } from "lucide-react";
 
-export default function EditionDetail() {
-  const { slug, year } = useParams();
-  const navigate = useNavigate();
-
-  // If we came from the old /editions/:year route, slug will be undefined but year will exist
-  const identifier = slug || year;
-
-  const [edition, setEdition] = useState(null);
-  const [allEditions, setAllEditions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+// Banner slider with auto-scroll and modern UI
+function BannerSlider({ images, year }) {
+  const [curr, setCurr] = useState(0);
 
   useEffect(() => {
-    // Load all editions for the year switcher
-    fetchPreviousEditions().then(setAllEditions).catch(console.error);
-  }, []);
+    if (!images || images.length === 0) return;
+    const timer = setInterval(() => {
+      setCurr((c) => (c + 1) % images.length);
+    }, 4000); 
+    return () => clearInterval(timer);
+  }, [images?.length]);
 
-  useEffect(() => {
-    if (!identifier) return;
-
-    setLoading(true);
-    setError(false);
-
-    fetchPreviousEditionById(identifier)
-      .then(data => {
-        setEdition(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setError(true);
-        setLoading(false);
-      });
-  }, [identifier]);
-
-  if (loading) {
+  if (!images || images.length === 0) {
     return (
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center pt-24 text-[#d4af37]">
-        <div className="w-8 h-8 rounded-full border-2 border-[#d4af37]/30 border-t-[#d4af37] animate-spin"></div>
-        <span className="ml-3 font-semibold tracking-wider">LOADING ARCHIVE...</span>
+      <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] mb-12 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden bg-white/5 border border-white/10 flex flex-col items-center justify-center text-center p-6">
+        <div className="text-4xl mb-4">📸</div>
+        <h3 className="text-xl font-bold text-[#ffd966] mb-2">Capturing Memories...</h3>
+        <p className="text-[#ffeab080] text-sm max-w-md">We are currently organizing and uploading high-quality photos for the {year} edition. Check back soon!</p>
       </div>
     );
   }
 
-  if (error || !edition) {
-    return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center pt-24 text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-black text-[#d4af37] mb-4">404</h1>
-        <p className="text-gray-400 mb-8 max-w-md">The edition archive you are looking for could not be found or does not exist.</p>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-gradient-to-r from-[#d4af37] to-[#aa8920] text-black font-bold px-8 py-3 rounded-full hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition"
-        >
-          Return Home
-        </button>
-      </div>
-    );
+  function next() {
+    setCurr((c) => (c + 1) % images.length);
   }
-
-  // Marquee duplicates for infinite scroll
-  const marqueeImages = [...(edition.images || []), ...(edition.images || []), ...(edition.images || [])];
+  function prev() {
+    setCurr((c) => (c - 1 + images.length) % images.length);
+  }
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white pt-[5.5rem] md:pt-[3.5rem] overflow-hidden selection:bg-[#d4af37]/30">
-      {/* Background Ambience */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#d4af37]/5 to-transparent blur-[150px]" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tl from-[#d4af37]/10 to-transparent blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
+    <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] mb-8 sm:mb-12 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl group ring-2 sm:ring-4 ring-[#ffe38c33]">
+      <img
+        src={images[curr]}
+        className="w-full h-full object-cover scale-105 group-hover:scale-100 transition duration-1000"
+        alt={`Banner ${curr + 1}`}
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#18120888] via-transparent to-[#201207bb] pointer-events-none" />
+
+      {/* Navigation Buttons */}
+      <button
+        aria-label="Previous"
+        onClick={prev}
+        className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 bg-black/30 hover:bg-[#ffd966] hover:text-[#23140f] text-[#ffe184] rounded-full p-2 sm:p-3 transition z-10 border border-[#ffeeb044] backdrop-blur-md opacity-0 group-hover:opacity-100"
+      >
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 22 22" fill="none"><path d="M14.5 18.5L8 12L14.5 5.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg>
+      </button>
+      <button
+        aria-label="Next"
+        onClick={next}
+        className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 bg-black/30 hover:bg-[#ffd966] hover:text-[#23140f] text-[#ffe184] rounded-full p-2 sm:p-3 transition z-10 border border-[#ffeeb044] backdrop-blur-md opacity-0 group-hover:opacity-100"
+      >
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 22 22" fill="none"><path d="M7.5 18.5L14 12L7.5 5.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg>
+      </button>
+
+      {/* Navigation Dots */}
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-4 z-20">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            aria-label={`Go to banner ${i + 1}`}
+            onClick={() => setCurr(i)}
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${curr === i
+              ? "bg-[#ffd966] w-6 sm:w-10 shadow-[0_0_15px_#ffd966]"
+              : "bg-white/30 hover:bg-white/50"
+              }`}
+          />
+        ))}
       </div>
+    </div>
+  );
+}
 
-      <div className="relative z-10">
-        {/* Banner Auto-Slider */}
-        <BannerSlider images={edition.images} title={edition.title} label={edition.editionLabel} />
+// Event Gallery - Scrolling Image Marquee
+function EventGallery({ images }) {
+  if (!images || images.length === 0) return null;
 
-        {/* Dynamic Tabs Manager */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 my-10 border-b border-[#d4af37]/20 pb-4">
-          <EditionYearSwitcher editions={allEditions} currentEdition={edition} />
+  return (
+    <div className="mb-16 sm:mb-24 overflow-hidden">
+      <h3 className="text-2xl sm:text-3xl font-black text-[#fbd24e] mb-6 sm:mb-10 tracking-wide flex items-center gap-3 sm:gap-4">
+        <span className="w-8 sm:w-12 h-1 bg-[#d4af37] rounded-full"></span>
+        Media Gallery
+      </h3>
+
+      <div className="relative group">
+        <div className="flex gap-4 sm:gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+          {[...images, ...images, ...images].map((img, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-[240px] h-[160px] sm:w-[350px] sm:h-[240px] md:w-[400px] md:h-[260px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/10 shadow-xl transition-all duration-500 hover:scale-[1.05] hover:border-[#ffd966]/50 bg-white/5 relative"
+            >
+              <img
+                src={img}
+                alt={`Highlight ${i}`}
+                className="w-full h-full object-cover relative z-10"
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
-
-        {/* Edition Summary Panel */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-16">
-          <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border border-[#d4af37]/20 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-              <Award size={160} className="text-[#d4af37]" />
-            </div>
-
-            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center">
-              <div className="flex-1">
-                <div className="inline-block px-3 py-1 bg-gradient-to-r from-[#d4af37] to-[#aa8920] text-black text-xs font-bold uppercase tracking-widest rounded-full mb-4">
-                  {edition.title}
-                </div>
-                <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter bg-gradient-to-r from-white via-[#fbe376] to-[#d4af37] bg-clip-text text-transparent">
-                  {edition.year} Edition
-                </h2>
-                <div className="flex flex-wrap gap-6 text-sm text-[#a89b6f] font-medium tracking-wide">
-                  <span className="flex items-center gap-2"><MapPin size={16} className="text-[#d4af37]" /> {edition.locations?.join(", ")}</span>
-                  <span className="flex items-center gap-2"><Calendar size={16} className="text-[#d4af37]" /> {edition.date}</span>
-                </div>
-              </div>
-              <div className="flex-1 text-[#e2d5a3]/80 leading-relaxed max-w-lg border-l-2 border-[#d4af37]/30 pl-6 lg:text-lg">
-                {edition.hero}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Media Gallery / Marquee */}
-        {edition.images && edition.images.length > 0 && (
-          <section className="mb-20">
-            <div className="text-center mb-8">
-              <span className="text-[#d4af37] text-sm font-bold tracking-[0.3em] uppercase">Visual Archive</span>
-              <h2 className="text-3xl font-light tracking-wide mt-2">Media <span className="font-bold">Gallery</span></h2>
-            </div>
-
-            <div className="relative w-full overflow-hidden flex pb-4 pt-4 border-y border-[#d4af37]/10 bg-black/40">
-              <div className="flex w-max animate-marquee space-x-6 hover:[animation-play-state:paused] px-3">
-                {marqueeImages.map((src, idx) => (
-                  <div key={idx} className="w-[280px] h-[350px] md:w-[350px] md:h-[450px] shrink-0 rounded-2xl overflow-hidden shadow-2xl shadow-black relative group border border-white/5 cursor-pointer">
-                    <img src={src} alt="gallery" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Video Gallery */}
-        {edition.videoLinks && edition.videoLinks.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 mb-24">
-            <div className="text-center mb-10">
-              <span className="text-[#d4af37] text-sm font-bold tracking-[0.3em] uppercase">Event Broadcasts</span>
-              <h2 className="text-3xl font-light tracking-wide mt-2">Video <span className="font-bold">Moments</span></h2>
-            </div>
-
-            <VideoGallery videoLinks={edition.videoLinks} />
-          </section>
-        )}
       </div>
-
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes marquee {
@@ -158,5 +116,193 @@ export default function EditionDetail() {
         }
       `}} />
     </div>
+  );
+}
+
+export default function EditionDetail() {
+  const { year, slug } = useParams();
+  const [edition, setEdition] = useState(null);
+  const [allEditions, setAllEditions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const isCovidYear = year === "2020" || year === "2021";
+
+  useEffect(() => {
+    // Load all editions for the year switcher
+    fetchPreviousEditions().then(setAllEditions).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      if (!year || !slug) return;
+      setLoading(true);
+      try {
+        const res = await fetchPreviousEditionBySlug(year, slug);
+        if (res) {
+          setEdition(res);
+          document.title = `${res.title} (${res.year}) | Global Education Excellence Awards | Indian Education Awards`;
+        } else {
+          setEdition(null);
+        }
+      } catch (err) {
+        console.error("Failed to fetch edition:", err);
+        setEdition(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+    
+    return () => {
+      document.title = "Indian Education Awards | Global Education Excellence Awards 2026";
+    };
+  }, [year, slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0f0a07] text-white flex items-center justify-center p-6">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-[#d4af37]/20 border-t-[#d4af37] rounded-full animate-spin mb-4" />
+          <p className="text-[#d4af37] font-bold tracking-widest">LOADING ARCHIVE...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!edition && !isCovidYear) {
+    return (
+      <div className="min-h-screen bg-[#0f0a07] text-white flex flex-col items-center justify-center p-6 text-center">
+        <h1 className="text-4xl md:text-6xl font-black text-[#ffd966] mb-4">404</h1>
+        <p className="text-[#ffeab080] mb-8 max-w-md">The edition archive you are looking for could not be found or does not exist.</p>
+        <Link to="/" className="bg-gradient-to-r from-[#d4af37] to-[#aa8920] text-black font-bold px-8 py-3 rounded-full hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition">
+          Return Home
+        </Link>
+      </div>
+    );
+  }
+
+  const displayYear = edition ? edition.year : year;
+
+  return (
+    <section className="bg-[#0f0a07] text-white min-h-screen pt-24 sm:pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-x-hidden selection:bg-[#d4af37]/30">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#d4af37]/5 to-transparent blur-[150px]" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tl from-[#d4af37]/10 to-transparent blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {!edition && isCovidYear ? (
+          <div className="relative w-full h-[300px] sm:h-[450px] mb-12 rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#1a130d] to-[#0f0a07] border-2 border-[#d4af37]/20 flex flex-col items-center justify-center text-center p-8 shadow-2xl">
+            <div className="absolute inset-0 bg-white/[0.02] bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:20px_20px] opacity-20" />
+            <div className="text-6xl mb-6">😷</div>
+            <h2 className="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ffd966] to-[#b2872d] mb-4">
+              Edition {displayYear}
+            </h2>
+            <div className="bg-[#ffd966]/10 px-6 py-2 rounded-full border border-[#ffd966]/30 animate-pulse">
+              <p className="text-[#ffd788] font-black text-lg sm:text-2xl uppercase tracking-tighter">
+                Award Not Organised Due to COVID-19
+              </p>
+            </div>
+            <p className="mt-8 text-[#ffeab080] max-w-lg italic">
+              The safety of our healthcare heroes was our top priority during the global pandemic. We returned stronger in the following years.
+            </p>
+          </div>
+        ) : (
+          <>
+            <BannerSlider images={edition.images} year={displayYear} />
+
+            <div className="my-10 border-b border-[#d4af37]/20 pb-8">
+              <EditionYearSwitcher editions={allEditions} currentEdition={edition} />
+            </div>
+
+            {/* Media Gallery */}
+            <EventGallery images={edition.images} />
+
+            {/* Video Gallery */}
+            {edition.videoLinks && edition.videoLinks.length > 0 && (
+              <section className="mb-24">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#fbd24e] mb-6 sm:mb-10 tracking-wide flex items-center gap-3 sm:gap-4">
+                  <span className="w-8 sm:w-12 h-1 bg-[#d4af37] rounded-full"></span>
+                  Video Moments
+                </h3>
+                <VideoGallery videoLinks={edition.videoLinks} />
+              </section>
+            )}
+          </>
+        )}
+
+        <div className="space-y-16 sm:space-y-24">
+          <header className="max-w-4xl text-center sm:text-left">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-4 sm:mb-6">
+              ✨ {edition?.editionLabel}
+            </div>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 sm:mb-8 leading-[1.1] tracking-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd966] via-[#f7c53a] to-[#b2872d]">GLOBAL Education Awards</span>  {displayYear}
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-[#ffeab0a0] leading-relaxed max-w-2xl mx-auto sm:mx-0 whitespace-pre-line">
+              {edition?.hero || `The ${displayYear} Global Education Excellence Awards celebrated the visionaries, educators, and institutions who redefined academic standards.`}
+            </p>
+          </header>
+
+          {edition && (
+            <div className="grid lg:grid-cols-2 gap-10 sm:gap-16">
+              <section className="space-y-6 sm:space-y-8">
+                <div className="bg-gradient-to-br from-white/5 to-transparent p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] border border-white/10 backdrop-blur-md relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#d4af37]/10 blur-3xl rounded-full group-hover:bg-[#d4af37]/20 transition-colors" />
+                  <h2 className="text-2xl sm:text-3xl font-black text-[#ffe19f] mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
+                    <span className="text-3xl sm:text-4xl">📌</span>
+                    The {displayYear} Legacy
+                  </h2>
+                  <div className="text-base sm:text-lg text-[#fffaddcc] leading-relaxed space-y-4 sm:space-y-6">
+                    <p>
+                      Organized by <strong className="text-[#ffd966]">Prime Time Research Media Pvt. Ltd.</strong>, the {displayYear} ceremony in <strong className="text-[#ffd966]">{Array.isArray(edition.locations) ? edition.locations.join(", ") : edition.locations}</strong> served as a powerful platform for networking and recognition.
+                    </p>
+                    <p>
+                      From specialized training centers to multi-field universities, we identified leaders who prioritize student growth, ethical pedagogy, and technological advancement.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="grid grid-cols-2 gap-4 sm:gap-6">
+                {[
+                  { label: "1000+", sub: "Nominations Received" },
+                  { label: "50+", sub: "Award Categories" },
+                  { label: "200+", sub: "Institutions Represented" },
+                  { label: edition.editionLabel?.split(" ")[0] || "Past", sub: "Successful Edition" }
+                ].map((item, i) => (
+                  <div key={i} className="bg-[#1a130d] p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-[#d4af37]/10 flex flex-col justify-center text-center group hover:border-[#d4af37]/30 transition-all">
+                    <div className="text-3xl sm:text-4xl text-[#ffd966] font-black mb-1 sm:mb-2">{item.label}</div>
+                    <div className="text-[10px] sm:text-xs font-bold text-[#ffeab080] uppercase tracking-widest leading-tight">{item.sub}</div>
+                  </div>
+                ))}
+              </section>
+            </div>
+          )}
+
+          <section className="bg-gradient-to-r from-[#1a1308] to-[#140e0a] p-8 sm:p-12 rounded-[2rem] sm:rounded-[3.5rem] border border-[#d4af37]/20 shadow-2xl relative overflow-hidden">
+            <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#d4af37]/5 blur-[100px] rounded-full" />
+            <h2 className="text-3xl sm:text-4xl font-black text-center mb-10 sm:mb-16 tracking-tight">
+              Rigorous <span className="text-[#ffd966]">Evaluation</span> Architecture
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 relative z-10">
+              {[
+                { title: "Nomination", desc: "Open call for academic leaders and institutions." },
+                { title: "Audit", desc: "Detailed performance analysis and benchmarking." },
+                { title: "Review", desc: "Secondary feedback from educational experts." },
+                { title: "Jury", desc: "Final verification by our elite board of advisors." }
+              ].map((step, i) => (
+                <div key={i} className="text-center group">
+                  <div className="text-4xl sm:text-5xl font-black text-[#d4af37]/20 mb-4 sm:mb-6 group-hover:text-[#d4af37]/40 transition-colors">0{i + 1}</div>
+                  <h4 className="text-lg sm:text-xl font-bold text-[#ffd966] mb-2 sm:mb-3">{step.title}</h4>
+                  <p className="text-xs sm:text-sm text-[#ffeab080] leading-relaxed max-w-[200px] mx-auto">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
   );
 }

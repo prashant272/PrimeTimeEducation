@@ -1,19 +1,21 @@
 import express from "express";
 import multer from "multer";
+import fs from "fs/promises";
 import path from "path";
 import { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import s3Client from "../config/s3.js";
+import os from "os";
 
 import PreviousEdition from "../models/PreviousEdition.js";
 import { authenticate, requireAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-const storage = multer.memoryStorage();
+const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
 const upload = multer({
-    storage,
+    dest: os.tmpdir(),
     fileFilter: (req, file, cb) => {
         if (file.mimetype.startsWith("image/")) {
             cb(null, true);
@@ -27,10 +29,24 @@ const upload = multer({
 // Helper to get signed URL
 const getSignedImageUrl = async (key) => {
     if (!key) return null;
+    
+    // If it's already a full URL, try to extract the key if it's from our bucket
     if (key.startsWith("http")) {
         try {
             const url = new URL(key);
-            key = url.pathname.substring(1);
+            // If the URL contains the bucket name or matches our S3 pattern, we might want to extract the key
+            // However, it's safer to just return it if it's already signed or external.
+            // But if it's our own signed URL, it has an expiry. 
+            // Better to always store and work with keys.
+            if (url.hostname.includes("amazonaws.com")) {
+                 // Try to get key from pathname
+                 let extractedKey = url.pathname.substring(1); 
+                 // Decode in case it's double encoded
+                 extractedKey = decodeURIComponent(extractedKey);
+                 key = extractedKey;
+            } else {
+                return key;
+            }
         } catch {
             return key;
         }
@@ -47,9 +63,19 @@ const getSignedImageUrl = async (key) => {
 // Public: GET /api/previous-editions (list all, sorted by year desc)
 router.get("/", async (req, res) => {
     try {
-        const docs = await PreviousEdition.find().sort({ year: -1 }).lean();
+        const docs = await PreviousEdition.find().sort({ year: -1 });
 
-        for (let doc of docs) {
+        let updated = false;
+        for (let i = 0; i < docs.length; i++) {
+            const doc = docs[i];
+            
+            // On-the-fly migration for missing slugs
+            if (!doc.slug) {
+                doc.slug = slugify(`${doc.editionLabel || ""} ${doc.title || ""}`);
+                await doc.save();
+                updated = true;
+            }
+
             if (doc.images && doc.images.length > 0) {
                 doc.images = await Promise.all(doc.images.map(img => getSignedImageUrl(img)));
             }
@@ -62,22 +88,37 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Public: GET /api/previous-editions/:identifier lookup by year OR slug
+// Public: GET /api/previous-editions/lookup/:year/:slug
+router.get("/lookup/:year/:slug", async (req, res) => {
+    try {
+        const { year, slug } = req.params;
+        const doc = await PreviousEdition.findOne({ year: Number(year), slug }).lean();
+
+        if (!doc) return res.status(404).json({ message: "Previous edition not found" });
+
+        if (doc.images && doc.images.length > 0) {
+            doc.images = await Promise.all(doc.images.map(img => getSignedImageUrl(img)));
+        }
+
+        return res.json(doc);
+    } catch (err) {
+        console.error("Fetch previous edition lookup error:", err);
+        return res.status(500).json({ message: "Unable to fetch previous edition" });
+    }
+});
+
+// Public: GET /api/previous-editions/:identifier lookup by year OR slug OR id
 router.get("/:identifier", async (req, res) => {
     try {
         const identifier = req.params.identifier;
         let query;
 
-        // Check if it's a number (year)
-        if (!isNaN(identifier) && identifier.length === 4) {
+        if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+            query = { _id: identifier };
+        } else if (!isNaN(identifier) && identifier.length === 4) {
             query = { year: Number(identifier) };
         } else {
-            // It's a slug, we need to match it against title
-            // Since we don't store a slug, we'll find all and filter, or we generate slug on the fly
-            // We can use a regex or just find all and match the slugified title.
-            // Better yet, let's just use regex for case-insensitive match without special characters.
-            const formattedTitle = identifier.replace(/-/g, " ");
-            query = { title: { $regex: new RegExp(`^${formattedTitle}$`, "i") } };
+            query = { slug: identifier };
         }
 
         let doc = await PreviousEdition.findOne(query).lean();
@@ -111,24 +152,37 @@ router.post("/", authenticate, requireAdmin, upload.array("images", 50), async (
         let imageKeys = [];
 
         if (req.files && req.files.length > 0) {
-            for (const file of req.files) {
+            imageKeys = await Promise.all(req.files.map(async (file) => {
                 const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
                 const filename = `previous-editions/images-${uniqueSuffix}${path.extname(file.originalname)}`;
 
-                const uploadParams = {
-                    Bucket: process.env.AWS_S3_BUCKET,
-                    Key: filename,
-                    Body: file.buffer,
-                    ContentType: file.mimetype,
-                };
+                try {
+                    const fileBuffer = await fs.readFile(file.path);
+                    const uploadParams = {
+                        Bucket: process.env.AWS_S3_BUCKET,
+                        Key: filename,
+                        Body: fileBuffer,
+                        ContentType: file.mimetype,
+                    };
 
-                await s3Client.send(new PutObjectCommand(uploadParams));
-                imageKeys.push(filename);
-            }
+                    await s3Client.send(new PutObjectCommand(uploadParams));
+                    // Cleanup temp file
+                    await fs.unlink(file.path).catch(err => console.error("Temp file cleanup error:", err));
+                    return filename;
+                } catch (uploadErr) {
+                    console.error("S3 Upload error for file:", file.originalname, uploadErr);
+                    // Still try to delete temp file
+                    await fs.unlink(file.path).catch(() => {});
+                    throw uploadErr;
+                }
+            }));
         }
+
+        const generatedSlug = slugify(`${payload.editionLabel || ""} ${payload.title || ""}`);
 
         const newEdition = await PreviousEdition.create({
             ...payload,
+            slug: generatedSlug,
             locations: payload.locations ? (Array.isArray(payload.locations) ? payload.locations : [payload.locations]) : [],
             videoLinks: payload.videoLinks ? (Array.isArray(payload.videoLinks) ? payload.videoLinks : payload.videoLinks.split(',').map(s => s.trim()).filter(Boolean)) : [],
             images: imageKeys
@@ -174,20 +228,28 @@ router.put("/:id", authenticate, requireAdmin, upload.array("newImages", 50), as
         }
 
         if (req.files && req.files.length > 0) {
-            for (const file of req.files) {
+            const newUploadedKeys = await Promise.all(req.files.map(async (file) => {
                 const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
                 const filename = `previous-editions/images-${uniqueSuffix}${path.extname(file.originalname)}`;
 
-                const uploadParams = {
-                    Bucket: process.env.AWS_S3_BUCKET,
-                    Key: filename,
-                    Body: file.buffer,
-                    ContentType: file.mimetype,
-                };
+                try {
+                    const fileBuffer = await fs.readFile(file.path);
+                    const uploadParams = {
+                        Bucket: process.env.AWS_S3_BUCKET,
+                        Key: filename,
+                        Body: fileBuffer,
+                        ContentType: file.mimetype,
+                    };
 
-                await s3Client.send(new PutObjectCommand(uploadParams));
-                finalKeys.push(filename);
-            }
+                    await s3Client.send(new PutObjectCommand(uploadParams));
+                    await fs.unlink(file.path).catch(() => {});
+                    return filename;
+                } catch (uploadErr) {
+                    await fs.unlink(file.path).catch(() => {});
+                    throw uploadErr;
+                }
+            }));
+            finalKeys.push(...newUploadedKeys);
         }
 
         edition.year = payload.year || edition.year;
@@ -203,6 +265,10 @@ router.put("/:id", authenticate, requireAdmin, upload.array("newImages", 50), as
 
         if (payload.videoLinks !== undefined) {
             edition.videoLinks = Array.isArray(payload.videoLinks) ? payload.videoLinks : payload.videoLinks.split(',').map(s => s.trim()).filter(Boolean);
+        }
+
+        if (payload.title || payload.editionLabel) {
+            edition.slug = slugify(`${payload.editionLabel || edition.editionLabel} ${payload.title || edition.title}`);
         }
 
         edition.images = finalKeys;
@@ -223,16 +289,24 @@ router.delete("/:id", authenticate, requireAdmin, async (req, res) => {
 
         // Delete images from S3
         if (edition.images && edition.images.length > 0) {
-            for (const key of edition.images) {
+            await Promise.all(edition.images.map(async (key) => {
                 try {
+                    // Extract key if it's a URL (though we should store keys)
+                    let finalKey = key;
+                    if (key.startsWith("http")) {
+                        try {
+                            const url = new URL(key);
+                            finalKey = decodeURIComponent(url.pathname.substring(1));
+                        } catch {}
+                    }
                     await s3Client.send(new DeleteObjectCommand({
                         Bucket: process.env.AWS_S3_BUCKET,
-                        Key: key
+                        Key: finalKey
                     }));
                 } catch (s3Err) {
                     console.error("Failed to delete S3 object:", key, s3Err);
                 }
-            }
+            }));
         }
 
         await edition.deleteOne();

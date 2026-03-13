@@ -171,7 +171,7 @@ export default function Navbar() {
             </div>
             <nav className="bg-transparent h-12">
               <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-6 text-sm">
-                {menuLinks("white", undefined, headerRef, isUser, false)}
+                {menuLinks("white", undefined, headerRef, isUser, false, false)}
               </div>
             </nav>
           </header>
@@ -188,7 +188,7 @@ export default function Navbar() {
                   className="h-7 w-auto object-contain"
                 />
               </div>
-              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser, false)}</div>
+              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser, false, false)}</div>
             </div>
           </div>
         )}
@@ -259,7 +259,7 @@ export default function Navbar() {
 
 // onClick will be used to close drawer, headerRef for scroll fix on tab switch.
 // Added showDashboard param to control visibility of "My Nominations" link
-const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
+const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true, isMobile = false) => {
   // Will scroll page to just under header if in mobile and not at top
   const createNavHandler = (routeHandler) => (e) => {
     if (onClick) onClick();
@@ -283,7 +283,7 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true) => {
       <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
 
       {/* Dynamic Dropdown for Previous Editions */}
-      <PreviousEditionsDropdown color={color} onClick={createNavHandler(onClick)} />
+      <PreviousEditionsDropdown color={color} onClick={onClick} isMobile={isMobile} />
 
       <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} isSpecial={true} />
@@ -323,7 +323,7 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
 
 const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
-function PreviousEditionsDropdown({ color, onClick }) {
+function PreviousEditionsDropdown({ color, onClick, isMobile = false }) {
   const [editions, setEditions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -334,7 +334,45 @@ function PreviousEditionsDropdown({ color, onClick }) {
       .catch(err => console.error("Failed to fetch editions for navbar:", err));
   }, []);
 
-  const isActive = location.pathname.startsWith('/previous-editions') || editions.some(e => location.pathname === `/${slugify(e.title)}`);
+  const isActive = location.pathname.startsWith('/previous-editions') || editions.some(e => location.pathname === `/${e.year}/${e.slug}`);
+
+  // Base class for the trigger button
+  const triggerBaseClass = `flex items-center gap-1 transition-all duration-300 ${isActive ? "font-semibold " : "opacity-80 hover:opacity-100"}`;
+  const desktopClass = `${triggerBaseClass} ${color === "white" ? "text-white" : "text-gray-700 hover:text-black"} ${isActive ? "border-b-2 " + (color === "white" ? "border-white" : "border-black") : ""}`;
+  const mobileClass = `${triggerBaseClass} text-white w-full py-2 hover:text-[#d4af37]`;
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col w-full">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }}
+          className={mobileClass}
+        >
+          <span className="text-[12px]"><FaHistory /></span>
+          <span className="text-sm">Previous Editions</span>
+          <span className="text-[10px] ml-auto transition-transform duration-300" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><FaChevronDown /></span>
+        </button>
+
+        {isOpen && editions.length > 0 && (
+          <div className="flex flex-col pl-6 mt-2 gap-2 border-l border-white/10 ml-2">
+            {editions.map(ed => (
+              <NavLink
+                key={ed._id}
+                to={`/${ed.year}/${ed.slug}`}
+                onClick={onClick}
+                className={({ isActive }) => `text-sm py-1.5 transition-colors ${isActive ? "text-[#d4af37] font-bold" : "text-gray-400 hover:text-white"}`}
+              >
+                {ed.title} <span className="opacity-50 text-[10px]">({ed.year})</span>
+              </NavLink>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -342,31 +380,33 @@ function PreviousEditionsDropdown({ color, onClick }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <NavLink
-        to="/previous-editions"
-        onClick={onClick}
-        className={`flex items-center gap-1 transition-all duration-300 ${isActive ? "font-semibold border-b-2 " + (color === "white" ? "border-white" : "border-black") : color === "white" ? "opacity-80 hover:opacity-100 text-white" : "text-gray-700 hover:text-black"}`}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(!isOpen);
+        }}
+        className={desktopClass}
       >
         <span className="text-[11px]"><FaHistory /></span>
         <span>Previous Editions</span>
-        <span className="text-[10px] ml-0.5"><FaChevronDown /></span>
-      </NavLink>
+        <span className="text-[10px] ml-0.5 transition-transform duration-300" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><FaChevronDown /></span>
+      </button>
 
-      {/* Hover Bridge and Dropdown Panel */}
+      {/* Hover Panel - Desktop Only */}
       {isOpen && editions.length > 0 && (
         <div className="absolute top-full left-0 pt-4 z-[99]">
           <div className="bg-[#16120b]/95 backdrop-blur-md border border-[#d4af37]/30 rounded-xl shadow-2xl overflow-hidden min-w-[240px] flex flex-col py-2">
             {editions.map(ed => (
               <NavLink
                 key={ed._id}
-                to={`/${slugify(ed.title)}`}
+                to={`/${ed.year}/${ed.slug}`}
                 onClick={() => {
                   setIsOpen(false);
                   if (onClick) onClick();
                 }}
                 className={({ isActive }) => `px-5 py-2.5 text-sm transition-colors block ${isActive ? "bg-[#d4af37] text-black font-bold" : "text-[#fbe376] hover:bg-[#d4af37]/20 hover:text-[#fff]"}`}
               >
-                {ed.title}
+                {ed.title} <span className="opacity-70 text-xs ml-1">({ed.year})</span>
               </NavLink>
             ))}
           </div>
@@ -439,11 +479,11 @@ function MobileMenuDrawer({
             <FaTimes />
           </button>
         </div>
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex-1 flex flex-col justify-between overflow-y-auto custom-scrollbar">
           <nav className="flex flex-col gap-3 mt-6 px-4">
             {/* Give headerRef & isUser to menuLinks for scroll fix and user-related links */}
             {/* Pass true for showDashboard to show My Nominations in mobile drawer */}
-            {menuLinks("white", onClose, headerRef, isUser, true)}
+            {menuLinks("white", onClose, headerRef, isUser, true, true)}
           </nav>
           <div className="mt-6 border-t border-white/10 px-4 py-4 flex flex-col gap-2">
             {user && (

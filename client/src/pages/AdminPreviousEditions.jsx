@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { Edit2, Trash2, Plus, ArrowLeft, Image as ImageIcon, Video, Calendar, MapPin } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -8,12 +8,63 @@ import {
     deletePreviousEdition
 } from "../services/api";
 
+const EditionCard = memo(({ ed, onEdit, onDelete }) => (
+    <div className="bg-gradient-to-br from-[#1a160a] to-[#241b0a] border border-[#d4af37]/30 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-4 flex gap-2 z-[20]">
+            <button 
+                onClick={(e) => { e.stopPropagation(); onEdit(ed); }} 
+                className="w-10 h-10 rounded-full bg-[#2b2512]/90 text-[#d4af37] border border-[#d4af37]/50 flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition shadow-lg active:scale-95"
+                title="Edit Edition"
+            >
+                <Edit2 size={16} />
+            </button>
+            <button 
+                onClick={(e) => { e.stopPropagation(); onDelete(ed._id); }} 
+                className="w-10 h-10 rounded-full bg-red-900/60 text-red-400 border border-red-400/50 flex items-center justify-center hover:bg-red-500 hover:text-white transition shadow-lg active:scale-95"
+                title="Delete Edition"
+            >
+                <Trash2 size={16} />
+            </button>
+        </div>
+
+        <div className="text-3xl font-black text-[#d4af37] opacity-20 absolute -bottom-2 -right-2 tracking-tighter z-0">
+            {ed.year}
+        </div>
+
+        <div className="relative z-10 pointer-events-none">
+            <span className="inline-block px-2 py-1 rounded bg-[#d4af37]/10 text-[#fbe376] text-xs font-bold uppercase tracking-wider mb-2 border border-[#d4af37]/20">
+                {ed.editionLabel}
+            </span>
+            <h3 className="text-xl font-bold text-[#eed99b] mb-1">{ed.title}</h3>
+
+            <div className="flex items-center gap-2 text-sm text-[#c7ba7e] mb-2">
+                <Calendar size={14} /> {ed.date}
+            </div>
+            <div className="flex items-center gap-2 text-sm text-[#c7ba7e] mb-4">
+                <MapPin size={14} /> {Array.isArray(ed.locations) ? ed.locations.join(", ") : ed.locations}
+            </div>
+
+            <div className="flex gap-4 mb-2">
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <ImageIcon size={14} /> {ed.images?.length || 0} Photos
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <Video size={14} /> {ed.videoLinks?.length || 0} Videos
+                </div>
+            </div>
+        </div>
+    </div>
+));
+
+EditionCard.displayName = "EditionCard";
+
 export default function AdminPreviousEditions({ customToken }) {
     const { token: authContextToken } = useAuth();
     const token = customToken || authContextToken;
 
     const [editions, setEditions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingEdition, setEditingEdition] = useState(null);
@@ -50,6 +101,7 @@ export default function AdminPreviousEditions({ customToken }) {
 
     const openAddModal = () => {
         setEditingEdition(null);
+        setError(""); // Clear previous errors
         setFormData({
             year: "", title: "", editionLabel: "", locations: "",
             date: "", hero: "", videoLinks: ""
@@ -61,6 +113,7 @@ export default function AdminPreviousEditions({ customToken }) {
 
     const openEditModal = (edition) => {
         setEditingEdition(edition);
+        setError(""); // Clear previous errors
         setFormData({
             year: edition.year,
             title: edition.title,
@@ -91,6 +144,7 @@ export default function AdminPreviousEditions({ customToken }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setSaving(true);
 
         try {
             const dataToSubmit = new FormData();
@@ -122,19 +176,23 @@ export default function AdminPreviousEditions({ customToken }) {
             }
 
             setIsModalOpen(false);
-            loadEditions();
+            await loadEditions();
         } catch (err) {
             setError(err.message || "Operation failed");
+        } finally {
+            setSaving(false);
         }
     };
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this edition?")) return;
         try {
+            setLoading(true); // Show loading while deleting
             await deletePreviousEdition(id, token);
-            loadEditions();
+            await loadEditions();
         } catch (err) {
-            alert("Delete failed: " + err.message);
+            setError("Delete failed: " + err.message);
+            setLoading(false);
         }
     };
 
@@ -160,53 +218,22 @@ export default function AdminPreviousEditions({ customToken }) {
                 </button>
             </header>
 
-            {error && <div className="mb-6 p-4 bg-red-900/40 border border-red-500 rounded-xl text-red-200 relative z-40">{error}</div>}
+            {error && !isModalOpen && <div className="mb-6 p-4 bg-red-900/40 border border-red-500 rounded-xl text-red-200 relative z-40">{error}</div>}
 
             {loading ? (
                 <div className="flex animate-pulse text-[#d4af37]">Loading...</div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {editions.map(ed => (
-                        <div key={ed._id} className="bg-gradient-to-br from-[#1a160a] to-[#241b0a] border border-[#d4af37]/30 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 flex gap-2 z-10">
-                                <button onClick={() => openEditModal(ed)} className="w-8 h-8 rounded-full bg-[#2b2512]/90 text-[#d4af37] border border-[#d4af37]/50 flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition">
-                                    <Edit2 size={14} />
-                                </button>
-                                <button onClick={() => handleDelete(ed._id)} className="w-8 h-8 rounded-full bg-red-900/60 text-red-400 border border-red-400/50 flex items-center justify-center hover:bg-red-500 hover:text-white transition">
-                                    <Trash2 size={14} />
-                                </button>
-                            </div>
-
-                            <div className="text-3xl font-black text-[#d4af37] opacity-20 absolute -bottom-2 -right-2 tracking-tighter z-0">
-                                {ed.year}
-                            </div>
-
-                            <div className="relative z-10">
-                                <span className="inline-block px-2 py-1 rounded bg-[#d4af37]/10 text-[#fbe376] text-xs font-bold uppercase tracking-wider mb-2 border border-[#d4af37]/20">
-                                    {ed.editionLabel}
-                                </span>
-                                <h3 className="text-xl font-bold text-[#eed99b] mb-1">{ed.title}</h3>
-
-                                <div className="flex items-center gap-2 text-sm text-[#c7ba7e] mb-2">
-                                    <Calendar size={14} /> {ed.date}
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-[#c7ba7e] mb-4">
-                                    <MapPin size={14} /> {ed.locations?.join(", ")}
-                                </div>
-
-                                <div className="flex gap-4 mb-2">
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                        <ImageIcon size={14} /> {ed.images?.length || 0} Photos
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                        <Video size={14} /> {ed.videoLinks?.length || 0} Videos
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <EditionCard 
+                            key={ed._id} 
+                            ed={ed} 
+                            onEdit={openEditModal} 
+                            onDelete={handleDelete} 
+                        />
                     ))}
                     {editions.length === 0 && (
-                        <div className="col-span-full py-10 text-center text-gray-500 border border-dashed border-gray-700 rounded-2xl">
+                        <div className="col-span-full py-20 text-center text-gray-500 border-2 border-dashed border-gray-800 rounded-3xl">
                             No previous editions found.
                         </div>
                     )}
@@ -223,6 +250,15 @@ export default function AdminPreviousEditions({ customToken }) {
                         <h2 className="text-2xl font-bold text-[#d4af37] mb-6">
                             {editingEdition ? `Edit Edition: ${editingEdition.title}` : "Add New Previous Edition"}
                         </h2>
+
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-900/40 border border-red-500 rounded-xl text-red-100 flex items-center gap-3 animate-shake">
+                                <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center shrink-0">
+                                    <span className="font-bold text-white text-sm">!</span>
+                                </div>
+                                <span className="font-medium">{error}</span>
+                            </div>
+                        )}
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -306,8 +342,13 @@ export default function AdminPreviousEditions({ customToken }) {
                                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-5 py-2 rounded-xl border border-gray-600 text-gray-300 hover:bg-gray-800 transition">
                                     Cancel
                                 </button>
-                                <button type="submit" disabled={loading} className="px-6 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#aa8920] text-black font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition">
-                                    {loading ? "Saving..." : "Save Edition"}
+                                <button type="submit" disabled={saving} className="px-6 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#aa8920] text-black font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition disabled:opacity-50 disabled:cursor-not-allowed min-w-[120px]">
+                                    {saving ? (
+                                        <div className="flex items-center justify-center gap-2">
+                                            <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                            Saving...
+                                        </div>
+                                    ) : "Save Edition"}
                                 </button>
                             </div>
                         </form>

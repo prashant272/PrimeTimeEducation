@@ -5,7 +5,6 @@ const previousEditionSchema = new mongoose.Schema(
         year: {
             type: Number,
             required: true,
-            unique: true,
         },
         title: {
             type: String,
@@ -30,6 +29,10 @@ const previousEditionSchema = new mongoose.Schema(
         images: {
             type: [String], // Array of AWS S3 URLs
             default: [],
+        },
+        slug: {
+            type: String,
+            required: true,
         },
         videoLinks: {
             type: [String], // Array of raw YouTube URLs

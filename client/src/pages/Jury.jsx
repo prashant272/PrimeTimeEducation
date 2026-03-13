@@ -28,6 +28,7 @@ export default function Jury() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    document.title = "Our Esteemed Guests & Speakers | Global Education Excellence Awards | Indian Education Awards";
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach(
@@ -39,7 +40,10 @@ export default function Jury() {
       ?.querySelectorAll(".jury-card")
       .forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.title = "Global Education Excellence Awards 2026 | Indian Education Awards";
+    };
   }, []);
 
   // Move custom colors into variables so Tailwind doesn't purge them,

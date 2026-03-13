@@ -27,7 +27,7 @@ export default function EditionYearSwitcher({ editions, currentEdition }) {
         return (
           <Link
             key={ed._id}
-            to={`/${slugify(ed.title)}`}
+            to={`/${ed.year}/${ed.slug}`}
             className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-[#d4af37]/20 border border-white/10 hover:border-[#d4af37]/50 text-gray-300 hover:text-[#d4af37] font-semibold text-sm tracking-wider whitespace-nowrap shrink-0 transition-all duration-300"
           >
             {ed.editionLabel || ed.year}

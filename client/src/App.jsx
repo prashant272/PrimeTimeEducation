@@ -85,7 +85,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/:slug" element={<EditionDetail />} />
+          <Route path="/:year/:slug" element={<EditionDetail />} />
         </Routes>
       </main>
 
