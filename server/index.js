@@ -43,7 +43,8 @@ app.use(cors({
  * BODY PARSER
  * =========================
  */
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 /**
  * =========================
@@ -93,6 +94,46 @@ app.use("/api/admin", adminRoutes);
 app.use("/admin", adminRoutes);
 app.use("/api/previous-editions", previousEditionsRoutes);
 app.use("/api/developer", developerRoutes);
+
+/**
+ * =========================
+ * GLOBAL ERROR HANDLER
+ * =========================
+ */
+app.use((err, req, res, next) => {
+  console.error("Global Error Handler:", err);
+  
+  // Ensure CORS headers are present even on errors
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    "https://www.globaleducationawards.in",
+    "https://globaleducationawards.in",
+    "https://api.globaleducationawards.in",
+    "http://localhost:5173"
+  ];
+  
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+  }
+
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ message: "Invalid JSON payload" });
+  }
+
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({ message: "File too large (Max: 10MB per image)" });
+  }
+
+  if (err.code === "LIMIT_UNEXPECTED_FILE") {
+    return res.status(400).json({ message: "Too many files uploaded (Max: 50)" });
+  }
+
+  res.status(err.status || 500).json({
+    message: err.message || "Internal Server Error",
+    error: process.env.NODE_ENV === "development" ? err : {}
+  });
+});
 
 /**
  * =========================

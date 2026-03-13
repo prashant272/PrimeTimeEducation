@@ -3,9 +3,10 @@ import { Play } from "lucide-react";
 
 // Extracts YouTube Video ID from any standard youtube URL
 function extractVideoID(url) {
-    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    if (!url) return null;
+    const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|watch|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
     const match = url.match(regExp);
-    return (match && match[7].length === 11) ? match[7] : null;
+    return match ? match[1] : null;
 }
 
 function VideoCard({ videoLink }) {
@@ -14,9 +15,10 @@ function VideoCard({ videoLink }) {
 
     if (!videoId) return null;
 
-    // Uses maxresdefault if available, otherwise youtube auto-falls back (we can just point to maxres)
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-    const hqUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    // Use hqdefault as base or try maxres first
+    // We'll use hqdefault as it's almost always available and looks good enough
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    const maxResUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
     return (
         <div
@@ -26,12 +28,15 @@ function VideoCard({ videoLink }) {
         >
             {!isHovered ? (
                 <>
-                    {/* We try maxres, and provide an onError fallback just in case */}
                     <img
-                        src={thumbnailUrl}
-                        onError={(e) => { e.target.onerror = null; e.target.src = hqUrl; }}
+                        src={maxResUrl}
+                        onError={(e) => { 
+                            if (e.target.src !== thumbnailUrl) {
+                                e.target.src = thumbnailUrl; 
+                            }
+                        }}
                         alt="Video Thumbnail"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-50"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:opacity-50"
                         loading="lazy"
                     />
                     {/* Translucent Play Button Overlaid */}
