@@ -26,6 +26,7 @@ import SuccessPage from "./pages/SuccessPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
+import AIChatbot from "./components/AIChatbot.jsx";
 import { Toaster } from "react-hot-toast";
 // nnnnn
 
@@ -93,6 +94,7 @@ export default function App() {
 
       {!location.pathname.startsWith("/admin") && <Footer />}
       <WhatsAppButton />
+      <AIChatbot />
     </div >
   );
 }

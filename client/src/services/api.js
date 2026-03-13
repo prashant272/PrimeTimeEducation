@@ -14,7 +14,7 @@ function getBaseUrl() {
   return normalized;
 }
 
-async function request(path, { method = "GET", token, body } = {}) {
+export async function request(path, { method = "GET", token, body } = {}) {
   const url = `${getBaseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
   const headers = {};
 
@@ -142,4 +142,6 @@ export function updatePreviousEdition(id, payload, token) {
 export function deletePreviousEdition(id, token) {
   return request(`/api/previous-editions/${id}`, { method: "DELETE", token });
 }
+
+
 

@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-[9999] group flex items-center justify-center"
+            className="fixed bottom-26 right-6 z-[9999] group flex items-center justify-center"
             aria-label="Contact us on WhatsApp"
         >
             {/* Pulse Rings */}
