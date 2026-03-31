@@ -2,7 +2,7 @@
  * Utility to get the dynamic award name based on the current hostname/subdomain.
  */
 export const getAwardName = () => {
-  if (typeof window === 'undefined') return "Global Icon Awards";
+  if (typeof window === 'undefined') return "Global Education Awards";
   
   const hostname = window.location.hostname;
   const parts = hostname.split('.');
@@ -34,5 +34,5 @@ export const getAwardName = () => {
   if (hostname.includes("dentalexcellenceawards.com")) return "Dental Excellence Awards";
   if (hostname.includes("healthcareexcellenceawards.com")) return "Healthcare Excellence Awards";
   
-  return "Global Icon Awards";
+  return "Global Education Awards";
 };
