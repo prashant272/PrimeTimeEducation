@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+body {
+    background: linear-gradient(120deg, #130606 0%, #24100d 63%, #2b0f12 100%);
+    color: #d6cfc8;
+    min-height: 100vh;
+}
+
 @theme {
     @keyframes marquee {
         from {

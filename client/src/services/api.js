@@ -14,8 +14,9 @@ function getBaseUrl() {
   return normalized;
 }
 
-export async function request(path, { method = "GET", token, body } = {}) {
-  const url = `${getBaseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
+export async function request(path, { method = "GET", token, body, baseUrl } = {}) {
+  const finalBaseUrl = baseUrl || getBaseUrl();
+  const url = `${finalBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
   const headers = {};
 
   if (!(body instanceof FormData)) {
@@ -141,6 +142,29 @@ export function updatePreviousEdition(id, payload, token) {
 
 export function deletePreviousEdition(id, token) {
   return request(`/api/previous-editions/${id}`, { method: "DELETE", token });
+}
+
+/* ---------------- Upcoming Awards ---------------- */
+const UPCOMING_AWARDS_BASE_URL = "https://api.globaliconawards.in";
+
+export function fetchUpcomingAwards() {
+  return request("/api/upcoming-awards", { method: "GET", baseUrl: UPCOMING_AWARDS_BASE_URL });
+}
+
+export function fetchUpcomingAwardBySlug(slug) {
+  return request(`/api/upcoming-awards/${slug}`, { method: "GET", baseUrl: UPCOMING_AWARDS_BASE_URL });
+}
+
+export function createUpcomingAward(payload, token) {
+  return request("/api/upcoming-awards", { method: "POST", body: payload, token, baseUrl: UPCOMING_AWARDS_BASE_URL });
+}
+
+export function updateUpcomingAward(id, payload, token) {
+  return request(`/api/upcoming-awards/${id}`, { method: "PUT", body: payload, token, baseUrl: UPCOMING_AWARDS_BASE_URL });
+}
+
+export function deleteUpcomingAward(id, token) {
+  return request(`/api/upcoming-awards/${id}`, { method: "DELETE", token, baseUrl: UPCOMING_AWARDS_BASE_URL });
 }
 
 

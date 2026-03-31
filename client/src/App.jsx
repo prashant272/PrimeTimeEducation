@@ -23,6 +23,7 @@ import AdminRegister from "./pages/AdminRegister.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import DeveloperAuth from "./pages/DeveloperAuth.jsx";
 import SuccessPage from "./pages/SuccessPage.jsx";
+import UpcomingAwardDetail from "./pages/UpcomingAwardDetail.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
@@ -34,13 +35,13 @@ export default function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#3a1418]">
+    <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 bg-[#3a1418]">
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/categories" element={<Categories />} />
@@ -75,6 +76,7 @@ export default function App() {
             }
           />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/upcoming-awards/:slug" element={<UpcomingAwardDetail />} />
           <Route path="/developer" element={<DeveloperAuth />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />

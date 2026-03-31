@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { getAwardName } from "../utils/brand.js";
 const gold = "#d4af37";
 const goldGrad = `linear-gradient(90deg, #b2872d 0%, #d4af37 40%, #ffeec3 70%, #d4af37 100%)`;
 const borderGold = "rgba(212,175,55,0.45)";
-const bgGrad = "linear-gradient(120deg,#130606 0%, #24100d 63%, #2b0f12 100%)";
+const bgGrad = "linear-gradient(120deg, #090402 0%, #0f0805 63%, #0a0503 100%)";
 
 export default function Footer() {
   return (
@@ -26,7 +27,7 @@ export default function Footer() {
       ></div>
 
       {/* Main Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-12 sm:py-16 md:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-12 sm:py-16 md:py-10">
         <div className="
           grid 
           grid-cols-1 
@@ -48,14 +49,14 @@ export default function Footer() {
               <span
                 className="font-heading text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent"
                 style={{ backgroundImage: goldGrad }}>
-                Global Healthcare Awards 2026
+                {getAwardName()} 2026
               </span>
             </div>
             <div
               className="mt-3 rounded-full h-1 w-24 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4"
             />
             <p className="text-sm lg:text-base font-medium leading-relaxed opacity-80">
-              The <span className="text-[#d4af37] font-bold">Global Education Excellence Awards</span> & Indian Education Awards recognise outstanding leadership, innovation & excellence in global healthcare and education – celebrating visionary organisations and individuals shaping tomorrow.
+              Recognising outstanding leadership, innovation & excellence across Healthcare, Education, Business, Dental, and Lifestyle – celebrating visionary organisations and individuals shaping tomorrow.
             </p>
           </div>
 
@@ -86,11 +87,6 @@ export default function Footer() {
               <li>
                 <Link to="/media" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
                   Media
-                </Link>
-              </li>
-              <li>
-                <Link to="/previous-editions" className="hover:text-[#d4af37] hover:pl-2 transition-all duration-200">
-                  Previous Editions
                 </Link>
               </li>
             </ul>
@@ -302,7 +298,7 @@ export default function Footer() {
             color: "transparent",
           }}
         >
-          Global Healthcare Awards
+          {getAwardName()}
         </span>
 
         {" "} &bull; © {new Date().getFullYear()} All Rights Reserved
@@ -312,7 +308,7 @@ export default function Footer() {
         </span>
 
         {/* Developer Credit Badge */}
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex justify-center pb-6">
           <a
             href="https://primeimpact.in"
             target="_blank"
@@ -352,7 +348,7 @@ export default function Footer() {
                 color: "transparent",
               }}
             >
-              Prime Impact IT Solutions
+              Prime Impact Solutions
             </span>
           </a>
         </div>

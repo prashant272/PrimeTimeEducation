@@ -15,41 +15,65 @@ import {
   FaRegClone,
   FaRegEdit,
   FaQuestionCircle,
-  FaChevronDown
+  FaChevronDown,
 } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext.jsx";
-import { fetchPreviousEditions } from "../services/api.js";
+import { fetchPreviousEditions, fetchUpcomingAwards } from "../services/api.js";
+import { getAwardName } from "../utils/brand.js";
 
 export default function Navbar() {
   const [showPill, setShowPill] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
+
+  // Scroll logic for body lock
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    // Cleanup
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileMenuOpen]);
+
   const navigate = useNavigate();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isNominateRoute = location.pathname.startsWith("/nominate");
-  const isHomePage = location.pathname === "/";
-  const isOtherPage = !isHomePage && !isAdminRoute && !isNominateRoute;
+  
   const isUser = user?.role === "user";
   const isAdminUser = user?.role === "admin";
-  // Ref for scrolling trick on tab change
+  
   const headerRef = useRef();
 
-  // Fix: Scroll to top ONLY relative to header on route (tab) change, but only scroll if not already near top
+  const [editions, setEditions] = useState([]);
+  const [upcomingAwards, setUpcomingAwards] = useState([]);
+  const [mobileUpcomingOpen, setMobileUpcomingOpen] = useState(false);
+  const [mobileAwardsOpen, setMobileAwardsOpen] = useState(false);
+
+  useEffect(() => {
+    fetchPreviousEditions()
+      .then((data) => setEditions(data))
+      .catch((err) => console.error("Error fetching editions for navbar:", err));
+    fetchUpcomingAwards()
+      .then((data) => setUpcomingAwards(data))
+      .catch((err) => console.error("Error fetching upcoming awards for navbar:", err));
+  }, []);
+
+  // Fix: Scroll to top ONLY relative to header on route (tab) change
   useEffect(() => {
     if (!isAdminRoute && !isNominateRoute) {
-      // Only scroll up if header is visible
       if (window.innerWidth < 768 && headerRef.current) {
-        // Check if page is near the bottom, then scroll to just below header
         const y = window.scrollY;
         if (y > 80) {
-          // Determine how much to scroll down so header doesn't overlap
           window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
         }
       }
     }
-    // eslint-disable-next-line
-  }, [location.pathname]);
+  }, [location.pathname, isAdminRoute, isNominateRoute]);
 
   useEffect(() => {
     if (isAdminRoute) return;
@@ -74,7 +98,7 @@ export default function Navbar() {
         navigate("/admin/login");
       }
     } else {
-      if (isUser) {
+      if (isAuthenticated) {
         logout();
       } else {
         navigate("/login");
@@ -82,11 +106,10 @@ export default function Navbar() {
     }
   };
 
-
   // ===== Header for admin routes
   if (isAdminRoute) {
     return (
-      <header className="fixed top-0 w-full z-50 bg-[#020617] text-white border-b border-white/10">
+      <header className="fixed top-0 w-full z-50 bg-[#0a0503] text-white border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between text-sm">
           <div className="flex items-center gap-3">
             <img
@@ -97,7 +120,7 @@ export default function Navbar() {
             <div className="flex flex-col leading-tight">
               <span className="font-semibold">Admin Dashboard</span>
               <span className="text-[11px] text-gray-300">
-                Global Education Awards – Internal Panel
+                {getAwardName()} – Internal Panel
               </span>
             </div>
           </div>
@@ -121,10 +144,9 @@ export default function Navbar() {
     );
   }
 
-  /* ========================= MOBILE VIEW (PHONE) & DESKTOP ================================ */
   return (
     <>
-      {/* Large screen header (hidden on phone) */}
+      {/* ================= DESKTOP VIEW ================= */}
       <div className="hidden md:block">
         {!showPill && (
           <header className="fixed top-0 w-full z-50 text-white" ref={headerRef}>
@@ -135,22 +157,21 @@ export default function Navbar() {
                     <img
                       src="/images/primetimelogo.gif"
                       alt="PrimeTime Logo"
-                      className="absolute top-[-10px] left-[-30px] h-[100px] w-auto max-w-none object-contain z-50 drop-shadow-md"
+                      className="absolute top-[-10px] left-[-60px] h-[100px] w-auto max-w-none object-contain z-50 drop-shadow-md"
                     />
                   </div>
                   <div className="flex gap-2 font-semibold whitespace-nowrap">
                     <span>Prime Time Research Media Pvt. Ltd. </span>
-                    <span className="opacity-70">Global Education Awards</span>
+                    <span className="opacity-70">{getAwardName()}</span>
                   </div>
                 </div>
-                {/* RIGHT : LOGIN */}
                 <div className="ml-auto flex items-center gap-3">
-                  {isUser && user ? (
+                  {isAuthenticated && user ? (
                     <>
                       <span className="hidden md:inline text-xs text-gray-100">
                         Welcome, <span className="font-semibold">{user.name}</span>
                       </span>
-                      {user.role === "user" && (
+                      {isUser && (
                         <button
                           onClick={() => navigate("/dashboard")}
                           className="border border-[#d4af37] px-4 py-1 rounded-full text-xs text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition"
@@ -164,113 +185,124 @@ export default function Navbar() {
                     onClick={handleLoginClick}
                     className="border border-white px-4 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
                   >
-                    {isUser ? "Logout" : "Register / Login"}
+                    {isAuthenticated ? "Logout" : "Register / Login"}
                   </button>
                 </div>
               </div>
             </div>
             <nav className="bg-transparent h-12">
-              <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-6 text-sm">
-                {menuLinks("white", undefined, headerRef, isUser, false, false)}
+              <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-4 text-sm">
+                {menuLinks("white", undefined, headerRef, isUser, false, editions, upcomingAwards)}
               </div>
             </nav>
           </header>
         )}
 
-        {/* ================= SCROLL PILL FOR DESKTOP ================= */}
+        {/* Scroll Pill for Desktop */}
         {showPill && (
           <div className="fixed top-4 w-full z-50 flex justify-center">
-            <div className="bg-white text-black rounded-full shadow-lg px-6 py-3 flex items-center gap-8 text-sm">
-              <div className="flex items-center gap-3 font-semibold">
+            <div className="bg-[#0a0503]/90 backdrop-blur-md text-white border border-[#d4af37]/40 rounded-full shadow-lg px-6 py-1.5 flex items-center gap-6 text-sm">
+              <div className="flex items-center font-semibold">
                 <img
                   src="/images/primetimelogo.gif"
                   alt="Logo"
-                  className="h-7 w-auto object-contain"
+                  className="h-11 w-auto object-contain"
                 />
               </div>
-              <div className="flex gap-5">{menuLinks("black", undefined, headerRef, isUser, false, false)}</div>
+              <div className="flex gap-3">
+                {menuLinks("white", undefined, headerRef, isUser, false, editions, upcomingAwards)}
+              </div>
             </div>
           </div>
         )}
       </div>
-      {/* ===================== MOBILE HEADER ====================== */}
+
+      {/* ================= MOBILE VIEW ================= */}
       <div className="block md:hidden">
-        {/* Phone header with logo, title, my nominations (if user), hamburger, login/logout */}
         <header
-          className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center h-16 sm:h-20 px-4 justify-between ${showPill
-            ? "bg-[#210a0e]/95 backdrop-blur-lg border-b border-white/10 shadow-xl"
-            : "bg-transparent"
-            }`}
+          className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center h-16 sm:h-20 px-4 justify-between ${
+            showPill ? "bg-[#0a0503]/95 backdrop-blur-lg border-b border-white/10 shadow-xl" : "bg-transparent"
+          }`}
           ref={headerRef}
         >
-          {/* LOGO + app title (left side) */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 overflow-hidden flex-1">
             <img
               src="/images/primetimelogo.gif"
               alt="PrimeTime Logo"
-              className="h-9 w-auto object-contain"
-              style={{ maxWidth: 40 }}
+              className="h-8 w-auto object-contain flex-shrink-0"
             />
-            <span className="text-[13px] font-semibold whitespace-nowrap text-white">Prime Time Research Media Pvt. Ltd.</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] xs:text-[12px] font-bold text-white truncate leading-tight">
+                Prime Time Research Media
+              </span>
+              <span className="text-[9px] text-[#d4af37] font-black uppercase tracking-tighter truncate">
+                {getAwardName()}
+              </span>
+            </div>
           </div>
-          {/* Welcome & logout/login */}
-          <div className="flex items-center gap-1">
-            {isUser && (
-              <button
-                onClick={handleLoginClick}
-                className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
-              >
-                Logout
-              </button>
-            )}
-            {!isUser && (
-              <button
-                onClick={handleLoginClick}
-                className="border border-white text-white px-3 py-1 rounded-full text-xs hover:bg-white hover:text-black transition"
-              >
-                Register / Login
-              </button>
-            )}
+          <div className="flex items-center gap-2 ml-2 flex-shrink-0">
+            <button
+              onClick={handleLoginClick}
+              className="border border-white text-white px-3 py-1 rounded-full text-[10px] hover:bg-white hover:text-black transition"
+            >
+              {isAuthenticated ? "Logout" : "Login"}
+            </button>
             <button
               aria-label="Open Menu"
               onClick={() => setMobileMenuOpen(true)}
-              className="ml-2 text-white text-xl flex items-center justify-center"
+              className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl text-white text-xl flex items-center justify-center hover:bg-white/10 transition-all active:scale-95"
             >
               <FaBars />
             </button>
           </div>
         </header>
-        {/* Slide-in Drawer */}
+
         <MobileMenuDrawer
           open={mobileMenuOpen}
           onClose={() => setMobileMenuOpen(false)}
           user={user}
-          isAuthenticated={isUser}
+          isAuthenticated={isAuthenticated}
           handleLoginClick={handleLoginClick}
           headerRef={headerRef}
           isUser={isUser}
+          editions={editions}
+          upcomingAwards={upcomingAwards}
+          mobileUpcomingOpen={mobileUpcomingOpen}
+          setMobileUpcomingOpen={setMobileUpcomingOpen}
+          mobileAwardsOpen={mobileAwardsOpen}
+          setMobileAwardsOpen={setMobileAwardsOpen}
         />
       </div>
     </>
   );
 }
 
-/* ================= MENU ================= */
+/* ================= UTILS & COMPONENTS ================= */
 
-// onClick will be used to close drawer, headerRef for scroll fix on tab switch.
-// Added showDashboard param to control visibility of "My Nominations" link
-const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true, isMobile = false) => {
-  // Will scroll page to just under header if in mobile and not at top
+const menuLinks = (
+  color,
+  onClick,
+  headerRef,
+  isUser,
+  isMobile = false,
+  editions = [],
+  upcomingAwards = [],
+  mobileUpcomingOpen = false,
+  setMobileUpcomingOpen = () => {},
+  mobileAwardsOpen = false,
+  setMobileAwardsOpen = () => {},
+  showDashboard = true
+) => {
   const createNavHandler = (routeHandler) => (e) => {
     if (onClick) onClick();
     setTimeout(() => {
-      // Gives enough time for route to change before trying to scroll
       if (window.innerWidth < 768 && headerRef && headerRef.current) {
         window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
       }
     }, 0);
-    if (routeHandler && typeof routeHandler === 'function') routeHandler(e);
+    if (routeHandler && typeof routeHandler === "function") routeHandler(e);
   };
+
   return (
     <>
       <NavItem to="/" icon={<FaHome />} label="Home" color={color} onClick={createNavHandler(onClick)} />
@@ -279,14 +311,78 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true, isMo
       <NavItem to="/guidelines" icon={<FaBook />} label="Entry Guidelines" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/judging" icon={<FaGavel />} label="Selection Process" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/terms" icon={<FaFileContract />} label="T&C" color={color} onClick={createNavHandler(onClick)} />
-      <NavItem to="/contact" icon={<FaEnvelope />} label="Contact Us" color={color} onClick={createNavHandler(onClick)} />
-      <NavItem to="/media" icon={<FaTrophy />} label="Media" color={color} onClick={createNavHandler(onClick)} />
 
-      {/* Dynamic Dropdown for Previous Editions */}
-      <PreviousEditionsDropdown color={color} onClick={onClick} isMobile={isMobile} />
+      {/* Upcoming Awards Dropdown */}
+      {isMobile ? (
+        <div className="w-full">
+          <div
+            onClick={() => setMobileUpcomingOpen(!mobileUpcomingOpen)}
+            className={`flex items-center gap-1 py-3 text-white cursor-pointer ${mobileUpcomingOpen ? "opacity-100" : "opacity-80"}`}
+          >
+            <span className="text-[11px]"><FaTrophy /></span>
+            <span className="flex-1">Upcoming Awards</span>
+            <FaChevronDown className={`text-[10px] ml-1 transition-transform ${mobileUpcomingOpen ? "rotate-180" : ""}`} />
+          </div>
+          <div className={`${mobileUpcomingOpen ? "max-h-[500px] opacity-100 mb-2" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-300 bg-white/5 rounded-2xl ml-4 flex flex-col`}>
+             {upcomingAwards.map((award) => (
+                <NavLink
+                  key={award._id || award.slug}
+                  to={`/upcoming-awards/${award.slug}`}
+                  onClick={createNavHandler(onClick)}
+                  className="px-4 py-2 text-sm text-gray-300 border-l border-white/10 hover:text-white"
+                >
+                  {award.title}
+                </NavLink>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <NavDropdown 
+          icon={<FaTrophy />} 
+          label="Upcoming Awards" 
+          color={color} 
+          options={upcomingAwards.map(a => ({ title: a.title, path: `/upcoming-awards/${a.slug}` }))} 
+          headerLabel="Latest Summits"
+        />
+      )}
+
+      {/* Previous Edition Dropdown */}
+      {isMobile ? (
+        <div className="w-full">
+          <div
+            onClick={() => setMobileAwardsOpen(!mobileAwardsOpen)}
+            className={`flex items-center gap-1 py-3 text-white cursor-pointer ${mobileAwardsOpen ? "opacity-100" : "opacity-80"}`}
+          >
+            <span className="text-[11px]"><FaHistory /></span>
+            <span className="flex-1">Previous Edition</span>
+            <FaChevronDown className={`text-[10px] ml-1 transition-transform ${mobileAwardsOpen ? "rotate-180" : ""}`} />
+          </div>
+          <div className={`${mobileAwardsOpen ? "max-h-[500px] opacity-100 mb-2" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-300 bg-white/5 rounded-2xl ml-4 flex flex-col`}>
+             {editions.map((e) => (
+                <NavLink
+                  key={e._id || e.year}
+                  to={`/editions/${e.slug || e.year}`}
+                  onClick={createNavHandler(onClick)}
+                  className="px-4 py-2 text-sm text-gray-300 border-l border-white/10 hover:text-white"
+                >
+                  {e.title} {e.year ? `(${e.year})` : ""}
+                </NavLink>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <NavDropdown 
+          icon={<FaHistory />} 
+          label="Previous Edition" 
+          color={color} 
+          options={editions.map(e => ({ title: `${e.title} ${e.year ? `(${e.year})` : ""}`, path: `/editions/${e.slug || e.year}` }))} 
+          headerLabel="Awards Archive"
+        />
+      )}
 
       <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/nominate" icon={<FaRegEdit />} label="Nominate Now" color={color} onClick={createNavHandler(onClick)} isSpecial={true} />
+      
       {isUser && showDashboard && (
         <NavItem
           to="/dashboard"
@@ -306,10 +402,10 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `flex items-center gap-1 transition-all duration-300 ${isSpecial ? "animate-nominate" : ""} ${isActive
-          ? `font-semibold border-b-2 ${color === "white" ? "border-white" : "border-black"
-          }`
-          : color === "white"
+        `flex items-center gap-1 transition-all duration-300 ${isSpecial ? "animate-nominate" : ""} ${
+          isActive
+            ? `font-semibold border-b-2 ${color === "white" ? "border-white" : "border-black"}`
+            : color === "white"
             ? "opacity-80 hover:opacity-100"
             : "text-gray-700 hover:text-black"
         }`
@@ -321,102 +417,6 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
   );
 }
 
-const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
-
-function PreviousEditionsDropdown({ color, onClick, isMobile = false }) {
-  const [editions, setEditions] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    fetchPreviousEditions()
-      .then(data => setEditions(data))
-      .catch(err => console.error("Failed to fetch editions for navbar:", err));
-  }, []);
-
-  const isActive = location.pathname.startsWith('/previous-editions') || editions.some(e => location.pathname === `/${e.year}/${e.slug}`);
-
-  // Base class for the trigger button
-  const triggerBaseClass = `flex items-center gap-1 transition-all duration-300 ${isActive ? "font-semibold " : "opacity-80 hover:opacity-100"}`;
-  const desktopClass = `${triggerBaseClass} ${color === "white" ? "text-white" : "text-gray-700 hover:text-black"} ${isActive ? "border-b-2 " + (color === "white" ? "border-white" : "border-black") : ""}`;
-  const mobileClass = `${triggerBaseClass} text-white w-full py-2 hover:text-[#d4af37]`;
-
-  if (isMobile) {
-    return (
-      <div className="flex flex-col w-full">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setIsOpen(!isOpen);
-          }}
-          className={mobileClass}
-        >
-          <span className="text-[12px]"><FaHistory /></span>
-          <span className="text-sm">Previous Editions</span>
-          <span className="text-[10px] ml-auto transition-transform duration-300" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><FaChevronDown /></span>
-        </button>
-
-        {isOpen && editions.length > 0 && (
-          <div className="flex flex-col pl-6 mt-2 gap-2 border-l border-white/10 ml-2">
-            {editions.map(ed => (
-              <NavLink
-                key={ed._id}
-                to={`/${ed.year}/${ed.slug}`}
-                onClick={onClick}
-                className={({ isActive }) => `text-sm py-1.5 transition-colors ${isActive ? "text-[#d4af37] font-bold" : "text-gray-400 hover:text-white"}`}
-              >
-                {ed.title} <span className="opacity-50 text-[10px]">({ed.year})</span>
-              </NavLink>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="relative flex items-center h-full"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          setIsOpen(!isOpen);
-        }}
-        className={desktopClass}
-      >
-        <span className="text-[11px]"><FaHistory /></span>
-        <span>Previous Editions</span>
-        <span className="text-[10px] ml-0.5 transition-transform duration-300" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><FaChevronDown /></span>
-      </button>
-
-      {/* Hover Panel - Desktop Only */}
-      {isOpen && editions.length > 0 && (
-        <div className="absolute top-full left-0 pt-4 z-[99]">
-          <div className="bg-[#16120b]/95 backdrop-blur-md border border-[#d4af37]/30 rounded-xl shadow-2xl overflow-hidden min-w-[240px] flex flex-col py-2">
-            {editions.map(ed => (
-              <NavLink
-                key={ed._id}
-                to={`/${ed.year}/${ed.slug}`}
-                onClick={() => {
-                  setIsOpen(false);
-                  if (onClick) onClick();
-                }}
-                className={({ isActive }) => `px-5 py-2.5 text-sm transition-colors block ${isActive ? "bg-[#d4af37] text-black font-bold" : "text-[#fbe376] hover:bg-[#d4af37]/20 hover:text-[#fff]"}`}
-              >
-                {ed.title} <span className="opacity-70 text-xs ml-1">({ed.year})</span>
-              </NavLink>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/* ========== Mobile Menu Drawer =========== */
 function MobileMenuDrawer({
   open,
   onClose,
@@ -424,9 +424,14 @@ function MobileMenuDrawer({
   isAuthenticated,
   handleLoginClick,
   headerRef,
-  isUser
+  isUser,
+  editions,
+  upcomingAwards,
+  mobileUpcomingOpen,
+  setMobileUpcomingOpen,
+  mobileAwardsOpen,
+  setMobileAwardsOpen
 }) {
-  // Esc key or overlay for closing drawer
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
@@ -436,56 +441,35 @@ function MobileMenuDrawer({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  // Scroll to top logic for mobile menu tab change
-  const handleNavClick = (navHandler) => (e) => {
-    if (navHandler) navHandler(e);
-    setTimeout(() => {
-      if (window.innerWidth < 768 && headerRef && headerRef.current) {
-        window.scrollTo({ top: headerRef.current.offsetHeight + 2, behavior: "smooth" });
-      }
-    }, 0);
-  };
-
   return (
     <>
-      {/* Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${open ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+        className={`fixed inset-0 z-50 bg-black/40 transition-all duration-200 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
         aria-hidden={!open}
         onClick={onClose}
       ></div>
-      {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 z-[60] w-4/5 max-w-xs h-full bg-[#17171c] text-white shadow-lg transform transition-transform duration-250 ${open ? "translate-x-0" : "translate-x-full"
-          } flex flex-col`}
-        style={{ transitionProperty: "transform, opacity" }}
+        className={`fixed top-0 right-0 z-[60] w-4/5 max-w-xs h-[100dvh] bg-[#0a0503] text-white shadow-lg transform transition-transform duration-250 ${
+          open ? "translate-x-0" : "translate-x-full"
+        } flex flex-col overflow-hidden`}
       >
-        {/* Drawer header with logo */}
-        <div className="flex items-center justify-between px-4 h-14 border-b border-white/10">
+        <div className="flex-shrink-0 flex items-center justify-between px-4 h-14 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <img
-              src="/images/primetimelogo.gif"
-              alt="PrimeTime Logo"
-              className="h-8 w-auto object-contain"
-            />
-            <span className="font-semibold text-sm text-white">Prime Time Research Media Pvt. Ltd.</span>
+            <img src="/images/primetimelogo.gif" alt="Logo" className="h-8 w-auto object-contain" />
+            <div className="flex flex-col">
+              <span className="font-bold text-[11px] text-white leading-tight">Prime Time Research Media</span>
+              <span className="text-[10px] text-[#d4af37] font-black uppercase tracking-tighter">{getAwardName()}</span>
+            </div>
           </div>
-          <button
-            aria-label="Close Menu"
-            className="text-2xl text-white"
-            onClick={onClose}
-          >
+          <button className="text-2xl text-white" onClick={onClose} aria-label="Close">
             <FaTimes />
           </button>
         </div>
-        <div className="flex-1 flex flex-col justify-between overflow-y-auto custom-scrollbar">
-          <nav className="flex flex-col gap-3 mt-6 px-4">
-            {/* Give headerRef & isUser to menuLinks for scroll fix and user-related links */}
-            {/* Pass true for showDashboard to show My Nominations in mobile drawer */}
-            {menuLinks("white", onClose, headerRef, isUser, true, true)}
+        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+          <nav className="flex-1 overflow-y-auto px-4 py-8 flex flex-col gap-2 scroll-smooth overscroll-contain">
+            {menuLinks("white", onClose, headerRef, isUser, true, editions, upcomingAwards, mobileUpcomingOpen, setMobileUpcomingOpen, mobileAwardsOpen, setMobileAwardsOpen)}
           </nav>
-          <div className="mt-6 border-t border-white/10 px-4 py-4 flex flex-col gap-2">
+          <div className="flex-shrink-0 border-t border-white/10 px-4 py-6 flex flex-col gap-2 bg-[#0a0503]">
             {user && (
               <span className="text-xs text-gray-300">
                 Welcome, <span className="font-semibold">{user.name}</span>
@@ -504,5 +488,77 @@ function MobileMenuDrawer({
         </div>
       </aside>
     </>
+  );
+}
+
+function NavDropdown({ icon, label, color, options, headerLabel }) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const isActiveGroup = options.some(opt => location.pathname === opt.path);
+
+  return (
+    <div
+      className="relative group h-full flex items-center"
+      ref={dropdownRef}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <div
+        className={`flex items-center gap-1 cursor-pointer transition-all duration-300 py-4 ${
+          isActiveGroup ? "text-[#d4af37] font-semibold" : color === "white" ? "opacity-80 hover:opacity-100 text-white" : "text-gray-700 hover:text-black"
+        }`}
+      >
+        <span className="text-[11px]">{icon}</span>
+        <span className="whitespace-nowrap">{label}</span>
+        <FaChevronDown className={`text-[10px] ml-1 transition-transform duration-300 ${open ? "rotate-180 text-[#d4af37]" : "opacity-50"}`} />
+      </div>
+
+      <div
+        className={`absolute top-[80%] left-0 pt-2 z-50 transition-all duration-300 ${
+          open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
+        }`}
+      >
+        <div className="min-w-[260px] max-h-[70vh] overflow-hidden flex flex-col bg-[#0a0503] border border-[#d4af37]/30 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+           <div className="px-4 py-2.5 text-[9px] uppercase tracking-widest text-[#d4af37]/60 font-black border-b border-white/5 bg-white/5">
+             {headerLabel}
+           </div>
+           <div className="flex-1 overflow-y-auto gold-scrollbar py-2">
+            {options.length > 0 ? (
+              options.map((opt, i) => {
+                const isAct = location.pathname === opt.path;
+                return (
+                  <NavLink
+                    key={i}
+                    to={opt.path}
+                    className={`block px-5 py-2.5 text-xs transition-all duration-200 border-l-2 ${
+                      isAct 
+                      ? 'bg-[#d4af37]/10 font-bold border-[#d4af37] text-white' 
+                      : 'border-transparent text-gray-300 hover:bg-white/5 hover:text-[#d4af37] hover:border-[#d4af37]/30'
+                    }`}
+                  >
+                    {opt.title}
+                  </NavLink>
+                );
+              })
+            ) : (
+              <div className="px-5 py-3 text-xs text-gray-500 italic">Coming soon...</div>
+            )}
+           </div>
+           <div className="h-1 bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent" />
+        </div>
+      </div>
+    </div>
   );
 }

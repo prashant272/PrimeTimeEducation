@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchPreviousEditionBySlug, fetchPreviousEditions } from "../services/api.js";
+import { fetchPreviousEditionBySlug, fetchPreviousEditions, fetchPreviousEditionById } from "../services/api.js";
 import VideoGallery from "../components/VideoGallery.jsx";
 import EditionYearSwitcher from "../components/EditionYearSwitcher";
 
@@ -134,10 +134,16 @@ export default function EditionDetail() {
 
   useEffect(() => {
     async function loadData() {
-      if (!year || !slug) return;
+      if (!year) return;
       setLoading(true);
       try {
-        const res = await fetchPreviousEditionBySlug(year, slug);
+        let res;
+        if (slug) {
+          res = await fetchPreviousEditionBySlug(year, slug);
+        } else {
+          // If only year is present, it might be the slug or ID (from /editions/:id route)
+          res = await fetchPreviousEditionById(year);
+        }
         if (res) {
           setEdition(res);
           document.title = `${res.title} (${res.year}) | Global Education Excellence Awards | Indian Education Awards`;
@@ -184,7 +190,7 @@ export default function EditionDetail() {
   const displayYear = edition ? edition.year : year;
 
   return (
-    <section className="bg-[#0f0a07] text-white min-h-screen pt-24 sm:pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-x-hidden selection:bg-[#d4af37]/30">
+    <section className="text-white min-h-screen pt-24 sm:pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-x-hidden selection:bg-[#d4af37]/30">
       {/* Background Ambience */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#d4af37]/5 to-transparent blur-[150px]" />

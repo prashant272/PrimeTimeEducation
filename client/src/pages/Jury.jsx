@@ -68,7 +68,7 @@ export default function Jury() {
       }}
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6" ref={sectionRef}>
-        
+
         {/* TITLE */}
         <div className="text-center mb-12">
           <h1
