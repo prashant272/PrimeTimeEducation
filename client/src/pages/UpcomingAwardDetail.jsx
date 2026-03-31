@@ -32,8 +32,8 @@ export default function UpcomingAwardDetail() {
     { name: "Mr. Brad Hogg", designation: "Former Australian Cricketer" },
     { name: "Dr. Najma A. Heptulla", designation: "Former Governor, Manipur" },
     { name: "Shri Anand Kumar", designation: "Founder & Director, Super 30" },
-    { name: "Rita Bahuguna Joshi", designation: "Former Union Minister" },
-    { name: "Shri Shyam Jaju", designation: "Ex National Vice President (BJP)" },
+    { name: "Ms. Arti Mehra", designation: "CEO, NABH; Former Mayor, Municipal Corporation of Delhi" },
+    { name: "Shri Amar Singh", designation: "Former MP & National General Secretary, Samajwadi Party" },
     { name: "Ms. Lara Dutta", designation: "Indian Actress & Model" },
     { name: "Shri Anil K. Shastri", designation: "Son of Lal Bahadur Shastri; Former Ministry of Finance, Govt. of India." },
   ];
