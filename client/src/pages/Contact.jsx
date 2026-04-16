@@ -1,4 +1,5 @@
 import { Mail, Phone, Globe, MapPin, Facebook, Instagram, Youtube, Linkedin, MessageCircle } from "lucide-react";
+import SEO from "../components/SEO";
 
 const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/primetimeresearch", color: "from-blue-600 to-blue-500", bgColor: "bg-blue-600" },
@@ -39,6 +40,11 @@ export default function Contact() {
 
   return (
     <section className="relative min-h-screen overflow-hidden py-12 md:py-20 bg-[#4b1e1e] text-white selection:bg-[#7e2546]/60">
+      <SEO 
+        title="Contact Us & Sponsorship" 
+        description="Get in touch with the Global Education Awards team for nominations, sponsorship opportunities, and event inquiries. We are here to help you showcase your excellence."
+        keywords="contact global education awards, sponsorship inquiries 2026, nomination help, award ceremony partnership, event contact New Delhi"
+      />
       {/* Decorative mesh gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute -top-32 -left-1/4 w-[200px] h-[200px] xs:w-[300px] xs:h-[300px] sm:w-[420px] sm:h-[420px] rounded-full bg-gradient-to-br from-[#d4af37]/20 via-[#c62828]/10 to-transparent blur-[60px] sm:blur-[100px]" />

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { fetchPreviousEditionBySlug, fetchPreviousEditions, fetchPreviousEditionById } from "../services/api.js";
 import VideoGallery from "../components/VideoGallery.jsx";
 import EditionYearSwitcher from "../components/EditionYearSwitcher";
+import SEO from "../components/SEO";
 
 // Banner slider with auto-scroll and modern UI
 function BannerSlider({ images, year }) {
@@ -146,7 +147,6 @@ export default function EditionDetail() {
         }
         if (res) {
           setEdition(res);
-          document.title = `${res.title} (${res.year}) | Global Education Excellence Awards | Indian Education Awards`;
         } else {
           setEdition(null);
         }
@@ -158,10 +158,6 @@ export default function EditionDetail() {
       }
     }
     loadData();
-    
-    return () => {
-      document.title = "Indian Education Awards | Global Education Excellence Awards 2026";
-    };
   }, [year, slug]);
 
   if (loading) {
@@ -191,6 +187,11 @@ export default function EditionDetail() {
 
   return (
     <section className="text-white min-h-screen pt-24 sm:pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-x-hidden selection:bg-[#d4af37]/30">
+      <SEO 
+        title={`${displayYear} Edition Highlights`} 
+        description={`Relive the prestigious moments of the ${displayYear} Global Education Awards. Explore the winners, celebrities, and highlights from the ${displayYear} ceremony.`}
+        keywords={`${displayYear} education awards, past winners ${displayYear}, ceremony highlights, educational excellence ${displayYear}`}
+      />
       {/* Background Ambience */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#d4af37]/5 to-transparent blur-[150px]" />

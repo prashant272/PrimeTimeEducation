@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import SEO from "../components/SEO";
 
 // Note to maintainers: 
 // - Custom hex colors like #d4af37, #ffeec3, etc. might not be in Tailwind's safelist, which can cause dev build warnings (yellow lines).
@@ -28,7 +29,6 @@ export default function Jury() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    document.title = "Our Esteemed Guests & Speakers | Global Education Excellence Awards | Indian Education Awards";
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach(
@@ -42,7 +42,6 @@ export default function Jury() {
 
     return () => {
       observer.disconnect();
-      document.title = "Global Education Excellence Awards 2026 | Indian Education Awards";
     };
   }, []);
 
@@ -67,6 +66,11 @@ export default function Jury() {
         background: "linear-gradient(to bottom, #2b0f12, #3a1418 60%, #2b0f12)"
       }}
     >
+      <SEO 
+        title="Our Esteemed Guests & Jury" 
+        description="Meet the distinguished jury and honorable guests of the Global Education Awards 2026. A panel of experts dedicated to recognizing academic excellence."
+        keywords="education award jury, guest speakers 2026, academic experts, industry leaders, education ceremony guests"
+      />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6" ref={sectionRef}>
 
         {/* TITLE */}

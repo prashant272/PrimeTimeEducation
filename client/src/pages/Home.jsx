@@ -4,6 +4,7 @@ import { fetchUpcomingAwards } from "../services/api.js";
 
 // Import Home Components
 import Hero from "../components/home/Hero.jsx";
+import SEO from "../components/SEO";
 import Overview from "../components/home/Overview.jsx";
 import WhyEnter from "../components/home/WhyEnter.jsx";
 import ResearchMethodology from "../components/home/ResearchMethodology.jsx";
@@ -65,10 +66,10 @@ export default function Home() {
 
   const events = [
     {
-      title: "Global Education Awards 2026 – Mumbai Edition",
+      title: "Global Education Awards 2026 – Hyderabad Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "17 May 2026",
-      place: "Mumbai",
+      date: "22 May 2026",
+      place: "Hyderabad",
     },
     {
       title: "Global Education Awards 2026 – Dubai Edition",
@@ -129,6 +130,11 @@ export default function Home() {
 
   return (
     <div className={`w-full text-[#f5f3f0] ${PRIMARY_BG}`}>
+      <SEO 
+        title="Global Excellence Awards" 
+        description="Global Education Awards 2026 - Celebrating excellence and innovation in educational leadership globally. Join us in honoring visionary schools, colleges, and educators."
+        keywords="global education awards, education excellence, leadership in education, school awards 2026, edtech innovation awards"
+      />
       <h1 className="sr-only">Global Education Excellence Awards 2026</h1>
       
       <Hero 

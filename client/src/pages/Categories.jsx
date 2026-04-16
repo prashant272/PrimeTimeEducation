@@ -1,13 +1,8 @@
 import { useEffect } from "react";
+import SEO from "../components/SEO";
 
 // =============================
 export default function Categories() {
-  useEffect(() => {
-    document.title = "Award Categories | Global Education Excellence Awards | Indian Education Awards";
-    return () => {
-      document.title = "Global Education Excellence Awards 2026 | Indian Education Awards";
-    };
-  }, []);
   const categories = [
     // Category array unchanged, just above for brevity
     {
@@ -112,6 +107,11 @@ export default function Categories() {
 
   return (
     <section className="relative bg-[#210a0e] py-20 sm:py-28 md:py- overflow-hidden">
+      <SEO 
+        title="Award Categories" 
+        description="Explore the prestigious award categories for Global Education Awards 2026. Recognizing excellence in K-12 Schools, Higher Education, EdTech, and Academic Leadership."
+        keywords="education award categories, school awards 2026, university excellence, edtech innovation awards, academic leadership recognition"
+      />
       {/* BACKGROUND GLOW, LIGHTS & LUX EFFECTS */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         {/* Reddish Pink Glow */}

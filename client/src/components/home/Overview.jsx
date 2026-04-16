@@ -120,7 +120,7 @@ const Overview = ({ handleNominateClick, SECTION_BG }) => {
 
             <div className="space-y-6">
               {[
-                { title: 'Award Ceremony –Mumbai', date: '17 May 2026', flag: '🇮🇳' },
+                { title: 'Award Ceremony – Hyderabad', date: '22 May 2026', flag: '🇮🇳' },
                 { title: 'Award Ceremony – Dubai', date: 'To be announced soon', flag: '🇦🇪' }
               ].map((item, idx) => (
                 <motion.div 
