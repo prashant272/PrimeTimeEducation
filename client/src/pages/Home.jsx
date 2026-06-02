@@ -66,10 +66,10 @@ export default function Home() {
 
   const events = [
     {
-      title: "Global Education Awards 2026 – Hyderabad Edition",
+      title: "Global Education Awards 2026 – Delhi Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "22 May 2026",
-      place: "Hyderabad",
+      date: "12 July 2026",
+      place: "Delhi",
     },
     {
       title: "Global Education Awards 2026 – Dubai Edition",
