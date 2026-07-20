@@ -24,7 +24,7 @@ export default function FAQ() {
         },
         {
             q: "Where and when will the awards be held?",
-            a: "Global Education Awards 2026 will be organised in international editions, including a New Delhi Edition (14 March 2026) and a Dubai Edition (26 April 2026). Detailed venue and schedule updates are shared on the official website.",
+            a: "Global Education Awards 2026 will be organised in international editions, including a New Delhi Edition (4 Oct 2026) and a Dubai Edition (19 Oct 2026). Detailed venue and schedule updates are shared on the official website.",
         },
         {
             q: "What are the benefits of participating?",

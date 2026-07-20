@@ -68,13 +68,13 @@ export default function Home() {
     {
       title: "Global Education Awards 2026 – Delhi Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "12 July 2026",
+      date: "4 Oct 2026",
       place: "Delhi",
     },
     {
       title: "Global Education Awards 2026 – Dubai Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "Announcement coming soon (rescheduled due to ongoing international situation)",
+      date: "19 Oct 2026",
       place: "Dubai",
     },
   ];
