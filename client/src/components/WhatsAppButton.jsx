@@ -1,7 +1,7 @@
 import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppButton() {
-    const whatsappNumber = "+91 98108 82769 ";
+    const whatsappNumber = "+91 9319931989";
     const message = "Hello, I'm interested in the Global Education Awards.";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encodedMessage}`;

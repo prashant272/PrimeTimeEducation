@@ -74,7 +74,7 @@ export default function Home() {
     {
       title: "Global Education Awards 2026 – Dubai Edition",
       desc: "Recognising excellence and innovation in educational leadership.",
-      date: "30 Oct 2026",
+      date: "6 Dec 2026",
       place: "Dubai",
     },
   ];

@@ -121,7 +121,7 @@ const Overview = ({ handleNominateClick, SECTION_BG }) => {
             <div className="space-y-6">
               {[
                 { title: 'Award Ceremony – Delhi', date: '12 Dec 2026', flag: '🇮🇳' },
-                { title: 'Award Ceremony – Dubai', date: '30 Oct 2026', flag: '🇦🇪' }
+                { title: 'Award Ceremony – Dubai', date: '06 Dec 2026', flag: '🇦🇪' }
               ].map((item, idx) => (
                 <motion.div 
                   key={idx}
